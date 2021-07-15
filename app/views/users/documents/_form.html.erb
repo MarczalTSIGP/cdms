@@ -15,9 +15,32 @@
       prompt: t('views.prompt.select.m', name: t('activerecord.attributes.document.department').downcase) %>
   </div>
 
-  <%= f.input :front_text, input_html: { data: { type: 'summernote' } } %>
+  <div class="row">
+    <div class="col-8">
+      <%= f.input :front_text, input_html: { data: { type: 'summernote' } } %>
 
-  <%= f.input :back_text, input_html: { data: { type: 'summernote' } } %>
+      <%= f.input :back_text, input_html: { data: { type: 'summernote' } } %>
+    </div>
+    <div class="col-4 p">
+      <div class="align-items-end row" style="height: 158px">
+
+      </div>
+      <div class="row">
+        <p>Variaveis</p>
+      </div>
+      <div id="scroll" class="overflow-auto p-5 border rounded mt-n2 row" style="height: 110px">
+          <div class="col-2">
+            <p>1</p>
+          </div>
+          <div class="col-2">
+            <p>title</p>
+          </div>
+          <div class="col-8">
+            <p>variable</p>
+          </div>
+      </div>
+    </div>
+  </div>
 
   <div class="form-footer">
     <div class="d-flex">
@@ -25,5 +48,12 @@
       <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
     </div>
   </div>
+
+  <script>
+    window.onload = () => {
+      var objDiv = document.getElementById("scroll");
+      objDiv.scrollTop = objDiv.scrollHeight;
+    }
+  </script>
 
 <% end %>
