@@ -24,27 +24,27 @@
       <div class="row" style="padding-top:80px; padding-bottom: 80px;">
         <div class="col-sm-9">
           <div class="row" style="padding-top:1px;">
-            <div class="col-sm-5"><input class="form-control" type="text" placeholder="Variable">
+            <div class="col-sm-5"><input class="form-control" id="variable1" type="text" placeholder="Variable">
             </div>
             <div class="col-sm-7"><input class="form-control" type="text" placeholder="Title">
             </div>
           </div>
         </div>
         <div class="col-sm-3">
-          <button class="btn btn-success">ADD</button>
+          <button type="button" class="btn btn-success" onclick="addVariable(1)">ADD</button>
         </div>
       </div>
       <div class="row" style="padding-top:80px; padding-bottom: 80px;">
         <div class="col-sm-9">
           <div class="row" style="padding-top:1px;">
-            <div class="col-sm-5"><input class="form-control" type="text" placeholder="Variable">
+            <div class="col-sm-5"><input class="form-control" id="variable2" type="text" placeholder="Variable">
             </div>
             <div class="col-sm-7"><input class="form-control" type="text" placeholder="Title">
             </div>
           </div>
         </div>
         <div class="col-sm-3">
-          <button class="btn btn-success">ADD</button>
+          <button type="button" class="btn btn-success" onclick="addVariable(2)">ADD</button>
         </div>
       </div>
     </div>
@@ -57,10 +57,18 @@
     </div>
   </div>
 
+
   <script>
     window.onload = () => {
       var objDiv = document.getElementById("scroll");
       objDiv.scrollTop = objDiv.scrollHeight;
+    }
+    function addVariable($current) {
+      if($current==2){
+        window.alert("2");
+      }else{
+        window.alert("1");
+      }
     }
   </script>
 
