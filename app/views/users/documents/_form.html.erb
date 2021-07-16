@@ -16,28 +16,36 @@
   </div>
 
   <div class="row">
-    <div class="col-8">
+    <div class="col-sm-8">
       <%= f.input :front_text, input_html: { data: { type: 'summernote' } } %>
-
       <%= f.input :back_text, input_html: { data: { type: 'summernote' } } %>
     </div>
-    <div class="col-4 p">
-      <div class="align-items-end row" style="height: 158px">
-
+    <div class="col-sm-4">
+      <div class="row" style="padding-top:80px; padding-bottom: 80px;">
+        <div class="col-sm-9">
+          <div class="row" style="padding-top:1px;">
+            <div class="col-sm-5"><input class="form-control" type="text" placeholder="Variable">
+            </div>
+            <div class="col-sm-7"><input class="form-control" type="text" placeholder="Title">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-success">ADD</button>
+        </div>
       </div>
-      <div class="row">
-        <p>Variaveis</p>
-      </div>
-      <div id="scroll" class="overflow-auto p-5 border rounded mt-n2 row" style="height: 110px">
-          <div class="col-2">
-            <p>1</p>
+      <div class="row" style="padding-top:80px; padding-bottom: 80px;">
+        <div class="col-sm-9">
+          <div class="row" style="padding-top:1px;">
+            <div class="col-sm-5"><input class="form-control" type="text" placeholder="Variable">
+            </div>
+            <div class="col-sm-7"><input class="form-control" type="text" placeholder="Title">
+            </div>
           </div>
-          <div class="col-2">
-            <p>title</p>
-          </div>
-          <div class="col-8">
-            <p>variable</p>
-          </div>
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-success">ADD</button>
+        </div>
       </div>
     </div>
   </div>
