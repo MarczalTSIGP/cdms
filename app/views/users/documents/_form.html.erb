@@ -16,35 +16,49 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-8">
-      <%= f.input :front_text, input_html: { data: { type: 'summernote' } } %>
-      <%= f.input :back_text, input_html: { data: { type: 'summernote' } } %>
-    </div>
-    <div class="col-sm-4">
-      <div class="row" style="padding-top:80px; padding-bottom: 80px;">
-        <div class="col-sm-9">
-          <div class="row" style="padding-top:1px;">
-            <div class="col-sm-5"><input class="form-control" id="variable1" type="text" placeholder="Variable">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-8">
+          <%= f.input :front_text, input_html: { data: { type: 'summernote' } } %>
+        </div>
+        <div class="col-sm-4">
+          <div class="row" style="padding-top:50px; padding-bottom: 80px;">
+            <div class="col-md-12">
+              <div class="row" style="padding-top:1px;">
+                <div class="col-md-12">
+                  <input style="width:100%; text-align:center;"  class="form-control" id="variable1" type="text" placeholder="Variable">
+                </div>
+                <div class="col-md-12">
+                  <input class="form-control" style="text-align:center" type="text" placeholder="Title">
+                </div>
+              </div>
             </div>
-            <div class="col-sm-7"><input class="form-control" type="text" placeholder="Title">
+            <div class="col-md-12">
+              <button style="width:100%" type="button" class="btn btn-success" onclick="addVariable(1)">ADD</button>
             </div>
           </div>
-        </div>
-        <div class="col-sm-3">
-          <button type="button" class="btn btn-success" onclick="addVariable(1)">ADD</button>
         </div>
       </div>
-      <div class="row" style="padding-top:80px; padding-bottom: 80px;">
-        <div class="col-sm-9">
-          <div class="row" style="padding-top:1px;">
-            <div class="col-sm-5"><input class="form-control" id="variable2" type="text" placeholder="Variable">
+      <div class="row">
+        <div class="col-sm-8">
+          <%= f.input :back_text, input_html: { data: { type: 'summernote' } } %>
+        </div>
+        <div class="col-sm-4">
+          <div class="row" style="padding-top:50px; padding-bottom: 80px;">
+            <div class="col-md-12">
+              <div class="row" style="padding-top:1px;">
+                <div class="col-md-12">
+                  <input style="width:100%; text-align:center;" class="form-control" id="variable1" type="text" placeholder="Variable">
+                </div>
+                <div class="col-md-12">
+                  <input class="form-control" style="text-align:center" type="text" placeholder="Title">
+                </div>
+              </div>
             </div>
-            <div class="col-sm-7"><input class="form-control" type="text" placeholder="Title">
+            <div class="col-md-12">
+              <button style="width:100%" type="button" class="btn btn-success" onclick="addVariable(2)">ADD</button>
             </div>
           </div>
-        </div>
-        <div class="col-sm-3">
-          <button type="button" class="btn btn-success" onclick="addVariable(2)">ADD</button>
         </div>
       </div>
     </div>
