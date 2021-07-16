@@ -86,6 +86,7 @@ pt-BR:
         access: Área do usuário
     document:
       links:
+        edit: Editar
         new: Novo certificado/declaração
         show: Visualizar certificado/declaração
         preview: '%{category}-%{name}'
