@@ -1,6 +1,6 @@
 class Users::DocumentsController < Users::BaseController
   before_action :can_manager?, only: [:edit, :new, :update, :create, :destroy]
-  before_action :set_document, only: [:show, :edit, :update, :destroy, :preview]
+  before_action :set_document, only: [:show, :edit, :update, :destroy, :preview, :add_variable]
   before_action :set_departments, only: [:edit, :new, :update, :create]
   include Breadcrumbs
 
@@ -46,6 +46,13 @@ class Users::DocumentsController < Users::BaseController
     @document.destroy
     success_destroy_message
     redirect_to users_documents_path
+  end
+
+  def add_variable
+    @document.variables << params[:variable]
+    @document.save
+
+    redirect_to edit_users_document_path(@document)
   end
 
   private
