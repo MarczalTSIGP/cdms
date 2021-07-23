@@ -82,6 +82,6 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def document_params
-    params.require(:document).permit(:title, :front_text, :back_text, :category, :department_id)
+    params.require(:document).permit(:title, :front_text, :back_text, :category, :department_id, :variables)
   end
 end

@@ -11,3 +11,4 @@ require('config/summernote');
 require('lib/submit_search');
 require('config/table_level');
 require('config/mask_phone');
+require('packs/users/documents');

@@ -19,6 +19,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   }
 
   def setup
+    Capybara.disable_animation = true
     Capybara.server_host = '0.0.0.0'
     Capybara.app_host = app_host
     host! app_host

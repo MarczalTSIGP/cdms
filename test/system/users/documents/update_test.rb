@@ -32,6 +32,7 @@ class UpdateTest < ApplicationSystemTestCase
       within('table.table tbody') do
         assert_text document.title
       end
+
     end
 
     should 'unsuccessfully' do
@@ -53,6 +54,30 @@ class UpdateTest < ApplicationSystemTestCase
 
       within('div.document_back_text') do
         assert_text(I18n.t('errors.messages.blank'))
+      end
+    end
+
+    context 'variables' do
+      should 'add' do
+        page.find('a[data-target="#add_variables_modal"]').click
+
+        fill_in 'variable_name', with: 'Student name'
+        fill_in 'variable_identifier', with: 'student-name'
+
+        click_button('add_variable')
+
+        within('table#variables-table tbody') do
+          assert_selector 'tr:nth-child(1) td:nth-child(1)', text: 'Student name'
+          assert_selector 'tr:nth-child(1) td:nth-child(2)', text: 'student-name'
+        end
+
+        submit_form
+        visit edit_users_document_path(@document)
+
+        within('table#variables-table tbody') do
+          assert_selector 'tr:nth-child(1) td:nth-child(1)', text: 'Student name'
+          assert_selector 'tr:nth-child(1) td:nth-child(2)', text: 'student-name'
+        end
       end
     end
   end
