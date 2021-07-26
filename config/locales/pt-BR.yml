@@ -63,6 +63,7 @@ pt-BR:
         category: Tipo
         department: Departamento
         department_id: Departamento
+        variables: Variávies
       department_module:
         name: Nome
         description: Descrição
@@ -86,3 +87,4 @@ pt-BR:
       department_user:
         role: Papel
         user: Usuário
+        

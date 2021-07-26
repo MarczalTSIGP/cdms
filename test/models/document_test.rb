@@ -26,4 +26,35 @@ class DocumentTest < ActiveSupport::TestCase
       assert_equal hash, Document.human_categories
     end
   end
+
+  context 'variables' do
+    should 'accept json format' do
+      json = [{name: "Nome", identifier: "name"}]
+
+      document = build(:document)
+      document.variables = json
+
+      assert_equal 'Nome', document.variables[0]['name']
+      assert_equal 'name', document.variables[0]['identifier']
+    end
+
+    should 'accept json format in string' do
+      json_s = '[{"name":"Nome","identifier":"name"}]'
+
+      document = build(:document)
+      document.variables = json_s
+
+      assert_equal 'Nome', document.variables[0]['name']
+      assert_equal 'name', document.variables[0]['identifier']
+    end
+
+    should 'not accept json string unformated' do
+      json_s = '[{"name:"Nome","identifier":"name"}]'
+      document = build(:document)
+
+      assert_raise JSON::ParserError do
+        document.variables = json_s
+      end
+    end
+  end
 end
