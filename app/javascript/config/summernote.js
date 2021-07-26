@@ -13,7 +13,7 @@ $(document).on('turbolinks:load', () => {
 window.CDMS.summernote = {};
 
 window.CDMS.summernote.init = () => {
-  $(SUMMERNOTE_SELECTOR).summernote();
+  $(SUMMERNOTE_SELECTOR).summernote({ minHeight: 250 });
 };
 
 window.CDMS.summernote.destroy = () => {

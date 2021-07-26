@@ -1,6 +1,6 @@
 class Users::DocumentsController < Users::BaseController
   before_action :can_manager?, only: [:edit, :new, :update, :create, :destroy]
-  before_action :set_document, only: [:show, :edit, :update, :destroy, :preview]
+  before_action :set_document, only: [:show, :edit, :update, :destroy, :preview, :add_variable]
   before_action :set_departments, only: [:edit, :new, :update, :create]
   include Breadcrumbs
 
@@ -48,6 +48,13 @@ class Users::DocumentsController < Users::BaseController
     redirect_to users_documents_path
   end
 
+  def add_variable
+    @document.variables << params[:variable]
+    @document.save
+
+    redirect_to edit_users_document_path(@document)
+  end
+
   private
 
   def can_manager?
@@ -75,6 +82,6 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def document_params
-    params.require(:document).permit(:title, :front_text, :back_text, :category, :department_id)
+    params.require(:document).permit(:title, :front_text, :back_text, :category, :department_id, :variables)
   end
 end

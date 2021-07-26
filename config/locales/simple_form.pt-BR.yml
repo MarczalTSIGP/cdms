@@ -31,3 +31,7 @@ pt-BR:
       user:
         role: Selecione um opção
     confirm: Deseja deletar este registro?
+    labels:
+      defaults:
+        name: Nome
+        identifier: Identificador
