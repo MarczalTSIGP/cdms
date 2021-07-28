@@ -1,3 +1,5 @@
+let variables = []
+
 $(document).on('turbolinks:load', () => {
   window.CDMS.document.init();
 });
@@ -14,27 +16,38 @@ window.CDMS.document.init = () => {
 };
 
 window.CDMS.document.variables.submit = (page) => {
+  window.CDMS.document.variables.hideErrorName(page)
+  window.CDMS.document.variables.hideErrorIdentifier(page)
+
   page.find('button#add_variable').on('click', () => {
     const name = page.find('input#variable_name').val();
     const identifier = page.find('input#variable_identifier').val();
 
-    page.find('input#variable_name').val('');
-    page.find('input#variable_identifier').val('');
+    if (validate.validateName(name) && validate.validateIdentifier(identifier)) {
+      window.CDMS.document.variables.hideErrorName(page)
+      window.CDMS.document.variables.hideErrorIdentifier(page)
 
-    const removeLink = `<a>
-                           <i class="fas fa-trash icon"></i>
-                        </a>`;
-    const row = `<tr>
-                   <td>${name}</td>
-                   <td>${identifier}</td>
-                   <td>${removeLink}</td>
-                 </tr>`;
+      let nameExists = variables.filter((e) => {return e.name == name})
+      let identifierExists = variables.filter((e) => {return e.identifier == identifier})
 
-    page.find('table#variables-table tbody').append(row);
+      if (nameExists.length > 0 && nameExists[0].name == name && identifierExists.length > 0 && identifierExists[0].identifier == identifier) {
+        alert("Essa variavel já existe.")
+      } else {
+        variables.push({"name": name, "identifier": identifier})
+        window.CDMS.document.variables.addVariables(page, name, identifier)
+      }
 
-    $('#add_variables_modal').modal('hide');
-
-    window.CDMS.document.variables.updateField();
+      window.CDMS.document.variables.updateField();
+    } else if (!validate.validateName(name) && !validate.validateIdentifier(identifier)) {
+      window.CDMS.document.variables.showErrorName(page)
+      window.CDMS.document.variables.showErrorIdentifier(page)
+    } else if (!validate.validateName(name)) {
+      window.CDMS.document.variables.showErrorName(page)
+      window.CDMS.document.variables.hideErrorIdentifier(page)
+    } else {
+      window.CDMS.document.variables.hideErrorName(page)
+      window.CDMS.document.variables.showErrorIdentifier(page)
+    }
   });
 };
 
@@ -60,3 +73,54 @@ window.CDMS.document.variables.updateField = () => {
 
   $('input#document_variables').val(JSON.stringify(variables));
 };
+
+window.CDMS.document.variables.showErrorName = (page) => {
+  page.find('label#name-error').show()
+}
+
+window.CDMS.document.variables.showErrorIdentifier = (page) => {
+  page.find('label#identifier-error').show()
+}
+
+window.CDMS.document.variables.hideErrorName = (page) => {
+  page.find('label#name-error').hide()
+}
+
+window.CDMS.document.variables.hideErrorIdentifier = (page) => {
+  page.find('label#identifier-error').hide()
+}
+
+window.CDMS.document.variables.addVariables = (page, name, identifier) => {
+  page.find('input#variable_name').val('');
+  page.find('input#variable_identifier').val('');
+
+  const removeLink = `<a>
+                        <i class="fas fa-trash icon"></i>
+                      </a>`;
+  const row = `<tr>
+                  <td>${name}</td>
+                  <td>${identifier}</td>
+                  <td>${removeLink}</td>
+                </tr>`;
+
+  page.find('table#variables-table tbody').append(row);
+
+  $('#add_variables_modal').modal('hide');
+}
+
+const regex = /[\s{}@!#$%^&*()/\\]/g;
+
+const validate = {
+  validateName(name) {
+    if (name && !regex.test(name)) {
+      return true;
+    }
+    return false;
+  },
+  validateIdentifier(identifier) {
+    if (identifier && !regex.test(identifier)) {
+      return true;
+    }
+    return false;
+  }
+}

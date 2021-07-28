@@ -10,6 +10,7 @@ class Document < ApplicationRecord
   validates :title, :front_text, :back_text, :department_id, presence: true
 
   def variables=(variables)
+    validate :json_format
     variables = JSON.parse(variables) if variables.is_a?(String)
 
     super(variables)
@@ -19,5 +20,11 @@ class Document < ApplicationRecord
     categories.each_with_object({}) do |(key, _value), obj|
       obj[I18n.t("enums.categories.#{key}")] = key
     end
+  end
+
+  protected
+
+  def json_format
+    errors[:base] << "not in json format" unless json.is_json?
   end
 end
