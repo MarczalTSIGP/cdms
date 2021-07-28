@@ -27,6 +27,12 @@ class CreateTest < ApplicationSystemTestCase
       page.execute_script("document.getElementById('document_front_text').innerText = '#{document.front_text}'")
       page.execute_script("document.getElementById('document_back_text').innerText = '#{document.back_text}'")
 
+      #Add variable
+      find('#add_variable_button').click
+      fill_in 'variable_name', with: document.name
+      fill_in 'variable_identifier', with: document.identifier
+      find('#add_variable').click
+
       submit_form
 
       flash_message = I18n.t('flash.actions.create.m', resource_name: Document.model_name.human)
