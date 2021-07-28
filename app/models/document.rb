@@ -22,9 +22,17 @@ class Document < ApplicationRecord
     end
   end
 
+  def is_json?
+    begin
+      !!JSON.parse(self)
+    rescue
+      false
+    end
+  end
+
   protected
 
   def json_format
-    errors[:base] << "not in json format" unless json.is_json?
+    errors[:base] << "incorrect variable format" unless json.is_json?
   end
 end
