@@ -47,10 +47,8 @@ class DocumentTest < ActiveSupport::TestCase
       
       document = build(:document)
       document.variables = json
-
-      document.destroy
-
-      assert_equal 0, document.count
+      document.variables.delete_at(0)
+      assert_equal 0, document.variables.count
     end
 
 

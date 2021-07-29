@@ -63,6 +63,7 @@ class UpdateTest < ApplicationSystemTestCase
     end
 
     context 'variables' do
+      
       should 'successfully' do
         page.find('a[data-target="#add_variables_modal"]').click
 
@@ -114,6 +115,20 @@ class UpdateTest < ApplicationSystemTestCase
         click_button('add_variable')
 
         assert_selector('label#ambiguous-error', visible: :show)
+      end
+      
+      should 'remove variable' do 
+        
+        page.find('a[data-target="#add_variables_modal"]').click
+
+        fill_in 'variable_name', with: 'Student name'
+        fill_in 'variable_identifier', with: 'student-name'
+        click_button('add_variable')
+
+        within('#variables-table tbody:nth-child(2) tr:nth-child(1) td:nth-child(3)') do
+            find("a:nth-child(1)").click
+        end
+        assert_no_selector('a.fas fa-trash icon')
       end
     end
   end
