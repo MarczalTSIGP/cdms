@@ -27,7 +27,7 @@ class CreateTest < ApplicationSystemTestCase
       page.execute_script("document.getElementById('document_front_text').innerText = '#{document.front_text}'")
       page.execute_script("document.getElementById('document_back_text').innerText = '#{document.back_text}'")
 
-      #Add variable
+      # Add variable
       find('#add_variable_button').click
       fill_in 'variable_name', with: document.name
       fill_in 'variable_identifier', with: document.identifier
