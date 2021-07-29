@@ -28,32 +28,25 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   context 'variables' do
-
-    #Duplicated Variables
     should 'not accept duplicate variables' do
-      dv = create(:name, :identifier)
-      document = dv.document
-      dodv = document.document_variables.new(name: dv.name)
-
-      assert_not dodv.valid?
-      assert_includes dodv.errors.messages[:name], I18n.t('errors.messages.taken')
+      json = [{ name: 'Nome', identifier: 'name' }]
+      dv = build(:document)
+      dv.variables = json
+      dv2 = build(:document)
+      dv2.variables = json
+      assert_not dv2.valid?
+      assert_includes dv2.errors.messages[:identifier], I18n.t('errors.messages.taken')
     end
-
-    #Remove Variables
-
-    
     should 'remove variables' do
-      json = [{name: "Nome", identifier: "Identifier"}]
-      
+      json = [{ name: 'Nome', identifier: 'Identifier' }]
       document = build(:document)
       document.variables = json
       document.variables.delete_at(0)
       assert_equal 0, document.variables.count
     end
 
-
     should 'accept json format' do
-      json = [{name: "Nome", identifier: "name"}]
+      json = [{ name: 'Nome', identifier: 'name' }]
 
       document = build(:document)
       document.variables = json

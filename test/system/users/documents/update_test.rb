@@ -23,21 +23,13 @@ class UpdateTest < ApplicationSystemTestCase
       fill_in 'document_title', with: document.title
       page.execute_script("document.getElementById('document_front_text').innerText = '#{document.front_text}'")
       page.execute_script("document.getElementById('document_back_text').innerText = '#{document.back_text}'")
-      # #Variable#
-      # find('#add_variable_button').click
-      # fill_in 'variable_name', with: 'name'
-      # fill_in 'variable_identifier', with: 'id'
-      # find('#add_variable').click
-      ##########
       submit_form
 
       flash_message = I18n.t('flash.actions.update.m', resource_name: document.model_name.human)
       assert_selector('div.alert.alert-success', text: flash_message)
-
       within('table.table tbody') do
         assert_text document.title
       end
-
     end
 
     should 'unsuccessfully' do
@@ -61,25 +53,19 @@ class UpdateTest < ApplicationSystemTestCase
         assert_text(I18n.t('errors.messages.blank'))
       end
     end
-
     context 'variables' do
-      
       should 'successfully' do
         page.find('a[data-target="#add_variables_modal"]').click
 
         fill_in 'variable_name', with: 'Student name'
         fill_in 'variable_identifier', with: 'student-name'
         click_button('add_variable')
-        
         within('table#variables-table tbody') do
           assert_selector 'tr:nth-child(1) td:nth-child(1)', text: 'Student name'
           assert_selector 'tr:nth-child(1) td:nth-child(2)', text: 'student-name'
         end
-        
         submit_form
-        
         visit edit_users_document_path(@document)
-        
         within('table#variables-table tbody') do
           assert_selector 'tr:nth-child(1) td:nth-child(1)', text: 'Student name'
           assert_selector 'tr:nth-child(1) td:nth-child(2)', text: 'student-name'
@@ -92,14 +78,12 @@ class UpdateTest < ApplicationSystemTestCase
         fill_in 'variable_name', with: 'Student name#'
         fill_in 'variable_identifier', with: 'student-name#'
         click_button('add_variable')
-        
         assert_selector('label#name-error', visible: :show)
         assert_selector('label#identifier-error', visible: :show)
 
         fill_in 'variable_name', with: 'Student name'
         fill_in 'variable_identifier', with: 'student-name#'
         click_button('add_variable')
-
         assert_selector('label#name-error', visible: :hidden)
         assert_selector('label#identifier-error', visible: :show)
 
@@ -116,17 +100,14 @@ class UpdateTest < ApplicationSystemTestCase
 
         assert_selector('label#ambiguous-error', visible: :show)
       end
-      
-      should 'remove variable' do 
-        
-        page.find('a[data-target="#add_variables_modal"]').click
 
+      should 'remove variable' do
+        page.find('a[data-target="#add_variables_modal"]').click
         fill_in 'variable_name', with: 'Student name'
         fill_in 'variable_identifier', with: 'student-name'
         click_button('add_variable')
-
         within('#variables-table tbody:nth-child(2) tr:nth-child(1) td:nth-child(3)') do
-            find("a:nth-child(1)").click
+          find('a:nth-child(1)').click
         end
         assert_no_selector('a.fas fa-trash icon')
       end
