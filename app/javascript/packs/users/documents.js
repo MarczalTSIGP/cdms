@@ -20,17 +20,23 @@ window.CDMS.document.variables.submit = (page) => {
   window.CDMS.document.variables.hideErrorIdentifier(page)
 
   page.find('button#add_variable').on('click', () => {
+    const regexForName = /[@!#$%^&*()/\\]/g;
+    const regexForIdentifier = /[{}@!#$%^&*()\s/\\]/g;
+
     const name = page.find('input#variable_name').val();
     const identifier = page.find('input#variable_identifier').val();
 
-    if (validate.validateName(name) && validate.validateIdentifier(identifier)) {
+    const nameIsValid = regexForName.test(name)
+    const identifierIsValid = regexForIdentifier.test(identifier)
+
+    if (!nameIsValid && !identifierIsValid) {
       window.CDMS.document.variables.hideErrorName(page)
       window.CDMS.document.variables.hideErrorIdentifier(page)
 
-      let nameExists = variables.filter((e) => {return e.name == name})
-      let identifierExists = variables.filter((e) => {return e.identifier == identifier})
+      let namesInTable = variables.filter((e) => {return e.name == name})
+      let identifierInTable = variables.filter((e) => {return e.identifier == identifier}) 
 
-      if (nameExists.length > 0 && nameExists[0].name == name && identifierExists.length > 0 && identifierExists[0].identifier == identifier) {
+      if (validateNameExists(namesInTable, name) && validateIdentifierExists(identifierInTable, identifier)) {
         alert("Essa variavel já existe.")
       } else {
         variables.push({"name": name, "identifier": identifier})
@@ -38,10 +44,10 @@ window.CDMS.document.variables.submit = (page) => {
       }
 
       window.CDMS.document.variables.updateField();
-    } else if (!validate.validateName(name) && !validate.validateIdentifier(identifier)) {
+    } else if (nameIsValid && identifierIsValid) {
       window.CDMS.document.variables.showErrorName(page)
       window.CDMS.document.variables.showErrorIdentifier(page)
-    } else if (!validate.validateName(name)) {
+    } else if (nameIsValid) {
       window.CDMS.document.variables.showErrorName(page)
       window.CDMS.document.variables.hideErrorIdentifier(page)
     } else {
@@ -108,19 +114,38 @@ window.CDMS.document.variables.addVariables = (page, name, identifier) => {
   $('#add_variables_modal').modal('hide');
 }
 
-const regex = /[\s{}@!#$%^&*()/\\]/g;
 
-const validate = {
-  validateName(name) {
-    if (name && !regex.test(name)) {
-      return true;
-    }
-    return false;
-  },
-  validateIdentifier(identifier) {
-    if (identifier && !regex.test(identifier)) {
-      return true;
-    }
-    return false;
+
+function validateName(name) {
+  if (name && !regexForName.test(name)) {
+    return true;
   }
+
+  return false;
+}
+
+function validateIdentifier(identifier) {
+  if (identifier && !regexForIdentifier.test(identifier)) {
+    return true;
+  }
+
+  return false;
+}
+
+const validateNameExists = (namesInTable, name) => {
+  let isValid = false
+  if (namesInTable.length > 0 && namesInTable[0].name == name) {
+    isValid = true
+  }
+
+  return isValid
+}
+
+const validateIdentifierExists = (identifierInTable, identifier) => {
+  let isValid = false
+  if (identifierInTable.length > 0 && identifierInTable[0].name == identifier) {
+    isValid = true
+  }
+
+  return isValid
 }
