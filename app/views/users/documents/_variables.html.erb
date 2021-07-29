@@ -3,7 +3,7 @@
         <h5 class="card-title"><%= Document.human_attribute_name :variables %></h5>
 
         <%= link_to '#', class: 'ml-auto', "data-toggle" => "modal", "data-target" => "#add_variables_modal" do %>
-            <%= icon('fas', 'plus', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.add')) %>
+            <%= icon('fas', 'plus', id:'add_variable_button', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.add')) %>
         <% end %>
     </div>
     <div class="card-body">
