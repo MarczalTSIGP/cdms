@@ -23,11 +23,11 @@ class UpdateTest < ApplicationSystemTestCase
       fill_in 'document_title', with: document.title
       page.execute_script("document.getElementById('document_front_text').innerText = '#{document.front_text}'")
       page.execute_script("document.getElementById('document_back_text').innerText = '#{document.back_text}'")
-      #Variable#
-      find('#add_variable_button').click
-      fill_in 'variable_name', with: document.name
-      fill_in 'variable_identifier', with: document.identifier
-      find('#add_variable').click
+      # #Variable#
+      # find('#add_variable_button').click
+      # fill_in 'variable_name', with: 'name'
+      # fill_in 'variable_identifier', with: 'id'
+      # find('#add_variable').click
       ##########
       submit_form
 
@@ -68,21 +68,25 @@ class UpdateTest < ApplicationSystemTestCase
 
         fill_in 'variable_name', with: 'Student name'
         fill_in 'variable_identifier', with: 'student-name'
-
         click_button('add_variable')
-
+        
         within('table#variables-table tbody') do
           assert_selector 'tr:nth-child(1) td:nth-child(1)', text: 'Student name'
           assert_selector 'tr:nth-child(1) td:nth-child(2)', text: 'student-name'
         end
-
+        
         submit_form
+        
         visit edit_users_document_path(@document)
-
+        
         within('table#variables-table tbody') do
           assert_selector 'tr:nth-child(1) td:nth-child(1)', text: 'Student name'
           assert_selector 'tr:nth-child(1) td:nth-child(2)', text: 'student-name'
         end
+      end
+
+      should 'update' do
+        
       end
     end
   end

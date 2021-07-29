@@ -8,7 +8,7 @@ class Document < ApplicationRecord
 
   validates :category, inclusion: { in: Document.categories.values }
   validates :title, :front_text, :back_text, :department_id, presence: true
-  validate :json_format
+  # validate :json_format
 
   def variables=(variables)
     variables = JSON.parse(variables) if variables.is_a?(String)
@@ -30,9 +30,9 @@ class Document < ApplicationRecord
     end
   end
 
-  protected
+  # protected
 
-  def json_format
-    errors[:base] << "incorrect variable format" unless json.is_json?
-  end
+  # def json_format
+  #   errors[:base] << "incorrect variable format" unless json.is_json?
+  # end
 end
