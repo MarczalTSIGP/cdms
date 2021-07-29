@@ -62,7 +62,7 @@ class UpdateTest < ApplicationSystemTestCase
       end
     end
 
-    context 'variables' do
+    context 'successfully' do
       should 'add' do
         page.find('a[data-target="#add_variables_modal"]').click
 
@@ -85,8 +85,35 @@ class UpdateTest < ApplicationSystemTestCase
         end
       end
 
-      should 'update' do
+      should 'unsuccessfully' do
+        page.find('a[data-target="#add_variables_modal"]').click
+
+        fill_in 'variable_name', with: 'Student name#'
+        fill_in 'variable_identifier', with: 'student-name#'
+        click_button('add_variable')
         
+        assert_selector('label#name-error', visible: :show)
+        assert_selector('label#identifier-error', visible: :show)
+
+        fill_in 'variable_name', with: 'Student name'
+        fill_in 'variable_identifier', with: 'student-name#'
+        click_button('add_variable')
+
+        assert_selector('label#name-error', visible: :hidden)
+        assert_selector('label#identifier-error', visible: :show)
+
+        fill_in 'variable_name', with: 'Student name#'
+        fill_in 'variable_identifier', with: 'student-name'
+        click_button('add_variable')
+
+        assert_selector('label#name-error', visible: :show)
+        assert_selector('label#identifier-error', visible: :hidden)
+
+        fill_in 'variable_name', with: 'Student name'
+        fill_in 'variable_identifier', with: 'student-name'
+        click_button('add_variable')
+
+        assert_selector('label#ambiguous-error', visible: :show)
       end
     end
   end

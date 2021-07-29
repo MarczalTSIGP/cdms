@@ -18,6 +18,7 @@ window.CDMS.document.init = () => {
 window.CDMS.document.variables.submit = (page) => {
   window.CDMS.document.variables.hideErrorName(page)
   window.CDMS.document.variables.hideErrorIdentifier(page)
+  window.CDMS.document.variables.hideErrorAmbiguous(page)
 
   page.find('button#add_variable').on('click', () => {
     const regexForName = /[@!#$%^&*()/\\]/g;
@@ -37,7 +38,7 @@ window.CDMS.document.variables.submit = (page) => {
       let identifierInTable = variables.filter((e) => {return e.identifier == identifier}) 
 
       if (validateNameExists(namesInTable, name) && validateIdentifierExists(identifierInTable, identifier)) {
-        alert("Essa variavel já existe.")
+        window.CDMS.document.variables.showErrorAmbiguous(page)
       } else {
         variables.push({"name": name, "identifier": identifier})
         window.CDMS.document.variables.addVariables(page, name, identifier)
@@ -88,6 +89,10 @@ window.CDMS.document.variables.showErrorIdentifier = (page) => {
   page.find('label#identifier-error').show()
 }
 
+window.CDMS.document.variables.showErrorAmbiguous = (page) => {
+  page.find('label#ambiguous-error').show()
+}
+
 window.CDMS.document.variables.hideErrorName = (page) => {
   page.find('label#name-error').hide()
 }
@@ -96,11 +101,15 @@ window.CDMS.document.variables.hideErrorIdentifier = (page) => {
   page.find('label#identifier-error').hide()
 }
 
+window.CDMS.document.variables.hideErrorAmbiguous = (page) => {
+  page.find('label#ambiguous-error').hide()
+}
+
 window.CDMS.document.variables.addVariables = (page, name, identifier) => {
   page.find('input#variable_name').val('');
   page.find('input#variable_identifier').val('');
 
-  const removeLink = `<a>
+  const removeLink = `<a id='${variables.length}'>
                         <i class="fas fa-trash icon"></i>
                       </a>`;
   const row = `<tr>
