@@ -62,8 +62,8 @@ class UpdateTest < ApplicationSystemTestCase
       end
     end
 
-    context 'successfully' do
-      should 'add' do
+    context 'variables' do
+      should 'successfully' do
         page.find('a[data-target="#add_variables_modal"]').click
 
         fill_in 'variable_name', with: 'Student name'
