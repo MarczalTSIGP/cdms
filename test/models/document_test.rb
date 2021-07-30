@@ -11,6 +11,18 @@ class DocumentTest < ActiveSupport::TestCase
       assert_not document.valid?
       assert_includes document.errors.messages[:category], I18n.t('errors.messages.inclusion')
     end
+
+    context 'variables' do
+      should 'be array' do
+        department = create(:department)
+        document = build(:document, :declaration, department: department)
+        assert document.valid?
+        
+        document.variables = ""
+        # espera que retorne false
+        refuse document.valid?
+      end
+    end
   end
 
   context 'category' do

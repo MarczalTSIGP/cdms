@@ -53,6 +53,7 @@ class UpdateTest < ApplicationSystemTestCase
         assert_text(I18n.t('errors.messages.blank'))
       end
     end
+
     context 'variables' do
       should 'successfully' do
         page.find('a[data-target="#add_variables_modal"]').click
@@ -110,6 +111,10 @@ class UpdateTest < ApplicationSystemTestCase
           find('a:nth-child(1)').click
         end
         assert_no_selector('a.fas fa-trash icon')
+
+        # visitar a pagina com um documento que tem a variavel,
+        # apaga a variavel,
+        # entra novamente e valida se ela foi apagada
       end
     end
   end
