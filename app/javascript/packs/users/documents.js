@@ -1,4 +1,19 @@
-let variables = []
+let variables = [];
+
+const validateNameExists = (namesInTable, name) => {
+  let isValid = false;
+  if (namesInTable.length > 0 && namesInTable[0].name === name) {
+    isValid = true;
+  }
+  return isValid;
+};
+const validateIdentifierExists = (identifierInTable, identifier) => {
+  let isValid = false;
+  if (identifierInTable.length > 0 && identifierInTable[0].name === identifier) {
+    isValid = true;
+  }
+  return isValid;
+};
 
 $(document).on('turbolinks:load', () => {
   window.CDMS.document.init();
@@ -16,44 +31,47 @@ window.CDMS.document.init = () => {
 };
 
 window.CDMS.document.variables.submit = (page) => {
-  window.CDMS.document.variables.hideErrorName(page)
-  window.CDMS.document.variables.hideErrorIdentifier(page)
-  window.CDMS.document.variables.hideErrorAmbiguous(page)
+  window.CDMS.document.variables.hideErrorName(page);
+  window.CDMS.document.variables.hideErrorIdentifier(page);
+  window.CDMS.document.variables.hideErrorAmbiguous(page);
 
   page.find('button#add_variable').on('click', () => {
     const regexForName = /[@!#$%^&*()/\\]/g;
-    const regexForIdentifier = /[{}@!#$%^&*()\s/\\]/g;
-
+    const regexForIdentifier = /[{}@!#$%^&*\[\]()\s/\\]/g;
     const name = page.find('input#variable_name').val();
     const identifier = page.find('input#variable_identifier').val();
-
-    const nameIsValid = regexForName.test(name)
-    const identifierIsValid = regexForIdentifier.test(identifier)
+    const nameIsValid = regexForName.test(name);
+    const identifierIsValid = regexForIdentifier.test(identifier);
 
     if (!nameIsValid && !identifierIsValid) {
-      window.CDMS.document.variables.hideErrorName(page)
-      window.CDMS.document.variables.hideErrorIdentifier(page)
+      window.CDMS.document.variables.hideErrorName(page);
+      window.CDMS.document.variables.hideErrorIdentifier(page);
 
-      let namesInTable = variables.filter((e) => {return e.name == name})
-      let identifierInTable = variables.filter((e) => {return e.identifier == identifier}) 
+      const namesInTable = variables.filter((e) => {
+        return e.name === name;
+      });
+      const identifierInTable = variables.filter((e) => {
+        return e.identifier === identifier;
+      });
 
-      if (validateNameExists(namesInTable, name) && validateIdentifierExists(identifierInTable, identifier)) {
-        window.CDMS.document.variables.showErrorAmbiguous(page)
+      if (validateNameExists(namesInTable, name)
+      && validateIdentifierExists(identifierInTable, identifier)) {
+        window.CDMS.document.variables.showErrorAmbiguous(page);
       } else {
-        variables.push({"name": name, "identifier": identifier})
-        window.CDMS.document.variables.addVariables(page, name, identifier)
+        variables.push({ name, identifier });
+        window.CDMS.document.variables.addVariables(page, name, identifier);
       }
 
       window.CDMS.document.variables.updateField();
     } else if (nameIsValid && identifierIsValid) {
-      window.CDMS.document.variables.showErrorName(page)
-      window.CDMS.document.variables.showErrorIdentifier(page)
+      window.CDMS.document.variables.showErrorName(page);
+      window.CDMS.document.variables.showErrorIdentifier(page);
     } else if (nameIsValid) {
-      window.CDMS.document.variables.showErrorName(page)
-      window.CDMS.document.variables.hideErrorIdentifier(page)
+      window.CDMS.document.variables.showErrorName(page);
+      window.CDMS.document.variables.hideErrorIdentifier(page);
     } else {
-      window.CDMS.document.variables.hideErrorName(page)
-      window.CDMS.document.variables.showErrorIdentifier(page)
+      window.CDMS.document.variables.hideErrorName(page);
+      window.CDMS.document.variables.showErrorIdentifier(page);
     }
   });
 };
@@ -66,7 +84,7 @@ window.CDMS.document.variables.remove = (page) => {
 };
 
 window.CDMS.document.variables.updateField = () => {
-  const variables = [];
+  variables = [];
   const rows = $('table#variables-table tbody tr');
 
   rows.each(function () {
@@ -82,28 +100,28 @@ window.CDMS.document.variables.updateField = () => {
 };
 
 window.CDMS.document.variables.showErrorName = (page) => {
-  page.find('label#name-error').show()
-}
+  page.find('label#name-error').show();
+};
 
 window.CDMS.document.variables.showErrorIdentifier = (page) => {
-  page.find('label#identifier-error').show()
-}
+  page.find('label#identifier-error').show();
+};
 
 window.CDMS.document.variables.showErrorAmbiguous = (page) => {
-  page.find('label#ambiguous-error').show()
-}
+  page.find('label#ambiguous-error').show();
+};
 
 window.CDMS.document.variables.hideErrorName = (page) => {
-  page.find('label#name-error').hide()
-}
+  page.find('label#name-error').hide();
+};
 
 window.CDMS.document.variables.hideErrorIdentifier = (page) => {
-  page.find('label#identifier-error').hide()
-}
+  page.find('label#identifier-error').hide();
+};
 
 window.CDMS.document.variables.hideErrorAmbiguous = (page) => {
-  page.find('label#ambiguous-error').hide()
-}
+  page.find('label#ambiguous-error').hide();
+};
 
 window.CDMS.document.variables.addVariables = (page, name, identifier) => {
   page.find('input#variable_name').val('');
@@ -121,15 +139,12 @@ window.CDMS.document.variables.addVariables = (page, name, identifier) => {
   page.find('table#variables-table tbody').append(row);
 
   $('#add_variables_modal').modal('hide');
-}
-
-
+};
 
 function validateName(name) {
   if (name && !regexForName.test(name)) {
     return true;
   }
-
   return false;
 }
 
@@ -137,24 +152,5 @@ function validateIdentifier(identifier) {
   if (identifier && !regexForIdentifier.test(identifier)) {
     return true;
   }
-
   return false;
-}
-
-const validateNameExists = (namesInTable, name) => {
-  let isValid = false
-  if (namesInTable.length > 0 && namesInTable[0].name == name) {
-    isValid = true
-  }
-
-  return isValid
-}
-
-const validateIdentifierExists = (identifierInTable, identifier) => {
-  let isValid = false
-  if (identifierInTable.length > 0 && identifierInTable[0].name == identifier) {
-    isValid = true
-  }
-
-  return isValid
 }
