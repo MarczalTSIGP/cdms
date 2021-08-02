@@ -37,7 +37,7 @@ window.CDMS.document.variables.submit = (page) => {
 
   page.find('button#add_variable').on('click', () => {
     const regexForName = /[@!#$%^&*()/\\]/g;
-    const regexForIdentifier = /[{}@!#$%^&*\[\]()\s/\\]/g;
+    const regexForIdentifier = /[{}@!#$%^&*[\]()\s/\\]/g;
     const name = page.find('input#variable_name').val();
     const identifier = page.find('input#variable_identifier').val();
     const nameIsValid = regexForName.test(name);
@@ -47,12 +47,8 @@ window.CDMS.document.variables.submit = (page) => {
       window.CDMS.document.variables.hideErrorName(page);
       window.CDMS.document.variables.hideErrorIdentifier(page);
 
-      const namesInTable = variables.filter((e) => {
-        return e.name === name;
-      });
-      const identifierInTable = variables.filter((e) => {
-        return e.identifier === identifier;
-      });
+      const namesInTable = variables.filter((e) => e.name === name);
+      const identifierInTable = variables.filter((e) => e.identifier === identifier);
 
       if (validateNameExists(namesInTable, name)
       && validateIdentifierExists(identifierInTable, identifier)) {
