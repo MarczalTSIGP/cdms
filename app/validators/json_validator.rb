@@ -17,6 +17,14 @@ class JsonValidator < ActiveModel::EachValidator
                 if json['identifier'] =~ REGEX_IDENTIFIER
                     record.errors[attribute] << (options[:message] || "element #{json} with invalid identifier")
                 end
+                ambiguous_value(record, json['identifier'], value)
+            end
+        end
+    end
+    def ambiguous_value(record, identifier, value)
+        value.each do |json|
+            if identifier == json['identifier']
+                record.errors.add(:identifier, I18n.t('errors.messages.taken'))
             end
         end
     end

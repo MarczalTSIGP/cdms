@@ -73,7 +73,7 @@ window.CDMS.document.variables.submit = (page) => {
 };
 
 window.CDMS.document.variables.remove = (page) => {
-  page.find('table#variables-table tbody').on('click', 'tr td:last-child a', function () {
+  page.find('table#variables-table tbody').on('click', 'tr td:last-child a', () => {
     $(this).parent().parent().remove();
     window.CDMS.document.variables.updateField();
   });
@@ -83,7 +83,7 @@ window.CDMS.document.variables.updateField = () => {
   variables = [];
   const rows = $('table#variables-table tbody tr');
 
-  rows.each(function () {
+  rows.each(() => {
     const name = $(this).find('td:first').text();
     const identifier = $(this).find('td:nth-child(2)').text();
 
@@ -136,17 +136,3 @@ window.CDMS.document.variables.addVariables = (page, name, identifier) => {
 
   $('#add_variables_modal').modal('hide');
 };
-
-function validateName(name) {
-  if (name && !regexForName.test(name)) {
-    return true;
-  }
-  return false;
-}
-
-function validateIdentifier(identifier) {
-  if (identifier && !regexForIdentifier.test(identifier)) {
-    return true;
-  }
-  return false;
-}

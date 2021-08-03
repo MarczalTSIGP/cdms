@@ -11,20 +11,7 @@ class DocumentTest < ActiveSupport::TestCase
       assert_not document.valid?
       assert_includes document.errors.messages[:category], I18n.t('errors.messages.inclusion')
     end
-
-    context 'variables' do
-      should 'be array' do
-        department = create(:department)
-        document = build(:document, :declaration, department: department)
-        assert document.valid?
-        
-        document.variables = ""
-        # espera que retorne false
-        refuse document.valid?
-      end
-    end
   end
-
   context 'category' do
     should define_enum_for(:category)
       .with_values(declaration: 'declaration', certification: 'certification')
@@ -40,6 +27,14 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   context 'variables' do
+    should 'be array' do
+      department = create(:department)
+      document = build(:document, :declaration, department: department)
+      assert document.valid?
+      document.variables = ""
+      refuse document.valid?
+    end
+   
     should 'not accept duplicate variables' do
       json = [{ name: 'Nome', identifier: 'name' }]
       dv = build(:document)
@@ -49,6 +44,7 @@ class DocumentTest < ActiveSupport::TestCase
       assert_not dv2.valid?
       assert_includes dv2.errors.messages[:identifier], I18n.t('errors.messages.taken')
     end
+    
     should 'remove variables' do
       json = [{ name: 'Nome', identifier: 'Identifier' }]
       document = build(:document)

@@ -12,7 +12,6 @@ class Document < ApplicationRecord
 
   def variables=(variables)
     variables = JSON.parse(variables) if variables.is_a?(String)
-
     super(variables)
   end
 
@@ -21,6 +20,7 @@ class Document < ApplicationRecord
       obj[I18n.t("enums.categories.#{key}")] = key
     end
   end
+  
 
   def json?
     JSON.parse(self)
