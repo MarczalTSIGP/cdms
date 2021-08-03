@@ -29,8 +29,8 @@ class CreateTest < ApplicationSystemTestCase
 
       # Add variable
       find('#add_variable_button').click
-      fill_in 'variable_name', with: document.name
-      fill_in 'variable_identifier', with: document.identifier
+      fill_in 'variable_name', with: 'student-name'
+      fill_in 'variable_identifier', with: 'student'
       find('#add_variable').click
 
       submit_form

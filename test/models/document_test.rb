@@ -34,7 +34,7 @@ class DocumentTest < ActiveSupport::TestCase
       document.variables = []
       assert document.valid?
     end
-   
+
     should 'not accept duplicate variables' do
       json = [{ name: 'Nome', identifier: 'name' }]
       department = create(:department)
@@ -45,7 +45,7 @@ class DocumentTest < ActiveSupport::TestCase
       assert_not dv2.valid?
       assert_includes dv2.errors.messages[:identifier], I18n.t('errors.messages.taken')
     end
-    
+
     should 'remove variables' do
       json = [{ name: 'Nome', identifier: 'Identifier' }]
       document = build(:document)
