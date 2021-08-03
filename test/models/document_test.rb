@@ -31,15 +31,16 @@ class DocumentTest < ActiveSupport::TestCase
       department = create(:department)
       document = build(:document, :declaration, department: department)
       assert document.valid?
-      document.variables = ""
-      refuse document.valid?
+      document.variables = []
+      assert document.valid?
     end
    
     should 'not accept duplicate variables' do
       json = [{ name: 'Nome', identifier: 'name' }]
-      dv = build(:document)
+      department = create(:department)
+      dv = build(:document, :declaration, department: department)
       dv.variables = json
-      dv2 = build(:document)
+      dv2 = build(:document, :declaration, department: department)
       dv2.variables = json
       assert_not dv2.valid?
       assert_includes dv2.errors.messages[:identifier], I18n.t('errors.messages.taken')
