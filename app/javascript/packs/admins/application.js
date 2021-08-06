@@ -3,6 +3,7 @@ require('turbolinks').start();
 
 require('config/namespace');
 require('config/bootstrap');
+require('lib/validations');
 require('config/jmask');
 require('config/selectize');
 require('lib/choose_file');
@@ -11,3 +12,4 @@ require('config/summernote');
 require('lib/submit_search');
 require('config/table_level');
 require('config/mask_phone');
+require('packs/users/documents');

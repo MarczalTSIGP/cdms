@@ -33,6 +33,7 @@ pt-BR:
       edit: Editar
       destroy: Deletar
       show: Visualizar
+      add: Adicionar
       home:
         audience_member:
           sign_in: Acessar como membro de audiência
@@ -86,13 +87,18 @@ pt-BR:
         access: Área do usuário
     document:
       links:
+        edit: Editar
         new: Novo certificado/declaração
         show: Visualizar certificado/declaração
+        edit: Editar certificado/declaração
         preview: '%{category}-%{name}'
       name:
         singular: Documento
         plural:  Documentos
       print_label: Para imprimir ou salvar como PDF aperte CTRL + P ou clique no botão ao lado.
+      variables:
+        name: Nome
+        identifier: Identificador
     department:
       name:
         singular: Departamento

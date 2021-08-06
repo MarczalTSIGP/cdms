@@ -27,6 +27,11 @@ class CreateTest < ApplicationSystemTestCase
       page.execute_script("document.getElementById('document_front_text').innerText = '#{document.front_text}'")
       page.execute_script("document.getElementById('document_back_text').innerText = '#{document.back_text}'")
 
+      find('#add_variable_button').click
+      fill_in 'variable_name', with: 'Student name'
+      fill_in 'variable_identifier', with: 'student-name'
+      find('#add_variable').click
+
       submit_form
 
       flash_message = I18n.t('flash.actions.create.m', resource_name: Document.model_name.human)
@@ -38,6 +43,11 @@ class CreateTest < ApplicationSystemTestCase
 
         assert_selector "a[href='#{users_preview_document_path(document)}']"
         assert_selector "a[href='#{users_document_path(document)}'][data-method='delete']"
+      end
+
+      visit edit_users_document_path(document)
+      within('table#variables-table tbody') do
+        assert_selector 'tr:nth-child(1) td:nth-child(1)', text: 'Student name'
       end
     end
 
