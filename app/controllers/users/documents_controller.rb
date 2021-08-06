@@ -1,6 +1,6 @@
 class Users::DocumentsController < Users::BaseController
   before_action :can_manager?, only: [:edit, :new, :update, :create, :destroy]
-  before_action :set_document, only: [:show, :edit, :update, :destroy, :preview]
+  before_action :set_document, except: [:index, :new, :create]
   before_action :set_departments, only: [:edit, :new, :update, :create]
   include Breadcrumbs
 
@@ -75,6 +75,6 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def document_params
-    params.require(:document).permit(:title, :front_text, :back_text, :category, :department_id)
+    params.require(:document).permit(:title, :front_text, :back_text, :category, :department_id, :variables)
   end
 end
