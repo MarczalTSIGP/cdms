@@ -27,59 +27,54 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   context 'variables' do
-    should 'be array' do
+    setup do
       department = create(:department)
-      document = build(:document, :declaration, department: department)
-      assert document.valid?
-      document.variables = []
-      assert document.valid?
+      @document = build(:document, :declaration, department: department)
     end
 
-    should 'not accept duplicate variables' do
-      json = [{ name: 'Nome', identifier: 'name' }]
-      department = create(:department)
-      dv = build(:document, :declaration, department: department)
-      dv.variables = json
-      dv2 = build(:document, :declaration, department: department)
-      dv2.variables = json
-      assert_not dv2.valid?
-      assert_includes dv2.errors.messages[:identifier], I18n.t('errors.messages.taken')
+    should 'be an empty array by default' do
+      assert @document.valid?
     end
 
-    should 'remove variables' do
-      json = [{ name: 'Nome', identifier: 'Identifier' }]
-      document = build(:document)
-      document.variables = json
-      document.variables.delete_at(0)
-      assert_equal 0, document.variables.count
+    should 'only accept array of json' do
+      @document.variables = { name: 'Nome', identifier: 'name' }
+
+      assert_not @document.valid?
+      assert_equal 1, @document.errors.messages[:variables].size
+      assert_contains @document.errors.messages[:variables], I18n.t('activerecord.errors.messages.not_an_array')
+
+      @document.variables = [{ name: 'Nome', identifier: 'name' }]
+      assert @document.valid?
+    end
+
+    should 'accept only with name and identifier keys' do
+      @document.variables = [{ name: 'Nome', identiier: 'name' }]
+
+      assert_not @document.valid?
+      assert_contains @document.errors.messages[:variables], I18n.t('activerecord.errors.messages.invalid')
     end
 
     should 'accept json format' do
       json = [{ name: 'Nome', identifier: 'name' }]
+      @document.variables = json
 
-      document = build(:document)
-      document.variables = json
-
-      assert_equal 'Nome', document.variables[0]['name']
-      assert_equal 'name', document.variables[0]['identifier']
+      assert_equal 'Nome', @document.variables[0]['name']
+      assert_equal 'name', @document.variables[0]['identifier']
     end
 
     should 'accept json format in string' do
       json_s = '[{"name":"Nome","identifier":"name"}]'
+      @document.variables = json_s
 
-      document = build(:document)
-      document.variables = json_s
-
-      assert_equal 'Nome', document.variables[0]['name']
-      assert_equal 'name', document.variables[0]['identifier']
+      assert_equal 'Nome', @document.variables[0]['name']
+      assert_equal 'name', @document.variables[0]['identifier']
     end
 
     should 'not accept json string unformated' do
       json_s = '[{"name:"Nome","identifier":"name"}]'
-      document = build(:document)
 
       assert_raise JSON::ParserError do
-        document.variables = json_s
+        @document.variables = json_s
       end
     end
   end

@@ -22,7 +22,7 @@
                         <tr>
                             <td> <%= variable['name'] %></td>
                             <td> <%= variable['identifier'] %></td>
-                            <td class = 'w-1'>
+                            <td class='w-1'>
                                 <a>
                                   <%= icon('fas', 'trash', class: 'icon') %>
                                 </a>
@@ -48,19 +48,20 @@
 
                 <div class="row">
                     <div class="form-group string required variable_name col-6">
-                        <label class="string required" for="variable_name">Nome <abbr title="obrigatório">*</abbr></label>
-                        <input class="form-control string required" type="text" name="variable[name]" id="variable_name">
-                        <label class="text-danger" id="name-error">Nome incorreto.</label>
+                        <label class="string required" for="variable_name"> <%= I18n.t('simple_form.labels.defaults.name') %> <abbr title="obrigatório">*</abbr></label>
+                        <input class="form-control string required" type="text" name="variable[name]" id="variable_name"
+                               data-validations-presence = "true"
+                        >
                     </div>
                     <div class="form-group string required variable_identifier col-6">
-                        <label class="string required" for="variable_identifier">Identificador <abbr title="obrigatório">*</abbr></label>
-                        <input class="form-control string required" type="text" name="variable[identifier]" id="variable_identifier">
-                        <label class="text-danger" id="identifier-error">Identificador incorreto.</label>
+                        <label class="string required" for="variable_identifier"> <%= I18n.t('simple_form.labels.defaults.identifier') %> <abbr title="obrigatório">*</abbr></label>
+                        <input class="form-control string required" type="text" name="variable[identifier]" id="variable_identifier"
+                               data-validations-uniqueness-in-json = "#document_variables"
+                               data-validations-presence = "true"
+                               data-validations-regex = "/[@!#$%^&*()\/\\\s]/g"
+                               data-validations-regex-message = "possui caracteres inválidos"
+                        >
                     </div>
-                </div>
-
-                <div>
-                    <label class="text-danger" id="ambiguous-error">Essa variavel já está em uso</label>
                 </div>
 
                 <div class="d-flex">

@@ -20,10 +20,4 @@ class Document < ApplicationRecord
       obj[I18n.t("enums.categories.#{key}")] = key
     end
   end
-
-  def json?
-    JSON.parse(self)
-  rescue JSON::ParserError
-    false
-  end
 end

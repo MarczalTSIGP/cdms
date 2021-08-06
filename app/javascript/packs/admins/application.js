@@ -3,6 +3,7 @@ require('turbolinks').start();
 
 require('config/namespace');
 require('config/bootstrap');
+require('lib/validations');
 require('config/jmask');
 require('config/selectize');
 require('lib/choose_file');

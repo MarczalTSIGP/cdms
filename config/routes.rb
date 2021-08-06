@@ -38,8 +38,6 @@ Rails.application.routes.draw do
       get 'show-department/:id', to: 'team_departments_modules#show_department',
                                  action: :show_department, as: :show_department
       get 'show-module/:id', to: 'team_departments_modules#show_module', action: :show_module, as: :show_module
-
-      patch 'documents/:id/variables', to: 'documents#add_variable', as: :document_variables
     end
 
     namespace :admins do

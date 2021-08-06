@@ -22,6 +22,9 @@ pt-BR:
       import_file:
         file: Arquivo
   activerecord:
+    errors:
+      messages:
+        not_an_array: não é uma Array
     models:
       admin:
         one: Administrador
@@ -87,4 +90,3 @@ pt-BR:
       department_user:
         role: Papel
         user: Usuário
-        
