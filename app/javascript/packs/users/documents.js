@@ -38,7 +38,7 @@ window.CDMS.document.variables.submit = (page) => {
 
         window.CDMS.document.variables.updateField();
       },
-      error: () => {},
+      error: () => { },
     });
   });
 };
@@ -46,9 +46,7 @@ window.CDMS.document.variables.submit = (page) => {
 window.CDMS.document.variables.addFrontDefaultVariable = (page) => {
   page.find('button#add_front_variables').on('click', () => {
     var defaultVariable = page.find('input:radio[name="defaultFrontVariables"]:checked').val();
-    var text = document.getElementById('document_front_text');
-    text.value = ' {' + defaultVariable + '} ';
-    console.log(text.value);
+    $(".document_front_text > div:nth-child(3) > div:nth-child(3) > div:nth-child(3) > p:nth-child(1)").append(defaultVariable);
   });
 }
 
