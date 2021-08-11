@@ -1,25 +1,31 @@
 <div class="form-group text-center">
      <label> <%= I18n.t("activerecord.attributes.document.variable.default_variables") %> </label>
 </div>
-
-<div class="form-check">
-    <input type="radio" name="defaultFrontVariables" value="name" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Name</label>
-</div>
-
-<div class="form-check">
-    <input type="radio" name="defaultFrontVariables" value="cpf" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">CPF</label>
-</div>
-
-<div class="form-check">
-    <input type="radio" name="defaultFrontVariables" value="email" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">E-Mail</label>
-</div>
-
-<div class="form-check">
-    <input type="radio" name="defaultFrontVariables" value="registerNumber" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Nº Registro</label>
+<div class="row">
+    <div class="col-6">
+        <div class="form-check">
+            <input type="radio" name="defaultFrontVariables" class="form-check-input" id="dv_name">
+            <label class="form-check-label" for="dv_name"><%= I18n.t("activerecord.attributes.document.variable.name") %></label>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-check">
+            <input type="radio" name="defaultFrontVariables" class="form-check-input" id="dv_cpf">
+            <label class="form-check-label" for="dv_cpf"><%= I18n.t("activerecord.attributes.document.variable.cpf") %></label>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-check">
+            <input type="radio" name="defaultFrontVariables" class="form-check-input" id="dv_mail">
+            <label class="form-check-label" for="dv_mail"><%= I18n.t("activerecord.attributes.document.variable.mail") %></label>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-check">
+            <input type="radio" name="defaultFrontVariables" class="form-check-input" id="dv_register_number">
+            <label class="form-check-label" for="dv_register_number"><%= I18n.t("activerecord.attributes.document.variable.register_number") %></label>
+        </div>
+    </div>
 </div>
 
 <div class="form-group pt-6">
