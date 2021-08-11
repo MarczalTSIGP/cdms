@@ -44,26 +44,23 @@ window.CDMS.document.variables.submit = (page) => {
 };
 
 window.CDMS.document.variables.addFrontDefaultVariable = (page) => {
-  page.find('button#add_default_variable').on('click', () => {
-    var defaultVariable = page.find('input:radio[name="defaultVariables"]:checked').val();
+  page.find('button#add_front_variable').on('click', () => {
+    var defaultVariable = page.find('input:radio[name="frontDefaultVariables"]:checked').val();
     var toInsert = "{" + defaultVariable + "}";
-
-
     $('#document_front_text').summernote('editor.saveRange');
     $('#document_front_text').summernote('editor.restoreRange');
     $('#document_front_text').summernote('editor.focus');
     $('#document_front_text').summernote('editor.insertText', toInsert);
-
-
-    /*
-    var defaultVariable = page.find('input:radio[name="defaultVariables"]:checked').val();
-    var selection = document.getSelection();
-    var cursorPos = selection.anchorOffset;
-    var oldContent = selection.anchorNode.nodeValue;
+  });
+}
+window.CDMS.document.variables.addBackDefaultVariable = (page) => {
+  page.find('button#add_back_variable').on('click', () => {
+    var defaultVariable = page.find('input:radio[name="backDefaultVariables"]:checked').val();
     var toInsert = "{" + defaultVariable + "}";
-    var newContent = oldContent.substring(0, cursorPos) + toInsert + oldContent.substring(cursorPos);
-    selection.anchorNode.nodeValue = newContent;
-    */
+    $('#document_back_text').summernote('editor.saveRange');
+    $('#document_back_text').summernote('editor.restoreRange');
+    $('#document_back_text').summernote('editor.focus');
+    $('#document_back_text').summernote('editor.insertText', toInsert);
   });
 }
 
