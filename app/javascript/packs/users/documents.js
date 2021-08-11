@@ -46,9 +46,9 @@ window.CDMS.document.variables.submit = (page) => {
 window.CDMS.document.variables.addFrontDefaultVariable = (page) => {
   page.find('button#add_front_variables').on('click', () => {
     var defaultVariable = page.find('input:radio[name="defaultFrontVariables"]:checked').val();
-    var frontText = page.find('textarea#document_front_text');
-    frontText.val(frontText.val() + ' {' + defaultVariable + '} ');
-    console.log(frontText);
+    var text = document.getElementById('document_front_text');
+    text.value = ' {' + defaultVariable + '} ';
+    console.log(text.value);
   });
 }
 
