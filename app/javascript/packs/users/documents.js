@@ -44,18 +44,26 @@ window.CDMS.document.variables.submit = (page) => {
 };
 
 window.CDMS.document.variables.addFrontDefaultVariable = (page) => {
-  page.find('button#add_front_variables').on('click', () => {
-    var defaultVariable = page.find('input:radio[name="defaultFrontVariables"]:checked').val();
+  page.find('button#add_default_variable').on('click', () => {
+    var defaultVariable = page.find('input:radio[name="defaultVariables"]:checked').val();
     var toInsert = "{" + defaultVariable + "}";
 
-    var defaultVariable = page.find('input:radio[name="defaultFrontVariables"]:checked').val();
+
+    $('#document_front_text').summernote('editor.saveRange');
+    $('#document_front_text').summernote('editor.restoreRange');
+    $('#document_front_text').summernote('editor.focus');
+    $('#document_front_text').summernote('editor.insertText', toInsert);
+
+
+    /*
+    var defaultVariable = page.find('input:radio[name="defaultVariables"]:checked').val();
     var selection = document.getSelection();
     var cursorPos = selection.anchorOffset;
     var oldContent = selection.anchorNode.nodeValue;
     var toInsert = "{" + defaultVariable + "}";
     var newContent = oldContent.substring(0, cursorPos) + toInsert + oldContent.substring(cursorPos);
     selection.anchorNode.nodeValue = newContent;
-
+    */
   });
 }
 
