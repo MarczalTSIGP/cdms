@@ -11,6 +11,7 @@ window.CDMS.document.init = () => {
 
   window.CDMS.document.variables.submit(page);
   window.CDMS.document.variables.remove(page);
+  window.CDMS.document.variables.addFrontDefaultVariable(page);
 };
 
 window.CDMS.document.variables.submit = (page) => {
@@ -41,6 +42,15 @@ window.CDMS.document.variables.submit = (page) => {
     });
   });
 };
+
+window.CDMS.document.variables.addFrontDefaultVariable = (page) => {
+  page.find('button#add_front_variables').on('click', () => {
+    var defaultVariable = page.find('input:radio[name="defaultFrontVariables"]:checked').val();
+    var frontText = page.find('textarea#document_front_text').val();
+    page.find('textarea#document_front_text').val(frontText + ' {' + defaultVariable + '} ');
+    console.log(frontText);
+  });
+}
 
 window.CDMS.document.variables.remove = (page) => {
   page.find('table#variables-table tbody').on('click', 'tr td:last-child a', function removeVariable() {
