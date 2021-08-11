@@ -15,24 +15,26 @@
       prompt: t('views.prompt.select.m', name: t('activerecord.attributes.document.department').downcase) %>
   </div>
 
-  <div class="row">
-    <div class="col-md-9">
-      <%= f.input :front_text, input_html: { data: { type: 'summernote' } } %>
-    </div>
-    <div class="col-md-3 pt-6">
-      <%= render 'variables_front_default' %>
-    </div>
-  </div>
+
+
 
   <div class="row">
     <div class="col-md-9">
-      <%= f.input :back_text, input_html: { data: { type: 'summernote' } } %>
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.input :front_text, input_html: { data: { type: 'summernote' } } %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.input :back_text, input_html: { data: { type: 'summernote' } } %>
+        </div>
+      </div>
     </div>
-    <div class="col-md-3 pt-6">
-      <%= render 'variables_back_default' %>
+    <div class="col-md-3 pt-3">
+      <%= render 'variables_default' %>
     </div>
   </div>
-
   <div class="form-footer">
     <div class="d-flex">
       <%= link_to t('views.links.back'), users_documents_path, class: 'btn btn-secondary' %>
