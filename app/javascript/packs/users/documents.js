@@ -46,7 +46,7 @@ window.CDMS.document.variables.submit = (page) => {
 window.CDMS.document.variables.addFrontDefaultVariable = (page) => {
   page.find('button#add_front_variables').on('click', () => {
     var defaultVariable = page.find('input:radio[name="defaultFrontVariables"]:checked').val();
-    $(".document_front_text > div:nth-child(3) > div:nth-child(3) > div:nth-child(3) > p:nth-child(1)").append(defaultVariable);
+    $(".document_front_text > div:nth-child(3) > div:nth-child(3) > div:nth-child(3) > p:nth-child(1)").append("{" + defaultVariable + "}");
   });
 }
 
