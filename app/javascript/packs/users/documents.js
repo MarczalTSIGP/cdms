@@ -42,26 +42,26 @@ window.CDMS.document.variables.submit = (page) => {
   });
 };
 
-var lastSummer;
+let lastSummer;
 window.CDMS.document.variables.addDefaultVariable = (page) => {
   page.find('button#add_default_variable').on('click', () => {
-    var defaultVariable = page.find('input:radio[name="defaultVariable"]:checked').val();
-    var toInsert = "{" + defaultVariable + "}";
-    $('#document_' + lastSummer).summernote('editor.saveRange');
-    $('#document_' + lastSummer).summernote('editor.restoreRange');
-    $('#document_' + lastSummer).summernote('editor.focus');
-    $('#document_' + lastSummer).summernote('editor.insertText', toInsert);
+    const defaultVariable = page.find('input:radio[name="defaultVariable"]:checked').val();
+    const toInsert = `{${defaultVariable}}`;
+    $(`#document_${lastSummer}`).summernote('editor.saveRange');
+    $(`#document_${lastSummer}`).summernote('editor.restoreRange');
+    $(`#document_${lastSummer}`).summernote('editor.focus');
+    $(`#document_${lastSummer}`).summernote('editor.insertText', toInsert);
   });
-}
+};
 
-window.CDMS.document.variables.lastFocusSummerNote = (page) => {
-  $("#document_front_text").on("summernote.mouseup", function (e, mouseEvent) {
-    lastSummer = 'front_text'
+window.CDMS.document.variables.lastFocusSummerNote = () => {
+  $('#document_front_text').on('summernote.mouseup', () => {
+    lastSummer = 'front_text';
   });
-  $("#document_back_text").on("summernote.mouseup", function (e, mouseEvent) {
-    lastSummer = 'back_text'
+  $('#document_back_text').on('summernote.mouseup', () => {
+    lastSummer = 'back_text';
   });
-}
+};
 
 window.CDMS.document.variables.remove = (page) => {
   page.find('table#variables-table tbody').on('click', 'tr td:last-child a', function removeVariable() {
