@@ -11,7 +11,8 @@ window.CDMS.document.init = () => {
 
   window.CDMS.document.variables.submit(page);
   window.CDMS.document.variables.remove(page);
-  window.CDMS.document.variables.addFrontDefaultVariable(page);
+  window.CDMS.document.variables.addDefaultVariable(page);
+  window.CDMS.document.variables.lastFocusSummerNote(page);
 };
 
 window.CDMS.document.variables.submit = (page) => {
@@ -43,9 +44,9 @@ window.CDMS.document.variables.submit = (page) => {
   });
 };
 
-window.CDMS.document.variables.addFrontDefaultVariable = (page) => {
-  page.find('button#add_front_variable').on('click', () => {
-    var defaultVariable = page.find('input:radio[name="frontDefaultVariables"]:checked').val();
+window.CDMS.document.variables.addDefaultVariable = (page) => {
+  page.find('button#add_default_variable').on('click', () => {
+    var defaultVariable = page.find('input:radio[name="defaultVariable"]:checked').val();
     var toInsert = "{" + defaultVariable + "}";
     $('#document_front_text').summernote('editor.saveRange');
     $('#document_front_text').summernote('editor.restoreRange');
@@ -53,14 +54,10 @@ window.CDMS.document.variables.addFrontDefaultVariable = (page) => {
     $('#document_front_text').summernote('editor.insertText', toInsert);
   });
 }
-window.CDMS.document.variables.addBackDefaultVariable = (page) => {
-  page.find('button#add_back_variable').on('click', () => {
-    var defaultVariable = page.find('input:radio[name="backDefaultVariables"]:checked').val();
-    var toInsert = "{" + defaultVariable + "}";
-    $('#document_back_text').summernote('editor.saveRange');
-    $('#document_back_text').summernote('editor.restoreRange');
-    $('#document_back_text').summernote('editor.focus');
-    $('#document_back_text').summernote('editor.insertText', toInsert);
+
+window.CDMS.document.variables.lastFocusSummerNote = (page) => {
+  page.find('#document_front_text').on('select', () => {
+    window.alert("asd");
   });
 }
 
