@@ -50,6 +50,7 @@ class CreateTest < ApplicationSystemTestCase
         assert_selector 'tr:nth-child(1) td:nth-child(1)', text: 'Student name'
       end
 
+      #TODO
       visit edit_users_document_path(document)
       find('#defaultVariable_email').click
       find('add_default_variable').click
