@@ -105,21 +105,20 @@ class UpdateTest < ApplicationSystemTestCase
           assert_no_selector 'div.variable_identifier div.invalid-feedback'
         end
 
-        
         fill_in 'variable_identifier', with: 'student name'
         click_button('add_variable')
 
         within('div#add_variables_modal') do
           assert_selector 'div.variable_identifier div.invalid-feedback', text: 'possui caracteres inválidos'
         end
-        
+
         fill_in 'variable_name', with: 'Student'
         fill_in 'variable_identifier', with: 'name'
         click_button('add_variable')
 
         within('div#add_variables_modal') do
           assert_selector 'div.variable_identifier div.invalid-feedback'
-        end     
+        end
       end
 
       should 'not duplicate variables with same identifier' do

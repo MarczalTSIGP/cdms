@@ -55,7 +55,7 @@ class CreateTest < ApplicationSystemTestCase
       page.execute_script("document.getElementById('document_front_text').innerText = ''")
       find('#defaultVariable_email').click
       find('#add_default_variable').click
-      
+
       within('div.document_front_text') do
         assert_text('{email}')
       end
