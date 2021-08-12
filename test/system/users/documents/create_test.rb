@@ -39,6 +39,17 @@ class CreateTest < ApplicationSystemTestCase
         assert_selector "a[href='#{users_preview_document_path(document)}']"
         assert_selector "a[href='#{users_document_path(document)}'][data-method='delete']"
       end
+
+      visit edit_users_document_path(document)
+      within('table#variables-table tbody') do
+        assert_selector 'tr:nth-child(1) td:nth-child(1)', text: 'Student name'
+      end
+
+      visit edit_users_document_path(document)
+      find('#defaultVariable_email').click
+      find('add_default_variable').click
+      assert_selector('#document_front_text', text: '{email}')
+
     end
 
     should 'unsuccessfully' do
