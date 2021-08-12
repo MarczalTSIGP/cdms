@@ -5,10 +5,13 @@ window.CDMS.validations.validate = (options) => {
   const presenceInvalid = window.CDMS.validations.presence();
   const regexInvalid = window.CDMS.validations.regex();
   const uniquenessInJsonInvalid = window.CDMS.validations.uniquenessInJson();
+  const defaultVariablesIdentifiersInvalid = window.CDMS.validations.defaultVariablesIdentifiers();
 
   if (presenceInvalid
     || regexInvalid
-    || uniquenessInJsonInvalid) options.error();
+    || uniquenessInJsonInvalid
+    || defaultVariablesIdentifiersInvalid) options.error();
+
   else options.success();
 };
 
@@ -29,6 +32,29 @@ window.CDMS.validations.regex = () => {
     const regex = new RegExp(normalizeRegex[1], normalizeRegex[3]);
 
     if (regex.test(input.val())) {
+      window.CDMS.validations.utils.displayError(input, validator, message);
+      hasErrors = true;
+    } else {
+      window.CDMS.validations.utils.removeDisplayedError(input, validator);
+    }
+  });
+
+  return hasErrors;
+};
+window.CDMS.validations.defaultVariablesIdentifiers = () => {
+  const inputs = $('input[data-validations-default-values]');
+  if (inputs.length === 0) return false;
+
+  let hasErrors = false;
+  inputs.each(function validate() {
+    const validator = 'default-variables';
+    const defaultMessage = 'identificador padrão não permitido';
+
+    const input = $(this);
+    const message = input.data(`validations-${validator}-message`) || defaultMessage;
+
+    if (input.val() === 'name' || input.val() === 'cpf' || input.val() === 'register_number'
+      || input.val() === 'email') {
       window.CDMS.validations.utils.displayError(input, validator, message);
       hasErrors = true;
     } else {
