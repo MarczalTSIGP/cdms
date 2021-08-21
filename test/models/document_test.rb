@@ -12,7 +12,6 @@ class DocumentTest < ActiveSupport::TestCase
       assert_includes document.errors.messages[:category], I18n.t('errors.messages.inclusion')
     end
   end
-
   context 'category' do
     should define_enum_for(:category)
       .with_values(declaration: 'declaration', certification: 'certification')
@@ -24,6 +23,59 @@ class DocumentTest < ActiveSupport::TestCase
                I18n.t('enums.categories.certification') => 'certification' }
 
       assert_equal hash, Document.human_categories
+    end
+  end
+
+  context 'variables' do
+    setup do
+      department = create(:department)
+      @document = build(:document, :declaration, department: department)
+    end
+
+    should 'be an empty array by default' do
+      assert @document.valid?
+    end
+
+    should 'only accept array of json' do
+      @document.variables = { name: 'Nome', identifier: 'name' }
+
+      assert_not @document.valid?
+      assert_equal 1, @document.errors.messages[:variables].size
+      assert_contains @document.errors.messages[:variables], I18n.t('activerecord.errors.messages.not_an_array')
+
+      @document.variables = [{ name: 'Nome', identifier: 'name' }]
+      assert @document.valid?
+    end
+
+    should 'accept only with name and identifier keys' do
+      @document.variables = [{ name: 'Nome', identiier: 'name' }]
+
+      assert_not @document.valid?
+      assert_contains @document.errors.messages[:variables], I18n.t('activerecord.errors.messages.invalid')
+    end
+
+    should 'accept json format' do
+      json = [{ name: 'Nome', identifier: 'name' }]
+      @document.variables = json
+
+      assert_equal 'Nome', @document.variables[0]['name']
+      assert_equal 'name', @document.variables[0]['identifier']
+    end
+
+    should 'accept json format in string' do
+      json_s = '[{"name":"Nome","identifier":"name"}]'
+      @document.variables = json_s
+
+      assert_equal 'Nome', @document.variables[0]['name']
+      assert_equal 'name', @document.variables[0]['identifier']
+    end
+
+    should 'not accept json string unformated' do
+      json_s = '[{"name:"Nome","identifier":"name"}]'
+
+      assert_raise JSON::ParserError do
+        @document.variables = json_s
+      end
     end
   end
 end

@@ -1,18 +1,27 @@
 <%= simple_form_for([:users, @document]) do |f| %>
 
-  <div class="row">
-    <%= f.input :title, wrapper_html: { class: 'col-sm-12' } %>
-  </div>
+  <%= f.hidden_field :variables, value: @document.variables.to_json %>
 
   <div class="row">
-    <%= f.input :category, label: false, wrapper_html: { class: 'col-sm-6' },
-      input_html: {class: 'apply-selectize'},
-      collection: Document.human_categories,
-      prompt: t('views.prompt.select.m', name: Document.human_attribute_name(:category)) %>
-    <%= f.input :department_id, label: false, wrapper_html: { class: 'col-sm-6' },
-      input_html: {class: 'apply-selectize'},
-      collection: @departments,
-      prompt: t('views.prompt.select.m', name: t('activerecord.attributes.document.department').downcase) %>
+    <div class="col-md-8">
+
+      <%= f.input :title %>
+
+      <%= f.input :category,
+        input_html: {class: 'apply-selectize'},
+        collection: Document.human_categories,
+        prompt: t('views.prompt.select.m', name: Document.human_attribute_name(:category)) %>
+
+      <%= f.input :department_id,
+        input_html: {class: 'apply-selectize'},
+        collection: @departments,
+        prompt: t('views.prompt.select.m', name: t('activerecord.attributes.document.department').downcase) %>
+
+    </div>
+
+    <div class="col-md-4">
+      <%= render 'variables' %>
+    </div>
   </div>
 
   <div class="row">

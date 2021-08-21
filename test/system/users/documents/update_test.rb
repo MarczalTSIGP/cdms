@@ -23,12 +23,10 @@ class UpdateTest < ApplicationSystemTestCase
       fill_in 'document_title', with: document.title
       page.execute_script("document.getElementById('document_front_text').innerText = '#{document.front_text}'")
       page.execute_script("document.getElementById('document_back_text').innerText = '#{document.back_text}'")
-
       submit_form
 
       flash_message = I18n.t('flash.actions.update.m', resource_name: document.model_name.human)
       assert_selector('div.alert.alert-success', text: flash_message)
-
       within('table.table tbody') do
         assert_text document.title
       end
