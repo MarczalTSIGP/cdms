@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       get 'documents/:id/preview', to: 'documents#preview', as: :preview_document
 
       get 'members', to: 'document_member#index'
+      get 'members/list', to: 'document_member#list'
 
       get 'team-departments-modules', to: 'team_departments_modules#index', action: :index
       get 'show-department/:id', to: 'team_departments_modules#show_department',
