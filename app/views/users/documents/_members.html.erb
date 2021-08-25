@@ -23,7 +23,6 @@
                         <div class="input-group mb-3">
                             <div class="input-group">
                                 <%= text_field_tag :search, params[:term],
-                                                data: { url: search_users_documents_members_path },
                                                 class: 'form-control enter-to-submit-search',
                                                 placeholder: t('views.search.placeholder') %>
                                 <span class="input-group-append">
@@ -35,9 +34,7 @@
                     </div>
 
                     <div class="col-sm-12 col-lg-3 mb-3">
-                        <%= link_to new_users_documents_members_path, class: "btn btn-outline-primary btn-block" do %>
                         <%= icon('fas', 'plus', class: 'mr-2') %>Novo
-                        <% end %>
                     </div>
                 </div>
                 <table id="variables-table" class="table card-table table-striped table-vcenter table-small">
