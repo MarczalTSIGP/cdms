@@ -35,3 +35,5 @@ pt-BR:
       defaults:
         name: Nome
         identifier: Identificador
+        email: E-Mail
+        cpf: cpf

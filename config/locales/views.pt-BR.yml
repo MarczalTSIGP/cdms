@@ -99,6 +99,8 @@ pt-BR:
       variables:
         name: Nome
         identifier: Identificador
+      members:
+        new: Novo membro para o certificado
     department:
       name:
         singular: Departamento
