@@ -100,7 +100,9 @@ pt-BR:
         name: Nome
         identifier: Identificador
       members:
+        add: Adicionar novo membro
         new: Novo membro para o certificado
+        list: Lista de membros
     department:
       name:
         singular: Departamento
