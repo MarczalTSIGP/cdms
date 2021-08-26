@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
       resources :document_member, concern: [:paginatable, :searchable_paginatable]
 
+      get 'documents/:documentId/members/add', to: 'document_member#add', as: :document_add_members
       get 'documents/:documentId/members/list', to: 'document_member#list', as: :document_list_members
       get 'documents/:documentId/members/:memberId', to: 'document_member#index'
 

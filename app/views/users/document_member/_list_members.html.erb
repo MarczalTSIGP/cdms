@@ -14,7 +14,9 @@
     </div>
 
     <div class="col-sm-12 col-lg-3 mb-2">
-            <button type="button" class="btn btn-primary"><%= t('views.document.members.add') %></button>
+        <%= link_to users_document_add_members_path, class: "btn btn-outline-primary btn-block" do %>
+            <%= icon('fas', 'plus', class: 'mr-2') %><%= t('views.document.document_members.new') %>
+        <% end %>
     </div>
 </div>
 <table id="variables-table" class="table card-table table-striped table-vcenter">

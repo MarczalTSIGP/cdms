@@ -86,6 +86,10 @@ pt-BR:
         new: Novo usuário
         access: Área do usuário
     document:
+      document_members:
+        new: Novo Membro
+        edit: Editar membro
+        show: Visualizar membro
       links:
         edit: Editar
         new: Novo certificado/declaração

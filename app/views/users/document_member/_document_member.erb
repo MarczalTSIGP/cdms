@@ -4,10 +4,10 @@
     <td><%= @document_member.email %></td>
 
     <td>
-        <%= link_to edit_admins_audience_member_path(document_member) do %>
+        <%= link_to add_users_document_member_path(document_member) do %>
             <%= icon('fas', 'edit', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.edit')) %>
         <% end %>
-        <%= link_to admins_audience_member_path(document_member), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
+        <%= link_to users_document_member_path(document_member), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
             <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
         <% end %>
     </td>
