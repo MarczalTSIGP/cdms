@@ -29,22 +29,8 @@
     </thead>
 
     <tbody>
-        <tr>
-            <td> João da Silva Teste</td>
-            <td> joaoteste@gmail.com
-            <td> 012.345.678.90</td>
-            <td class='w-1'>
-                <a>
-                    <%= icon('fas', 'edit', class: 'icon') %>
-                </a>
-            </td>
-            <td>
-                <a>
-                    <%= icon('fas', 'trash', class: 'icon') %>
-                </a>
-            </td>
-        </tr>
+      <%= render @document_member %>
     </tbody>
 </table>
-
+<%= paginate @document_member %>
     

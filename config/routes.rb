@@ -34,9 +34,10 @@ Rails.application.routes.draw do
       resources :documents, concerns: [:paginatable, :searchable_paginatable]
       get 'documents/:id/preview', to: 'documents#preview', as: :preview_document
 
+      resources :document_member, concern: [:paginatable, :searchable_paginatable]
+
+      get 'documents/:id/members/list', to: 'document_member#list', as: :document_member_list
       get 'documents/:documentId/members/:memberId', to: 'document_member#index'
-      get 'members', to: 'document_member#index'
-      get 'members/list', to: 'document_member#list'
 
       get 'team-departments-modules', to: 'team_departments_modules#index', action: :index
       get 'show-department/:id', to: 'team_departments_modules#show_department',
@@ -65,7 +66,6 @@ Rails.application.routes.draw do
 
       resources :departments, constraints: { id: /[0-9]+/ }, concerns: [:paginatable, :searchable_paginatable] do
         resources :department_modules, except: [:index, :show], as: :modules, path: 'modules'
-
         get '/members', to: 'departments#members', as: :members
 
         post '/members', to: 'departments#add_member', as: :add_member

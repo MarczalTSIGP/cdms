@@ -1,80 +1,10 @@
 <div class="card">
     <div class="card-header d-flex">
-        <h5 class="card-title"><%= Document.human_attribute_name :variables %></h5>
+        <h5 class="card-title">Membros</h5>
 
-        <%= link_to '#', class: 'ml-auto', "data-toggle" => "modal", "data-target" => "#add_document_member" do %>
-            <%= icon('fas', 'plus', id:'add_variable_button', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.add')) %>
+        <%= link_to users_document_member_list_path(@document) do %>
+            <%= icon('fas', 'plus', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.edit')) %>
         <% end %>
-    </div>
-</div>
-
-<div class="modal fade" id="add_document_member" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Adicionar Membro</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12 col-lg-9 mb-2">
-                        <div class="input-group mb-3">
-                            <div class="input-group">
-                                <%= text_field_tag :search, params[:term],
-                                                class: 'form-control enter-to-submit-search',
-                                                placeholder: t('views.search.placeholder') %>
-                                <span class="input-group-append">
-                                <button class="btn btn-outline-info submit-search" type="button"><i class="fe fe-search"></i></button>
-                                </span>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="col-sm-12 col-lg-3 mb-3">
-                        <%= icon('fas', 'plus', class: 'mr-2') %>Novo
-                    </div>
-                </div>
-                <table id="variables-table" class="table card-table table-striped table-vcenter table-small">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>CPF</th>
-                            <th>Email</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td> João da Silva Teste</td>
-                            <td> joaoteste@gmail.com
-                            <td> 012.345.678.90</td>
-                            <td class='w-1'>
-                                <a>
-                                    <%= icon('fas', 'edit', class: 'icon') %>
-                                </a>
-                            </td>
-                            <td>
-                                <a>
-                                    <%= icon('fas', 'trash', class: 'icon') %>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="d-flex">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn btn-primary ml-auto">Confirmar</button>
-            </div>
-
-        </div>
-
     </div>
 </div>
 
