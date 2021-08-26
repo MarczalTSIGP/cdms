@@ -9,6 +9,6 @@ class Users::DocumentMemberController < Users::BaseController
   end
 
   def list
-    @document_members = current_user.documents.find(params[:documentId])
+    @document_member = DocumentMember.find(params[:documentId]) rescue []
   end
 end
