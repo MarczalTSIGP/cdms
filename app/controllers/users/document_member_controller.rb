@@ -9,6 +9,6 @@ class Users::DocumentMemberController < Users::BaseController
   end
 
   def list
-    @document_members = DocumentMember.search(params[:term]).page(params[:page])
+    @document_members = DocumentMember.search(:cpf)
   end
 end

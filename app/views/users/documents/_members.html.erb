@@ -1,9 +1,9 @@
 <div class="card">
-    <div class="card-header d-flex">
+        <div class="card-header d-flex">
         <h5 class="card-title">Membros</h5>
 
-        <%= link_to users_document_member_list_path(@document) do %>
-            <%= icon('fas', 'plus', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.edit')) %>
+        <%= link_to users_document_list_members_path(@document.id), class: 'ml-auto' do %>
+            <%= icon('fas', 'plus', id:'add_member', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.add')) %>
         <% end %>
     </div>
 </div>
