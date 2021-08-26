@@ -9,6 +9,6 @@ class Users::DocumentMemberController < Users::BaseController
   end
 
   def list
-    @document_members = DocumentMember.search(:cpf)
+    @document_members = current_user.documents.find(params[:documentId])
   end
 end
