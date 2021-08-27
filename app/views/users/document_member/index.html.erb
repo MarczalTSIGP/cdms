@@ -1,7 +1,7 @@
 <% provide(:head_title, t('views.document.members.new')) %>
 <% provide(:page_title, t('views.document.members.new')) %>
 
-<% if defined?(@user) %>
+<% if defined?(@id) %>
     <%= render 'form_member'%>
 <% else %>
     <%= render 'form'%>

@@ -3,8 +3,10 @@ class Users::DocumentMemberController < Users::BaseController
     @document = current_user.documents.find(params[:documentId])
     @user = if params[:memberId].to_i >= 1
               User.find(params[:memberId])
-            else
-              User.new
+            else 
+              if params[:memberId]=='nil'
+                @params.inspect
+              end
             end
   end
 
