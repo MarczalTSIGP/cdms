@@ -9,14 +9,14 @@ class Users::DocumentMemberController < Users::BaseController
   end
 
   def list
-    @document_member = begin
-                         DocumentMember.find(params[:documentId])
-                       rescue StandardError
-                         []
-                       end
+    @document_member = DocumentMember.find(params[:documentId]) rescue []
   end
 
-  def show; end
+  def show
+    
+  end
 
-  def add; end
+  def add
+
+  end
 end
