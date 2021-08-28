@@ -20,4 +20,14 @@ class Document < ApplicationRecord
       obj[I18n.t("enums.categories.#{key}")] = key
     end
   end
+
+  def default_variables
+    dv = []
+    dv <<  { name: User.human_attribute_name(:name),  identifier: :name  }
+    dv <<  { name: User.human_attribute_name(:cpf),   identifier: :cpf   }
+    dv <<  { name: User.human_attribute_name(:email), identifier: :email }
+    dv <<  { name: User.human_attribute_name(:register_number), identifier: :register_number }
+
+    dv
+  end
 end

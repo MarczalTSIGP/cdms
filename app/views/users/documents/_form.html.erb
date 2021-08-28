@@ -16,31 +16,17 @@
         input_html: {class: 'apply-selectize'},
         collection: @departments,
         prompt: t('views.prompt.select.m', name: t('activerecord.attributes.document.department').downcase) %>
-
+    
+       <%= f.input :front_text, input_html: { data: { type: 'summernote' } } %>
+       <%= f.input :back_text, input_html: { data: { type: 'summernote' } } %>
     </div>
 
     <div class="col-md-4">
+      <%= render 'default_variables' %>
       <%= render 'variables' %>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-9">
-      <div class="row">
-        <div class="col-md-12">
-          <%= f.input :front_text, input_html: { data: { type: 'summernote' } } %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <%= f.input :back_text, input_html: { data: { type: 'summernote' } } %>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 pt-3">
-      <%= render 'variables_default' %>
-    </div>
-  </div>
   <div class="form-footer">
     <div class="d-flex">
       <%= link_to t('views.links.back'), users_documents_path, class: 'btn btn-secondary' %>

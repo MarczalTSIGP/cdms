@@ -26,6 +26,28 @@ class DocumentTest < ActiveSupport::TestCase
     end
   end
 
+  context 'default variables' do
+    setup do
+      @document = Document.new
+    end
+
+    should 'return all' do
+      dv = []
+      dv <<  { name: User.human_attribute_name(:name),  identifier: :name  }
+      dv <<  { name: User.human_attribute_name(:cpf),   identifier: :cpf   }
+      dv <<  { name: User.human_attribute_name(:email), identifier: :email }
+      dv <<  { name: User.human_attribute_name(:register_number), identifier: :register_number }
+
+      assert_equal dv, @document.default_variables
+    end
+
+    should 'return only the identifiers' do
+      identifiers = [:name, :cpf, :email, :register_number]
+
+      assert_equal identifiers, @document.default_variables.identifiers
+    end
+  end
+
   context 'variables' do
     setup do
       department = create(:department)

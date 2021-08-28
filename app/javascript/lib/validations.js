@@ -42,7 +42,7 @@ window.CDMS.validations.regex = () => {
   return hasErrors;
 };
 window.CDMS.validations.defaultVariablesIdentifiers = () => {
-  const inputs = $('input[data-validations-default-values]');
+  const inputs = $('input[data-validations-default-variables]');
   if (inputs.length === 0) return false;
 
   let hasErrors = false;
@@ -52,9 +52,9 @@ window.CDMS.validations.defaultVariablesIdentifiers = () => {
 
     const input = $(this);
     const message = input.data(`validations-${validator}-message`) || defaultMessage;
+    const defaultVariables = input.data('validations-default-variables').split(',');
 
-    if (input.val() === 'name' || input.val() === 'cpf' || input.val() === 'register_number'
-      || input.val() === 'email') {
+    if (defaultVariables.includes(input.val())) {
       window.CDMS.validations.utils.displayError(input, validator, message);
       hasErrors = true;
     } else {

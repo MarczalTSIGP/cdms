@@ -67,13 +67,8 @@ pt-BR:
         department: Departamento
         department_id: Departamento
         variables: Variávies
-        variable:
-          default_variables: Variáveis Padrão
-          name: Nome
-          mail: Email
-          cpf: CPF
-          register_number: N° de Registro
-        department_module:
+        default_variables: Variáveis Padrão
+      department_module:
         name: Nome
         description: Descrição
         <<: *commons
