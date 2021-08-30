@@ -40,12 +40,6 @@ class DocumentTest < ActiveSupport::TestCase
 
       assert_equal dv, @document.default_variables
     end
-
-    should 'return only the identifiers' do
-      identifiers = [:name, :cpf, :email, :register_number]
-
-      assert_equal identifiers, @document.default_variables.identifiers
-    end
   end
 
   context 'variables' do

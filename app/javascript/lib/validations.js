@@ -31,12 +31,8 @@ window.CDMS.validations.regex = () => {
     const normalizeRegex = regexString.match(/^\/(.*)(\/(.*))$/);
     const regex = new RegExp(normalizeRegex[1], normalizeRegex[3]);
 
-    if (regex.test(input.val())) {
-      window.CDMS.validations.utils.displayError(input, validator, message);
-      hasErrors = true;
-    } else {
-      window.CDMS.validations.utils.removeDisplayedError(input, validator);
-    }
+    hasErrors = window.CDMS.validations.utils.displayErrors(regex.test(input.val()),
+      input, validator, message) || hasErrors;
   });
 
   return hasErrors;
@@ -54,12 +50,10 @@ window.CDMS.validations.defaultVariablesIdentifiers = () => {
     const message = input.data(`validations-${validator}-message`) || defaultMessage;
     const defaultVariables = input.data('validations-default-variables').split(',');
 
-    if (defaultVariables.includes(input.val())) {
-      window.CDMS.validations.utils.displayError(input, validator, message);
-      hasErrors = true;
-    } else {
-      window.CDMS.validations.utils.removeDisplayedError(input, validator);
-    }
+    hasErrors = window.CDMS.validations.utils.displayErrors(
+      (defaultVariables.includes(input.val())),
+      input, validator, message,
+    ) || hasErrors;
   });
 
   return hasErrors;
@@ -77,12 +71,10 @@ window.CDMS.validations.presence = () => {
     const input = $(this);
     const message = input.data(`validations-${validator}-message`) || defaultMessage;
 
-    if (input.val().trim().length === 0) {
-      window.CDMS.validations.utils.displayError(input, validator, message);
-      hasErrors = true;
-    } else {
-      window.CDMS.validations.utils.removeDisplayedError(input, validator);
-    }
+    hasErrors = window.CDMS.validations.utils.displayErrors(
+      (input.val().trim().length === 0),
+      input, validator, message,
+    ) || hasErrors;
   });
 
   return hasErrors;
@@ -102,15 +94,23 @@ window.CDMS.validations.uniquenessInJson = () => {
 
     const jsonS = $(input.data(`validations-${validator}`)).val();
     const json = JSON.parse(jsonS);
-    if (json.some((item) => item.identifier === input.val())) {
-      window.CDMS.validations.utils.displayError(input, validator, message);
-      hasErrors = true;
-    } else {
-      window.CDMS.validations.utils.removeDisplayedError(input, validator);
-    }
+
+    hasErrors = window.CDMS.validations.utils.displayErrors(
+      json.some((item) => item.identifier === input.val()),
+      input, validator, message,
+    ) || hasErrors;
   });
 
   return hasErrors;
+};
+
+window.CDMS.validations.utils.displayErrors = (conditional, input, validator, message) => {
+  if (conditional) {
+    window.CDMS.validations.utils.displayError(input, validator, message);
+    return true;
+  }
+  window.CDMS.validations.utils.removeDisplayedError(input, validator);
+  return false;
 };
 
 window.CDMS.validations.utils.removeDisplayedError = (element, validator) => {
