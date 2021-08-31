@@ -15,111 +15,62 @@ window.CDMS.validations.validate = (options) => {
   else options.success();
 };
 
-window.CDMS.validations.regex = () => {
-  const inputs = $('input[data-validations-regex]');
-  if (inputs.length === 0) return false;
-
-  let hasErrors = false;
-  inputs.each(function validate() {
-    const validator = 'regex';
-    const defaultMessage = 'padrão não aceito';
-
-    const input = $(this);
-    const message = input.data(`validations-${validator}-message`) || defaultMessage;
-
-    const regexString = input.data(`validations-${validator}`);
+window.CDMS.validations.regex = () => window.CDMS.validations.baseValidator({
+  validatorName: 'regex',
+  defaultMessage: 'padrão não aceito',
+  validator: (input) => {
+    const regexString = input.data('validations-regex');
     const normalizeRegex = regexString.match(/^\/(.*)(\/(.*))$/);
     const regex = new RegExp(normalizeRegex[1], normalizeRegex[3]);
 
-    hasErrors = window.CDMS.validations.utils.displayErrors(regex.test(input.val()),
-      input, validator, message) || hasErrors;
-  });
+    return regex.test(input.val());
+  },
+});
 
-  return hasErrors;
-};
-window.CDMS.validations.defaultVariablesIdentifiers = () => {
-  const inputs = $('input[data-validations-default-variables]');
-  if (inputs.length === 0) return false;
-
-  let hasErrors = false;
-  inputs.each(function validate() {
-    const validator = 'default-variables';
-    const defaultMessage = 'identificador padrão não permitido';
-
-    const input = $(this);
-    const message = input.data(`validations-${validator}-message`) || defaultMessage;
+window.CDMS.validations.defaultVariablesIdentifiers = () => window.CDMS.validations.baseValidator({
+  validatorName: 'default-variables',
+  defaultMessage: 'identificador padrão não permitido',
+  validator: (input) => {
     const defaultVariables = input.data('validations-default-variables').split(',');
+    return defaultVariables.includes(input.val());
+  },
+});
 
-    hasErrors = window.CDMS.validations.utils.displayErrors(
-      (defaultVariables.includes(input.val())),
-      input, validator, message,
-    ) || hasErrors;
-  });
+window.CDMS.validations.presence = () => window.CDMS.validations.baseValidator({
+  validatorName: 'presence',
+  defaultMessage: 'não pode ficar em branco',
+  validator: (input) => (input.val().trim().length === 0),
+});
 
-  return hasErrors;
-};
-
-window.CDMS.validations.presence = () => {
-  const inputs = $('input[data-validations-presence=true]');
-  if (inputs.length === 0) return false;
-
-  let hasErrors = false;
-  inputs.each(function validate() {
-    const validator = 'presence';
-    const defaultMessage = 'não pode ficar em branco';
-
-    const input = $(this);
-    const message = input.data(`validations-${validator}-message`) || defaultMessage;
-
-    hasErrors = window.CDMS.validations.utils.displayErrors(
-      (input.val().trim().length === 0),
-      input, validator, message,
-    ) || hasErrors;
-  });
-
-  return hasErrors;
-};
-
-window.CDMS.validations.uniquenessInJson = () => {
-  const inputs = $('input[data-validations-uniqueness-in-json]');
-  if (inputs.length === 0) return false;
-
-  let hasErrors = false;
-  inputs.each(function validate() {
-    const validator = 'uniqueness-in-json';
-    const defaultMessage = 'já está em uso';
-
-    const input = $(this);
-    const message = input.data(`validations-${validator}-message`) || defaultMessage;
-
-    const jsonS = $(input.data(`validations-${validator}`)).val();
+window.CDMS.validations.uniquenessInJson = () => window.CDMS.validations.baseValidator({
+  validatorName: 'uniqueness-in-json',
+  defaultMessage: 'já está em uso',
+  validator: (input) => {
+    const jsonS = $(input.data('validations-uniqueness-in-json')).val();
     const json = JSON.parse(jsonS);
 
-    hasErrors = window.CDMS.validations.utils.displayErrors(
-      json.some((item) => item.identifier === input.val()),
-      input, validator, message,
-    ) || hasErrors;
+    return json.some((item) => item.identifier === input.val());
+  },
+});
+
+window.CDMS.validations.baseValidator = (options) => {
+  const inputs = $(`input[data-validations-${options.validatorName}]`);
+  if (inputs.length === 0) return false;
+
+  let hasErrors = false;
+  inputs.each(function validate() {
+    const input = $(this);
+    const message = input.data(`validations-${options.validatorName}-message`) || options.defaultMessage;
+
+    if (options.validator(input)) {
+      window.CDMS.validations.utils.displayError(input, options.validatorName, message);
+      hasErrors = true;
+    } else {
+      window.CDMS.validations.utils.removeDisplayedError(input, options.validatorName);
+    }
   });
 
   return hasErrors;
-};
-
-window.CDMS.validations.utils.displayErrors = (conditional, input, validator, message) => {
-  if (conditional) {
-    window.CDMS.validations.utils.displayError(input, validator, message);
-    return true;
-  }
-  window.CDMS.validations.utils.removeDisplayedError(input, validator);
-  return false;
-};
-
-window.CDMS.validations.utils.removeDisplayedError = (element, validator) => {
-  if (element.hasClass(`${validator}-validator`)) {
-    element.removeClass('is-invalid');
-    element.removeClass('{validator}-validator');
-  }
-
-  element.next(`div.invalid-feedback.${validator}-validator`).remove();
 };
 
 window.CDMS.validations.utils.displayError = (element, validator, message) => {
@@ -131,4 +82,13 @@ window.CDMS.validations.utils.displayError = (element, validator, message) => {
 
   element.addClass(`is-invalid ${validator}-validator`);
   element.parent().append(error);
+};
+
+window.CDMS.validations.utils.removeDisplayedError = (element, validator) => {
+  if (element.hasClass(`${validator}-validator`)) {
+    element.removeClass('is-invalid');
+    element.removeClass('{validator}-validator');
+  }
+
+  element.next(`div.invalid-feedback.${validator}-validator`).remove();
 };
