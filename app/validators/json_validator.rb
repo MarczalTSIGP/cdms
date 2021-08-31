@@ -6,7 +6,6 @@ class JsonValidator < ActiveModel::EachValidator
     @record = record
     @attribute = attribute
     @value = value
-
     validate_is_array
     validate_json_keys
   end
