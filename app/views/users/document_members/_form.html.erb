@@ -1,0 +1,42 @@
+<%= simple_form_for(:member, url: users_document_add_member_path(@document), method: :post) do |f| %>
+  <div class="row">
+    <%= f.hidden_field :user_id %>
+    <%= f.input :user, label: false,
+                wrapper_html: { class: 'col-sm-6' },
+                placeholder: 'Pesquise por um usuário',
+                input_html: { data: { search: 'keypress', search_url: api_search_users_path },
+                              } %>
+
+    <div class="col-sm-1">
+      <%= button_tag type: 'submit', class: 'btn btn-primary' do %>
+        <i class="fe fe-user-plus"></i>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="table-responsive">
+  <table class="table card-table table-striped table-vcenter table-options">
+    <thead>
+      <tr>
+        <th><%= User.human_attribute_name(:name) %></th>
+        <th><%= User.human_attribute_name(:email) %></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @document.members.each do |member|  %>
+        <tr>
+          <td><%= member['name'] %></td>
+          <td><%= member['email'] %></td>
+          <td>
+            <%= link_to users_document_del_members_path(@document, member['user_id']), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
+              <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

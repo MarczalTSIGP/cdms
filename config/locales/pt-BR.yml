@@ -73,6 +73,9 @@ pt-BR:
           mail: Email
           cpf: CPF
           register_number: N° de Registro
+        member:
+          name: Nome
+          email: "E-Mail"
         department_module:
         name: Nome
         description: Descrição
