@@ -37,6 +37,30 @@ class CreateTest < ApplicationSystemTestCase
         assert_selector "a[href='#{users_preview_document_path(document)}']"
         assert_selector "a[href='#{users_document_path(document)}'][data-method='delete']"
       end
+
+      visit edit_users_document_path(document)
+      within('table#variables-table tbody') do
+        assert_selector 'tr:nth-child(1) td:nth-child(1)', text: 'Student name'
+      end
+
+      visit edit_users_document_path(document)
+      find('.document_front_text > div:nth-child(3) > div:nth-child(3) > div:nth-child(3)').click
+      page.execute_script("document.getElementById('document_front_text').innerText = ''")
+      find('#defaultVariable_email').click
+      find('#add_default_variable').click
+
+      within('div.document_front_text') do
+        assert_text('{email}')
+      end
+
+      find('.document_back_text > div:nth-child(3) > div:nth-child(3)').click
+      page.execute_script("document.getElementById('document_back_text').innerText = ''")
+      find('#defaultVariable_name').click
+      find('#add_default_variable').click
+
+      within('div.document_back_text') do
+        assert_text('{name}')
+      end
     end
 
     should 'unsuccessfully' do

@@ -13,6 +13,11 @@ Rails.application.routes.draw do
           costraints: { term: %r{[^/]+} }, # allows anything except a slash.
           to: 'search_members#search_non_members',
           as: 'search_non_members'
+      
+      get 'users/search/(:term)',
+          costraints: { term: %r{[^/]+} }, # allows anything except a slash.
+          to: 'search_members#search_users',
+          as: 'search_users'
     end
 
     namespace :users do
@@ -33,6 +38,14 @@ Rails.application.routes.draw do
 
       resources :documents, concerns: [:paginatable, :searchable_paginatable]
       get 'documents/:id/preview', to: 'documents#preview', as: :preview_document
+
+      # post 'documents/members', to: 'document_member#new', as: :document_member_add
+
+      post 'documents/:document_id/members', to: 'document_members#add', as: :document_add_member
+      get 'documents/:document_id/members', to: 'document_members#members', as: :document_members
+      # get 'documents/:document_id/members/(:memberId)', to: 'document_member#index', as: :document_show_member
+
+      delete 'documents/:document_id/members/:user_id', to: 'document_members#delete', as: :document_del_members
 
       get 'team-departments-modules', to: 'team_departments_modules#index', action: :index
       get 'show-department/:id', to: 'team_departments_modules#show_department',
@@ -61,7 +74,6 @@ Rails.application.routes.draw do
 
       resources :departments, constraints: { id: /[0-9]+/ }, concerns: [:paginatable, :searchable_paginatable] do
         resources :department_modules, except: [:index, :show], as: :modules, path: 'modules'
-
         get '/members', to: 'departments#members', as: :members
 
         post '/members', to: 'departments#add_member', as: :add_member

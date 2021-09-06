@@ -3,7 +3,7 @@ pt-BR:
     "yes": Sim
     "no": Não
     required:
-      text: obrigatório
+      text: Obrigatóio
       mark: '*'
     buttons:
       cancel: Cancelar
@@ -35,3 +35,5 @@ pt-BR:
       defaults:
         name: Nome
         identifier: Identificador
+        email: E-Mail
+        cpf: CPF

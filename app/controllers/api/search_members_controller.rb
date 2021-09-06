@@ -10,6 +10,11 @@ class Api::SearchMembersController < ActionController::API
     render json: non_members.as_json(only: [:id, :name])
   end
 
+  def search_users
+    members = User.search(params[:term]).page(params[:page]).order('name ASC')
+    render json: members.as_json(only: [:id, :name])
+  end
+
   private
 
   def find_department

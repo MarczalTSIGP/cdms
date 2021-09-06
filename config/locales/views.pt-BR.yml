@@ -86,6 +86,10 @@ pt-BR:
         new: Novo usuário
         access: Área do usuário
     document:
+      document_members:
+        new: Novo Membro
+        edit: Editar membro
+        show: Visualizar membro
       links:
         edit: Editar
         new: Novo certificado/declaração
@@ -99,6 +103,10 @@ pt-BR:
       variables:
         name: Nome
         identifier: Identificador
+      members:
+        add: Adicionar novo membro
+        new: Novo membro para o certificado
+        list: Lista de membros
     department:
       name:
         singular: Departamento

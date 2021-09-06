@@ -1,0 +1,14 @@
+<tr>
+    <td><%= link_to document.name, users_document_members_path(document_member) %></td>
+    <td><%= document_member.cpf %></td>
+    <td><%= document_member.email %></td>
+
+    <td>
+        <%= link_to edit_users_document_member_path(document_member) do %>
+            <%= icon('fas', 'edit', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.edit')) %>
+        <% end %>
+        <%= link_to users_document_member_path(document_member), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
+            <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
+        <% end %>
+    </td>
+</tr>
