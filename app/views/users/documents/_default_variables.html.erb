@@ -1,0 +1,32 @@
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title"><%= Document.human_attribute_name :default_variables %></h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive table-scrollbar-y">
+            <table id="default-variables-table" class="table card-table table-striped table-vcenter table-small">
+                <thead>
+                    <tr>
+                        <th><%= t('views.document.variables.name') %></th>
+                        <th><%= t('views.document.variables.identifier') %></th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% @document.default_variables.each do |variable| %>
+                        <tr>
+                            <td> <%= variable[:name] %></td>
+                            <td> <%= variable[:identifier] %></td>
+                            <td class='w-1'>
+                                <a data-variable-to-add="<%= variable[:identifier] %>" href="#">
+                                 <%= icon('fas', 'plus', class: 'icon', "data-toggle" => "tooltip", "data-original-title" => "Adicionar variável no texto") %>
+                                </a>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

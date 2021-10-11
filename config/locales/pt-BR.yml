@@ -67,6 +67,7 @@ pt-BR:
         department: Departamento
         department_id: Departamento
         variables: Variávies
+        default_variables: Variáveis Padrão
       department_module:
         name: Nome
         description: Descrição
