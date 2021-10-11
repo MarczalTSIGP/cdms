@@ -8,7 +8,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive table-scrollbar-y">
-            <table id="variables-table" class="table card-table table-striped table-vcenter table-small">
+            <table id="variables-table" class="table card-table table-striped table-vcenter table-small table-options">
                 <thead>
                     <tr>
                         <th><%= t('views.document.variables.name') %></th>
@@ -23,6 +23,9 @@
                             <td> <%= variable['name'] %></td>
                             <td> <%= variable['identifier'] %></td>
                             <td class='w-1'>
+                                <a data-variable-to-add="<%= variable[:identifier] %>" href="#">
+                                  <%= icon('fas', 'plus', class: 'icon', "data-toggle" => "tooltip", "data-original-title" => "Adicionar variável no texto") %>
+                                </a>
                                 <a>
                                   <%= icon('fas', 'trash', class: 'icon') %>
                                 </a>
@@ -60,6 +63,7 @@
                                data-validations-presence = "true"
                                data-validations-regex = "/[@!#$%^&*()\/\\\s]/g"
                                data-validations-regex-message = "possui caracteres inválidos"
+                               data-validations-default-variables = "<%= @document.default_variables.pluck(:identifier).join(',') %>"
                         >
                     </div>
                 </div>

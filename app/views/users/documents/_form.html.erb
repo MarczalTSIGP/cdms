@@ -16,16 +16,16 @@
         input_html: {class: 'apply-selectize'},
         collection: @departments,
         prompt: t('views.prompt.select.m', name: t('activerecord.attributes.document.department').downcase) %>
-
+    
+       <%= f.input :front_text, input_html: { data: { type: 'summernote' } } %>
+       <%= f.input :back_text, input_html: { data: { type: 'summernote' } } %>
     </div>
 
     <div class="col-md-4">
+      <%= render 'default_variables' %>
       <%= render 'variables' %>
     </div>
   </div>
-
-  <%= f.input :front_text, input_html: { data: { type: 'summernote' } } %>
-  <%= f.input :back_text, input_html: { data: { type: 'summernote' } } %>
 
   <div class="form-footer">
     <div class="d-flex">
@@ -33,5 +33,4 @@
       <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
     </div>
   </div>
-
 <% end %>
