@@ -22,6 +22,10 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
+  def active_for_authentication?
+    active?
+  end
+
   def username=(username)
     super(username)
 

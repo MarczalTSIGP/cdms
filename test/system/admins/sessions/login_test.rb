@@ -46,4 +46,23 @@ class LoginTest < ApplicationSystemTestCase
       assert_selector 'div.alert.alert-warning', text: I18n.t('devise.failure.unauthenticated')
     end
   end
+
+  context 'inactive user' do
+    should 'should return a warning if login with an inactive account' do
+      user = create(:user)
+
+      visit new_user_session_path
+
+      fill_in 'user_email', with: user.email
+      fill_in 'user_password', with: 'password'
+      assert_not user.active_for_authentication?
+      click_on I18n.t('views.session.new.submit')
+
+      assert_current_path(new_user_session_path)
+      assert_selector 'div.alert.alert-warning', text: I18n.t('devise.failure.inactive')
+
+      visit users_root_path
+      assert_selector 'div.alert.alert-warning', text: I18n.t('devise.failure.unauthenticated')
+    end
+  end
 end
