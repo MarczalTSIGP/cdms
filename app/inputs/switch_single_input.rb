@@ -7,8 +7,9 @@ class SwitchSingleInput < SimpleForm::Inputs::Base
   def input(_wrapper_options)
     template.tag.label(class: 'custom-switch pl-0 mt-2') do
       template.concat @builder.check_box(attribute_name, class: 'custom-switch-input')
+      template.concat span_description_false
       template.concat span_indicator
-      template.concat span_description
+      template.concat span_description_true
     end
   end
 
@@ -16,17 +17,21 @@ class SwitchSingleInput < SimpleForm::Inputs::Base
     template.tag.span(class: 'custom-switch-indicator')
   end
 
-  def span_description
-    field_name = options[:field_name] ||= object.class.human_attribute_name(attribute_name)
+  def span_description_true
+    template.tag.span(class: 'custom-switch-description custom-switch-description-active') do
+      t("activerecord.attributes.admin.active")
+    end
+  end
 
-    template.tag.span(class: 'custom-switch-description') do
-      field_name
+  def span_description_false
+    template.tag.span(class: 'custom-switch-description custom-switch-description-unactive') do
+      t("activerecord.attributes.admin.unactive")
     end
   end
 
   def label(_wrapper_options)
     template.tag.div(class: 'form-label font-weight-normal') do
-      'Status'
+      'Acesso ao sistema'
     end
   end
 end

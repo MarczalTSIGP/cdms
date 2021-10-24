@@ -16993,8 +16993,17 @@ a.tag-addon:hover {
   transition: .3s color;
 }
 
-.custom-switch-input:checked ~ .custom-switch-description {
-  color: #495057;
+.custom-switch-input:checked ~ .custom-switch-description-unactive {
+  color: rgba(240, 109, 109, 0.24);
+}
+.custom-switch-input ~ .custom-switch-description-unactive {
+  color: rgb(240, 109, 109);
+}
+.custom-switch-input:checked ~ .custom-switch-description-active {
+  color: rgb(89, 197, 0);
+}
+.custom-switch-input ~ .custom-switch-description-active {
+  color: rgba(89, 197, 0, 0.24);
 }
 
 .imagecheck {
