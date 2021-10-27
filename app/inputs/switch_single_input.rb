@@ -19,13 +19,13 @@ class SwitchSingleInput < SimpleForm::Inputs::Base
 
   def span_description_true
     template.tag.span(class: 'custom-switch-description custom-switch-description-active') do
-      t("activerecord.attributes.admin.active")
+      t('activerecord.attributes.admin.active')
     end
   end
 
   def span_description_false
     template.tag.span(class: 'custom-switch-description custom-switch-description-unactive') do
-      t("activerecord.attributes.admin.unactive")
+      t('activerecord.attributes.admin.unactive')
     end
   end
 
