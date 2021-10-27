@@ -82,6 +82,12 @@ pt-BR:
         password_confirmation: Confirmação de senha
         remember_me: Lembre-me
         reset_password_token: Token para recuperação de senha
+        active:
+          one: Ativo
+          other: Ativos
+        inactive:
+          one: Inativo
+          other: Inativos
         <<: *commons
         <<: *commons
       audience_member:

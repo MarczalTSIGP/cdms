@@ -41,5 +41,62 @@ class DashboardTest < ApplicationSystemTestCase
       assert_selector selector, text: 3
       assert_selector selector, text: Department.model_name.human(count: 3)
     end
+
+    should 'display the number of active users in singular mode' do
+      create(:user, active: true)
+      visit admins_root_path
+
+      selector = 'div.row.row-cards div.col-sm-3:nth-child(2)'
+      assert_selector selector, text: 1
+      assert_selector selector, text: User.model_name.human(count: 1)
+      assert_selector selector, text: I18n.t('activerecord.attributes.user.active.one')
+    end
+
+    should 'display the number of active users in plural mode' do
+      create_list(:user, 3, active: true)
+      visit admins_root_path
+
+      selector = 'div.row.row-cards div.col-sm-3:nth-child(2)'
+      assert_selector selector, text: 3
+      assert_selector selector, text: User.model_name.human(count: 3)
+      assert_selector selector, text: I18n.t('activerecord.attributes.user.active.other')
+    end
+
+    should 'display the number of inactive users in singular mode' do
+      visit admins_root_path
+
+      selector = 'div.row.row-cards div.col-sm-3:nth-child(3)'
+      assert_selector selector, text: 1
+      assert_selector selector, text: User.model_name.human(count: 1)
+      assert_selector selector, text: I18n.t('activerecord.attributes.user.inactive.one')
+    end
+
+    should 'display the number of inactive users in plural mode' do
+      create_list(:user, 2, active: false)
+      visit admins_root_path
+
+      selector = 'div.row.row-cards div.col-sm-3:nth-child(3)'
+      assert_selector selector, text: 3
+      assert_selector selector, text: User.model_name.human(count: 3)
+      assert_selector selector, text: I18n.t('activerecord.attributes.user.inactive.other')
+    end
+
+    should 'display the number of audience members in singular mode' do
+      create(:audience_member)
+      visit admins_root_path
+
+      selector = 'div.row.row-cards div.col-sm-3:nth-child(4)'
+      assert_selector selector, text: 1
+      assert_selector selector, text: AudienceMember.model_name.human(count: 1)
+    end
+
+    should 'display the number of audience members in plural mode' do
+      create_list(:audience_member, 3)
+      visit admins_root_path
+
+      selector = 'div.row.row-cards div.col-sm-3:nth-child(4)'
+      assert_selector selector, text: 3
+      assert_selector selector, text: AudienceMember.model_name.human(count: 3)
+    end
   end
 end
