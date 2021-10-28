@@ -19,19 +19,19 @@ class SwitchSingleInput < SimpleForm::Inputs::Base
 
   def span_description_true
     template.tag.span(class: 'custom-switch-description custom-switch-description-active') do
-      t('activerecord.attributes.admin.active')
+      t('activerecord.attributes.user.active')
     end
   end
 
   def span_description_false
     template.tag.span(class: 'custom-switch-description custom-switch-description-unactive') do
-      t('activerecord.attributes.admin.unactive')
+      t('activerecord.attributes.user.unactive')
     end
   end
 
   def label(_wrapper_options)
     template.tag.div(class: 'form-label font-weight-normal') do
-      'Acesso ao sistema'
+      t('activerecord.attributes.user.system_access')
     end
   end
 end

@@ -80,6 +80,7 @@ pt-BR:
         register_number: Número do registro
         cpf: CPF
         status: Acesso
+        system_access: Acesso ao sistema
         active: Habilitado
         unactive: Desabilitado
         password: Senha
