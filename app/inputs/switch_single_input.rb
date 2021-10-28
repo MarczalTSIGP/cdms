@@ -5,7 +5,7 @@
 # </label>
 class SwitchSingleInput < SimpleForm::Inputs::Base
   def input(_wrapper_options)
-    template.tag.label(class: 'custom-switch pl-0 mt-2') do
+    template.tag.label(class: 'custom-switch pl-0 mt-3') do
       template.concat @builder.check_box(attribute_name, class: 'custom-switch-input')
       template.concat span_description_false
       template.concat span_indicator
