@@ -52,7 +52,6 @@ class LoginTest < ApplicationSystemTestCase
       user = create(:user, active: false)
       visit new_user_session_path
 
-      assert_not user.active_for_authentication?
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: 'password'
       click_on I18n.t('views.session.new.submit')
