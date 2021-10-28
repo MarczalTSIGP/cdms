@@ -5,32 +5,50 @@
   <div class="col-sm-3">
     <div class="card">
       <div class="card-body p-2 text-center">
-        <div class="h1 m-0"><%= AdminDashboard.departments.count %></div>
-        <div class="text-muted mb-3"><%= AdminDashboard.departments.human %></div>
+        <div class="h1 m-0">
+          <%= AdminDashboard.departments.count %>
+        </div>
+        <div class="text-muted mb-3">
+          <%= AdminDashboard.departments.human %>
+        </div>
       </div>
     </div>
   </div>
   <div class="col-sm-3">
     <div class="card">
       <div class="card-body p-2 text-center">
-        <div class="h1 m-0"><%= AdminDashboard.active_users.count %></div>
-        <div class="text-muted mb-3"><%= AdminDashboard.active_users.human %> <%= t('activerecord.attributes.user.active', count: AdminDashboard.active_users.count) %></div>
+        <div class="h1 m-0">
+          <%= AdminDashboard.active_users.count %>
+        </div>
+        <div class="text-muted mb-3">
+          <%= AdminDashboard.active_users.human %>
+          <%= t('activerecord.attributes.user.active', count: AdminDashboard.active_users.count) %>
+        </div>
       </div>
     </div>
   </div>
   <div class="col-sm-3">
     <div class="card">
       <div class="card-body p-2 text-center">
-        <div class="h1 m-0"><%= AdminDashboard.inactive_users.count %></div>
-        <div class="text-muted mb-3"><%= AdminDashboard.inactive_users.human %> <%= t('activerecord.attributes.user.inactive', count: AdminDashboard.inactive_users.count) %></div>
+        <div class="h1 m-0">
+          <%= AdminDashboard.inactive_users.count %>
+        </div>
+        <div class="text-muted mb-3">
+          <%= AdminDashboard.inactive_users.human %>
+          <%= t('activerecord.attributes.user.inactive', count: AdminDashboard.inactive_users.count) %>
+        </div>
       </div>
     </div>
   </div>
   <div class="col-sm-3">
     <div class="card">
       <div class="card-body p-2 text-center">
-        <div class="h1 m-0"><%= AdminDashboard.audience_members.count %></div>
-        <div class="text-muted mb-3"><%= AdminDashboard.audience_members.human %></div>
+        <div class="h1 m-0">
+          <%= AdminDashboard.audience_members.count %>
+        </div>
+        <div class="text-muted mb-3">
+          <%= AdminDashboard.audience_members.human %>
+        </div>
       </div>
     </div>
   </div>
