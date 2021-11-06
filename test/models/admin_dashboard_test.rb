@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class AdminDashboarTest < ActiveSupport::TestCase
-  context 'departments' do
+  context '.departments' do
     should 'return number of departments' do
       assert_equal 0, AdminDashboard.departments.count
 
@@ -20,7 +20,7 @@ class AdminDashboarTest < ActiveSupport::TestCase
     end
   end
 
-  context 'active users' do
+  context '.active_users' do
     setup do
       create(:user, active: true)
     end
@@ -46,7 +46,7 @@ class AdminDashboarTest < ActiveSupport::TestCase
     end
   end
 
-  context 'inactive users' do
+  context '.inactive_users' do
     setup do
       create(:user, active: false)
     end
@@ -71,7 +71,7 @@ class AdminDashboarTest < ActiveSupport::TestCase
     end
   end
 
-  context 'audience members' do
+  context '.audience_members' do
     setup do
       create(:audience_member)
     end
