@@ -43,7 +43,7 @@ class DashboardTest < ApplicationSystemTestCase
     end
 
     should 'display the number of active users in singular mode' do
-      create(:user, active: true)
+      #create(:user, active: true)
       visit admins_root_path
 
       selector = 'div.row.row-cards div.col-sm-3:nth-child(2)'
@@ -52,7 +52,7 @@ class DashboardTest < ApplicationSystemTestCase
     end
 
     should 'display the number of active users in plural mode' do
-      create_list(:user, 3, active: true)
+      create_list(:user, 2, active: true)
       visit admins_root_path
 
       selector = 'div.row.row-cards div.col-sm-3:nth-child(2)'
@@ -61,6 +61,7 @@ class DashboardTest < ApplicationSystemTestCase
     end
 
     should 'display the number of inactive users in singular mode' do
+      create(:user, active: false)
       visit admins_root_path
 
       selector = 'div.row.row-cards div.col-sm-3:nth-child(3)'
@@ -69,7 +70,7 @@ class DashboardTest < ApplicationSystemTestCase
     end
 
     should 'display the number of inactive users in plural mode' do
-      create_list(:user, 2, active: false)
+      create_list(:user, 3, active: false)
       visit admins_root_path
 
       selector = 'div.row.row-cards div.col-sm-3:nth-child(3)'
