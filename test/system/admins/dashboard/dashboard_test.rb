@@ -49,7 +49,6 @@ class DashboardTest < ApplicationSystemTestCase
       selector = 'div.row.row-cards div.col-sm-3:nth-child(2)'
       assert_selector selector, text: 1
       assert_selector selector, text: User.model_name.human(count: 1)
-      assert_selector selector, text: I18n.t('activerecord.attributes.user.active.one')
     end
 
     should 'display the number of active users in plural mode' do
@@ -59,7 +58,6 @@ class DashboardTest < ApplicationSystemTestCase
       selector = 'div.row.row-cards div.col-sm-3:nth-child(2)'
       assert_selector selector, text: 3
       assert_selector selector, text: User.model_name.human(count: 3)
-      assert_selector selector, text: I18n.t('activerecord.attributes.user.active.other')
     end
 
     should 'display the number of inactive users in singular mode' do
@@ -68,7 +66,6 @@ class DashboardTest < ApplicationSystemTestCase
       selector = 'div.row.row-cards div.col-sm-3:nth-child(3)'
       assert_selector selector, text: 1
       assert_selector selector, text: User.model_name.human(count: 1)
-      assert_selector selector, text: I18n.t('activerecord.attributes.user.inactive.one')
     end
 
     should 'display the number of inactive users in plural mode' do
@@ -78,7 +75,6 @@ class DashboardTest < ApplicationSystemTestCase
       selector = 'div.row.row-cards div.col-sm-3:nth-child(3)'
       assert_selector selector, text: 3
       assert_selector selector, text: User.model_name.human(count: 3)
-      assert_selector selector, text: I18n.t('activerecord.attributes.user.inactive.other')
     end
 
     should 'display the number of audience members in singular mode' do
