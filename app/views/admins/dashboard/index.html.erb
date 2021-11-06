@@ -2,12 +2,5 @@
 <% provide(:page_title, 'Dashboard') %>
 
 <div class="row row-cards">
-  <div class="col-sm-4">
-    <div class="card">
-      <div class="card-body p-2 text-center">
-        <div class="h1 m-0"><%= AdminDashboard.departments.count %></div>
-        <div class="text-muted mb-3"><%= AdminDashboard.departments.human %></div>
-      </div>
-    </div>
-  </div>
+  <%= render partial: 'counter', collection: AdminDashboard.counters, locals: { col_class: 'col-sm-3' } %>
 </div>
