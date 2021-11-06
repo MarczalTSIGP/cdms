@@ -30,12 +30,19 @@ class AdminDashboarTest < ActiveSupport::TestCase
     end
 
     should 'return translation of active users in singular' do
-      assert_equal User.model_name.human(count: 1), AdminDashboard.active_users.human
+      human = User.model_name.human(count: 1)
+      human += " #{User.human_attribute_name(:active, count: 1)}"
+
+      assert_equal human, AdminDashboard.active_users.human
     end
 
     should 'return translation of active users in plural' do
       create(:user, active: true)
-      assert_equal User.model_name.human(count: 2), AdminDashboard.active_users.human
+
+      human = User.model_name.human(count: 2)
+      human += " #{User.human_attribute_name(:active, count: 2)}"
+
+      assert_equal human, AdminDashboard.active_users.human
     end
   end
 
@@ -49,12 +56,18 @@ class AdminDashboarTest < ActiveSupport::TestCase
     end
 
     should 'return translation of inactive users in singular' do
-      assert_equal User.model_name.human(count: 1), AdminDashboard.inactive_users.human
+      human = User.model_name.human(count: 1)
+      human += " #{User.human_attribute_name(:inactive, count: 1)}"
+
+      assert_equal human, AdminDashboard.inactive_users.human
     end
 
     should 'return translation of inactive users in plural' do
       create(:user, active: false)
-      assert_equal User.model_name.human(count: 2), AdminDashboard.inactive_users.human
+
+      human = User.model_name.human(count: 2)
+      human += " #{User.human_attribute_name(:inactive, count: 2)}"
+      assert_equal human, AdminDashboard.inactive_users.human
     end
   end
 
@@ -74,6 +87,12 @@ class AdminDashboarTest < ActiveSupport::TestCase
     should 'return translation of audience members in plural' do
       create(:audience_member)
       assert_equal AudienceMember.model_name.human(count: 2), AdminDashboard.audience_members.human
+    end
+  end
+
+  context '.counters' do
+    should 'return all counters' do
+      assert_equal 4, AdminDashboard.counters.size
     end
   end
 end
