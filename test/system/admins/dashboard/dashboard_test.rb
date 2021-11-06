@@ -43,7 +43,6 @@ class DashboardTest < ApplicationSystemTestCase
     end
 
     should 'display the number of active users in singular mode' do
-      #create(:user, active: true)
       visit admins_root_path
 
       selector = 'div.row.row-cards div.col-sm-3:nth-child(2)'
