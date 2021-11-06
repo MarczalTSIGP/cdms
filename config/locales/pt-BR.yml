@@ -51,6 +51,9 @@ pt-BR:
         created_at: Criado em
         updated_at: Atualizado em
         role: Papel
+      admin:
+        active: Habilitado
+        unactive: Desabilitado
       department:
         name: Nome
         description: Descrição
@@ -76,7 +79,10 @@ pt-BR:
         username: Usuário
         register_number: Número do registro
         cpf: CPF
-        active: Status
+        status: Acesso
+        system_access: Acesso ao sistema
+        active: Habilitado
+        unactive: Desabilitado
         password: Senha
         current_password: Senha atual
         password_confirmation: Confirmação de senha

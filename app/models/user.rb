@@ -28,6 +28,10 @@ class User < ApplicationRecord
     self.email = "#{username}@utfpr.edu.br"
   end
 
+  def active_for_authentication?
+    active?
+  end
+
   # Admin roles
   # --------------------------
   def is?(role)

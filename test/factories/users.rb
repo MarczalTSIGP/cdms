@@ -4,7 +4,7 @@ FactoryBot.define do
     sequence(:register_number) { |n| "123123#{n}" }
     sequence(:username) { |n| "usarname#{n}" }
     cpf { CPF.generate(true) }
-    active { false }
+    active { true }
     role { nil }
     password { 'password' }
     password_confirmation { 'password' }
