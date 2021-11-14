@@ -11,6 +11,15 @@ pt-BR:
         users: Usuários
         administrators: Administradores
         team: Equipe
+    home:
+      head_title: Início
+      page_title: Início
+    about:
+      head_title: Sobre
+      page_title: Sobre
+    login:
+      head_title: Entrar
+      page_title: Entrar
     boolean:
       'true': Sim
       'false': Não
@@ -20,9 +29,11 @@ pt-BR:
     file:
       choose: Procurar...
     tooltips:
-      home:
+      login:
         user:
           sign_in: Clique aqui para acessar como usuário
+        audience_member:
+          sign_in: Clique aqui para acessar como membro de audiência
     prompt:
       confirm: Tem certeza?
       select:
@@ -34,11 +45,14 @@ pt-BR:
       destroy: Deletar
       show: Visualizar
       add: Adicionar
-      home:
-        audience_member:
-          sign_in: Acessar como membro de audiência
+      public:
+        home: Início
+        about: Sobre
+        login: Entrar
         user:
           sign_in: Acessar como usuário
+        audience_member:
+          sign_in: Acessar como membro de audiência
     search:
       placeholder: Procurar...
     session:

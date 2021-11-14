@@ -4,7 +4,8 @@
     <title><%= full_title(yield(:head_title)) %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
+    <%= favicon_link_tag 'cdms_favicon.ico' %>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
     <%= stylesheet_link_tag 'admins/application', media: 'all', 'data-turbolinks-track': 'reload' %>

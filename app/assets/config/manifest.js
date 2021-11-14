@@ -3,3 +3,4 @@
 //= link admins/application.css
 //= link users/document_preview.css
 //= link devise/session.css
+//= link home/home.css
