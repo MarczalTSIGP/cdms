@@ -22,5 +22,13 @@ class IndexTest < ApplicationSystemTestCase
       click_on I18n.t('views.links.public.home')
       assert_current_path(root_path)
     end
+
+    should 'display sign in links' do
+      visit login_path
+
+      selector = "a[href='#{new_user_session_path}']"
+      assert_selector selector, text: I18n.t('views.links.public.user.sign_in')
+      assert_selector selector, text: I18n.t('views.links.public.audience_member.sign_in')
+    end
   end
 end
