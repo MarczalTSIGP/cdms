@@ -9,6 +9,6 @@
 role = Role.create_with(name: 'Administrador geral').find_or_create_by!(identifier: :manager)
 Role.create_with(name: 'Administrador assistente').find_or_create_by!(identifier: :assistant)
 
-User.create_with(name: 'Adminstrador', register_number: '000001', cpf: CPF.generate(true), active: true,
-                 password: '123456', role_id: role.id)
+User.create_with(name: 'Adminstrador', register_number: '000001', cpf: CPF.generate(true),
+                 password: '123456', active: true, role_id: role.id)
     .find_or_create_by!(username: 'admin', email: 'admin@utfpr.edu.br')

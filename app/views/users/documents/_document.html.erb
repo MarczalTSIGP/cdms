@@ -1,7 +1,13 @@
 <tr>
     <td><%= document.title %></td>
     <td><%= t("enums.categories.#{document.category}") %></td>
-    <td><%= document.department.name %></td>x
+    <td><%= document.department.name %></td>
+    <td><%= check_box_tag 'active',document.id, document.active, :class => 'document_checkbox',
+      data: {
+        remote: true,
+        url: users_document_availability_to_sign_path(document),
+        method: :PATCH
+      } %><label class='ml-1 document_checkbox_label'><%=t('activerecord.attributes.document.'+ document.active.to_s)%></label></td>
 
     <td>
       <%= link_to users_preview_document_path(document) do %>

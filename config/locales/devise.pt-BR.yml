@@ -13,7 +13,7 @@ pt-BR:
       send_paranoid_instructions: "Se seu endereço de email existir em nosso banco de dados, você receberá um email com instruções para confirmar sua conta em alguns minutos."
     failure:
       already_authenticated: "Você já está logado."
-      inactive: "Acesso negado. Contate o administrador do sistema."
+      inactive: "Sua conta ainda não foi ativada."
       invalid: "%{authentication_keys} ou senha inválida."
       locked: "Sua conta está bloqueada."
       last_attempt: "Você tem mais uma tentativa antes de sua conta ser bloqueada."

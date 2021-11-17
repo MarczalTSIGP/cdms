@@ -18873,3 +18873,14 @@ svg {
 .fe-zoom-out:before {
   content: "\ea06";
 }
+
+.document_checkbox + .document_checkbox_label{
+  color: red;
+}
+
+.document_checkbox:checked + .document_checkbox_label{
+  color: green;
+}
+
+
+

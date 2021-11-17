@@ -3,7 +3,7 @@
 #   <span class="custom-switch-indicator"></span>
 #   <span class="custom-switch-description">I agree with terms and conditions</span>
 # </label>
-class SwitchSingleInput < SimpleForm::Inputs::Base
+class SwitchSingle2Input < SimpleForm::Inputs::Base
   def input(_wrapper_options)
     template.tag.label(class: 'custom-switch pl-0 mt-2') do
       template.concat @builder.check_box(attribute_name, class: 'custom-switch-input')
@@ -31,7 +31,7 @@ class SwitchSingleInput < SimpleForm::Inputs::Base
 
   def label(_wrapper_options)
     template.tag.div(class: 'form-label font-weight-normal') do
-      'Acesso ao sistema'
+      'Assinaturas'
     end
   end
 end

@@ -32,12 +32,13 @@ Rails.application.routes.draw do
                                                        as: :department_remove_member
 
       resources :documents, concerns: [:paginatable, :searchable_paginatable]
-      get 'documents/:id/preview', to: 'documents#preview', as: :preview_document
 
+      get 'documents/:id/preview', to: 'documents#preview', as: :preview_document
       get 'team-departments-modules', to: 'team_departments_modules#index', action: :index
       get 'show-department/:id', to: 'team_departments_modules#show_department',
                                  action: :show_department, as: :show_department
       get 'show-module/:id', to: 'team_departments_modules#show_module', action: :show_module, as: :show_module
+      patch 'documents/:id/availability-to-sign', to: 'documents#toggle_available', as: :document_availability_to_sign
     end
 
     namespace :admins do

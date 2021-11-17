@@ -26,6 +26,7 @@ class Document < ApplicationRecord
     dv <<  { name: User.human_attribute_name(:name),  identifier: :name  }
     dv <<  { name: User.human_attribute_name(:cpf),   identifier: :cpf   }
     dv <<  { name: User.human_attribute_name(:email), identifier: :email }
+    dv <<  { name: User.human_attribute_name(:active), identifier: :active }
     dv <<  { name: User.human_attribute_name(:register_number), identifier: :register_number }
 
     dv
