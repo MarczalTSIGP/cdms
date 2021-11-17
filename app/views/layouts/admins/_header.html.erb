@@ -30,6 +30,12 @@
             <%= link_to users_root_path, class: 'dropdown-item' do %>
               <i class="dropdown-icon fas fa-street-view"></i> <%= t('views.user.links.access') %>
             <% end %>
+            
+            <div class="dropdown-divider"></div>
+
+            <%= link_to admins_edit_about_page_path, class: 'dropdown-item' do %>
+              <i class="dropdown-icon fas fa-edit"></i> <%= t('views.admin.links.edit_about_page') %>
+            <% end %>
 
             <div class="dropdown-divider"></div>
 

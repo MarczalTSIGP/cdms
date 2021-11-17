@@ -12,3 +12,5 @@ Role.create_with(name: 'Administrador assistente').find_or_create_by!(identifier
 User.create_with(name: 'Adminstrador', register_number: '000001', cpf: CPF.generate(true), active: true,
                  password: '123456', role_id: role.id)
     .find_or_create_by!(username: 'admin', email: 'admin@utfpr.edu.br')
+
+Page.find_or_create_by!(content: 'Sistema Gerenciador de Certificados e Declarações')

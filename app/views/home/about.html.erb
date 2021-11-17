@@ -2,6 +2,10 @@
 
 </main>
   <div class="d-flex align-items-center justify-content-center vh-100">
-    <h1>Sobre</h1>
+    <div class="card">
+      <div class="card-body">
+        <%= sanitize @page.content, attributes: %w(style class href target src) %>
+      </div>
+    </div>
   </div>
 </main>

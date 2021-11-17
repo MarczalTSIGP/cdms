@@ -1,0 +1,14 @@
+<%= simple_form_for @page, url: admins_edit_about_page_path, method: :post do |f| %>
+  <div class="row">
+    <div class="col-12">
+       <%= f.input :content, input_html: { data: { type: 'summernote' } } %>
+    </div>
+  </div>
+
+  <div class="form-footer">
+    <div class="d-flex">
+      <%= link_to t('views.links.back'), admins_root_path, class: 'btn btn-secondary' %>
+      <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+    </div>
+  </div>
+<% end %>

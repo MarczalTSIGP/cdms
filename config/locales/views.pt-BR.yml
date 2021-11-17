@@ -85,6 +85,11 @@ pt-BR:
       links:
         sign_out: Sair
         access: Área administrativa
+        edit_about_page: Editar página sobre
+      page:
+        edit:
+          head_title: Editar página Sobre
+          page_title: Editar página sobre
     user:
       name:
         singular: Usuário
@@ -99,6 +104,7 @@ pt-BR:
         sign_out: Sair
         new: Novo usuário
         access: Área do usuário
+        
     document:
       links:
         edit: Editar
@@ -167,4 +173,3 @@ pt-BR:
         f: Nova
       show: '%{model} #%{id}'
       home: Página Inicial
-
