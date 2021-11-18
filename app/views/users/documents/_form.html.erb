@@ -6,7 +6,6 @@
     <div class="col-md-8">
 
       <%= f.input :title %>
-      <%= f.input :active, as: :switch_single2, wrapper_html: { class: 'col-sm-3' } %>
       <%= f.input :category,
         input_html: {class: 'apply-selectize'},
         collection: Document.human_categories,
@@ -26,6 +25,8 @@
       <%= render 'variables' %>
     </div>
   </div>
+  <%= f.input :active, as: :switch_single2, wrapper_html: { class: 'ml-0 pl-0 col-sm-6' } %>
+      
 
   <div class="form-footer">
     <div class="d-flex">
