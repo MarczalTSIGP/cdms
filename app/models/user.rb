@@ -3,6 +3,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   include Searchable
+
   search_by :name
 
   before_destroy :can_destroy?

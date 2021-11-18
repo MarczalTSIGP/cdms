@@ -95,4 +95,32 @@ class AdminDashboarTest < ActiveSupport::TestCase
       assert_equal 4, AdminDashboard.counters.size
     end
   end
+
+  context '.cache' do
+    should 'return cache_key departaments' do
+      assert_equal "#{Department.model_name.human}-#{Department.count}", AdminDashboard.departments.cache_key
+    end
+
+    should 'return cache_key inactive users' do
+      create(:user, active: true)
+
+      human = User.model_name.human(count: 1)
+      human += " #{User.human_attribute_name(:active, count: 1)}"
+
+      assert_equal "#{human}-#{User.count}", AdminDashboard.active_users.cache_key
+    end
+
+    should 'return cache_key active users' do
+      create(:user, active: false)
+
+      human = User.model_name.human(count: 1)
+      human += " #{User.human_attribute_name(:inactive, count: 1)}"
+      assert_equal "#{human}-#{User.count}", AdminDashboard.inactive_users.cache_key
+    end
+
+    should 'return cache_key audience members' do
+      key = AdminDashboard.audience_members.cache_key
+      assert_equal "#{AudienceMember.model_name.human}-#{AudienceMember.count}", key
+    end
+  end
 end

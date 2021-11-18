@@ -19,6 +19,7 @@ class Admins::UsersController < Admins::BaseController
     if @user.save
       success_create_message
       redirect_to admins_users_path
+
     else
       error_message
       render :new
@@ -27,10 +28,10 @@ class Admins::UsersController < Admins::BaseController
 
   def update
     remove_empty_password
-
     if @user.update(user_params)
       success_update_message
       redirect_to admins_users_path
+
     else
       error_message
       render :edit
