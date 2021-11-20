@@ -13,7 +13,7 @@ class UpdateTest < ApplicationSystemTestCase
     should 'not be active' do
       visit users_documents_path
       within('tbody tr td label.ml-1.document_checkbox_label') do
-        assert_text(I18n.t('activerecord.attributes.document.' + false))
+        assert_text(I18n.t('activerecord.attributes.document.false'))
       end
     end
     should 'change to active' do
@@ -21,7 +21,7 @@ class UpdateTest < ApplicationSystemTestCase
       find('#active').click
       visit users_documents_path
       within('tbody tr td label.ml-1.document_checkbox_label') do
-        assert_text(I18n.t('activerecord.attributes.document.' + true))
+        assert_text(I18n.t('activerecord.attributes.document.true'))
       end
     end
   end
