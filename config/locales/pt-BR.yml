@@ -69,7 +69,10 @@ pt-BR:
         category: Tipo
         department: Departamento
         department_id: Departamento
+        situation: Situação
         variables: Variávies
+        false: Desativado para Assinaturas
+        true: Ativo para Assinaturas
         default_variables: Variáveis Padrão
       department_module:
         name: Nome

@@ -61,3 +61,15 @@ table.table-small {
 .custom-switch-input ~ .custom-switch-description-active {
   color: rgba(89, 197, 0, 0.24);
 }
+
+.document_checkbox + .document_checkbox_label {
+  color: rgb(240, 109, 109);
+}
+
+
+
+
+.document_checkbox:checked + .document_checkbox_label {
+  color: rgb(89, 197, 0);
+}
+
