@@ -10,6 +10,17 @@ class Api::SearchMembersController < ActionController::API
     render json: non_members.as_json(only: [:id, :name])
   end
 
+  def search_non_members_document
+    find_document
+    if params[:user_id].nil?
+      non_members = @document.search_non_members(params[:term])
+    else
+      document_user = @document.users.find(params[:user_id])
+      non_members = document_user.search_non_members_document(params[:term])
+    end
+    render json: non_members.as_json(only: [:id, :name])
+  end
+
   private
 
   def find_department

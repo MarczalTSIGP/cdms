@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_16_160430) do
+ActiveRecord::Schema.define(version: 2021_11_25_005229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,16 @@ ActiveRecord::Schema.define(version: 2021_11_16_160430) do
     t.index ["initials"], name: "index_departments_on_initials", unique: true
   end
 
+  create_table "document_users", force: :cascade do |t|
+    t.bigint "document_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["document_id", "user_id"], name: "index_document_users_on_document_id_and_user_id", unique: true
+    t.index ["document_id"], name: "index_document_users_on_document_id"
+    t.index ["user_id"], name: "index_document_users_on_user_id"
+  end
+
   create_table "documents", force: :cascade do |t|
     t.bigint "department_id", null: false
     t.enum "category", enum_name: "document_categories"
@@ -102,6 +112,7 @@ ActiveRecord::Schema.define(version: 2021_11_16_160430) do
     t.index ["department_id"], name: "index_documents_on_department_id"
   end
 
+<<<<<<< HEAD
   create_table "pages", force: :cascade do |t|
     t.string "url"
     t.text "content"
@@ -110,6 +121,8 @@ ActiveRecord::Schema.define(version: 2021_11_16_160430) do
     t.index ["url"], name: "index_pages_on_url", unique: true
   end
 
+=======
+>>>>>>> Added staffs to sign the certificate
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "identifier"
@@ -144,6 +157,8 @@ ActiveRecord::Schema.define(version: 2021_11_16_160430) do
   add_foreign_key "department_modules", "departments"
   add_foreign_key "department_users", "departments"
   add_foreign_key "department_users", "users"
+  add_foreign_key "document_users", "documents"
+  add_foreign_key "document_users", "users"
   add_foreign_key "documents", "departments"
   add_foreign_key "users", "roles"
 end
