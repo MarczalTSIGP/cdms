@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root to: 'home#index'
+  get '/about', to: 'home#about'
+  get '/login', to: 'home#login'
 
   devise_for :users
   as :user do
@@ -43,6 +45,9 @@ Rails.application.routes.draw do
 
     namespace :admins do
       root to: 'dashboard#index'
+
+      get 'edit_about_page', to: 'pages#edit'
+      post 'edit_about_page', to: 'pages#update'
 
       concern :paginatable do
         get '(page/:page)', action: :index, on: :collection, as: ''

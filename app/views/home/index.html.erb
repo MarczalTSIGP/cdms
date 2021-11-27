@@ -1,19 +1,7 @@
-<div class="row row-cards">
+<% provide(:head_title, t('views.home.head_title')) %>
 
-  <div class="col-sm-6 col-lg-6">
-    <div class="card p-3">
-      <div class="d-flex align-items-center">
-        <span class="stamp stamp-md bg-red text-white mr-3">
-          <%= icon('fas', 'user-cog') %>
-        </span>
-        <div>
-          <h4 class="m-0" data-toggle="tooltip" data-placement="bottom" title="<%= t('views.tooltips.home.user.sign_in') %>">
-            <%= link_to t('views.links.home.user.sign_in'), new_user_session_path %>
-          </h4>
-          <small class="text-muted"><%= t('views.user.name.plural') %></small>
-        </div>
-      </div>
-    </div>
+</main>
+  <div class="d-flex align-items-center justify-content-center vh-100">
+    <h1>Início</h1>
   </div>
-
-</div>
+</main>
