@@ -2,5 +2,5 @@
 <% provide(:page_title, 'Dashboard') %>
 
 <div class="row row-cards">
-  <%= render partial: 'counter', collection: AdminDashboard.counters, locals: { col_class: 'col-sm-3' } %>
+   <%= render partial: 'counter', collection: AdminDashboard.counters, locals: { col_class: 'col-sm-3' }, cached: true %>
 </div>
