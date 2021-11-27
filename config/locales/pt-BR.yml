@@ -44,6 +44,9 @@ pt-BR:
       audience_member:
         one: Membro de audiência
         other: Membros de audiência
+      page:
+        one: Página
+        other: Páginas
     attributes:
       attribute_commons: &commons
         name: Nome
@@ -103,3 +106,5 @@ pt-BR:
       department_user:
         role: Papel
         user: Usuário
+      page:
+        content: Conteúdo
