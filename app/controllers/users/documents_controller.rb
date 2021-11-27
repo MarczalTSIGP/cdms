@@ -4,6 +4,30 @@ class Users::DocumentsController < Users::BaseController
   before_action :set_departments, only: [:edit, :new, :update, :create]
   include Breadcrumbs
 
+  def members
+    breadcrumbs_members
+    @document_user = DocumentUser.new
+    @document_users = @document.members
+  end
+
+  def add_member
+    if @document.add_member(users_params)
+      flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
+      redirect_to users_document_members_path(@document)
+    else
+      breadcrumbs_members
+      @document_user = @document.document_users.last
+      set_document_members
+      render :members
+    end
+  end
+
+  def remove_member
+    @document.remove_member(params[:id])
+    flash[:success] = I18n.t('flash.actions.remove.m', resource_name: User.model_name.human)
+    redirect_to users_document_members_path(@document)
+  end
+
   def index
     @documents = current_user.documents.search(params[:term]).page(params[:page]).includes(:department)
   end
@@ -58,11 +82,20 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def set_document
-    @document = current_user.documents.find(params[:id])
+    id = params[:document_id] || params[:id]
+    @document = Document.find(id)
+  end
+
+  def set_documents
+    @documents = current_user.documents
   end
 
   def set_departments
     @departments = current_user.departments
+  end
+
+  def set_document_members
+    @document_users = @document.members
   end
 
   def create_document
@@ -76,5 +109,15 @@ class Users::DocumentsController < Users::BaseController
 
   def document_params
     params.require(:document).permit(:title, :front_text, :back_text, :category, :department_id, :variables)
+  end
+
+  def users_params
+    { user_id: params[:document_user][:user_id] }
+  end
+
+  def breadcrumbs_members
+    add_breadcrumb I18n.t('views.breadcrumbs.show', model: Document.model_name.human, id: @document.id),
+                   users_document_path(@document)
+    add_breadcrumb I18n.t('views.document.members.name'), users_document_members_path(@document)
   end
 end

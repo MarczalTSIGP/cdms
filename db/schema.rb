@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_11_210110) do
+ActiveRecord::Schema.define(version: 2021_11_25_005229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,19 +31,6 @@ ActiveRecord::Schema.define(version: 2021_10_11_210110) do
     "certification",
   ], force: :cascade
 
-  create_table "admins", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
-    t.index ["email"], name: "index_admins_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
-  end
-
   create_table "audience_members", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -52,14 +39,6 @@ ActiveRecord::Schema.define(version: 2021_10_11_210110) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["cpf"], name: "index_audience_members_on_cpf", unique: true
     t.index ["email"], name: "index_audience_members_on_email", unique: true
-  end
-
-  create_table "comments", force: :cascade do |t|
-    t.bigint "post_id", null: false
-    t.text "text"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
   create_table "department_module_users", force: :cascade do |t|
@@ -109,6 +88,16 @@ ActiveRecord::Schema.define(version: 2021_10_11_210110) do
     t.index ["initials"], name: "index_departments_on_initials", unique: true
   end
 
+  create_table "document_users", force: :cascade do |t|
+    t.bigint "document_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["document_id", "user_id"], name: "index_document_users_on_document_id_and_user_id", unique: true
+    t.index ["document_id"], name: "index_document_users_on_document_id"
+    t.index ["user_id"], name: "index_document_users_on_user_id"
+  end
+
   create_table "documents", force: :cascade do |t|
     t.bigint "department_id", null: false
     t.enum "category", enum_name: "document_categories"
@@ -120,13 +109,6 @@ ActiveRecord::Schema.define(version: 2021_10_11_210110) do
     t.json "variables", default: []
     t.index ["category"], name: "index_documents_on_category"
     t.index ["department_id"], name: "index_documents_on_department_id"
-  end
-
-  create_table "posts", force: :cascade do |t|
-    t.string "title"
-    t.text "text"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "roles", force: :cascade do |t|
@@ -158,12 +140,13 @@ ActiveRecord::Schema.define(version: 2021_10_11_210110) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "comments", "posts"
   add_foreign_key "department_module_users", "department_modules"
   add_foreign_key "department_module_users", "users"
   add_foreign_key "department_modules", "departments"
   add_foreign_key "department_users", "departments"
   add_foreign_key "department_users", "users"
+  add_foreign_key "document_users", "documents"
+  add_foreign_key "document_users", "users"
   add_foreign_key "documents", "departments"
   add_foreign_key "users", "roles"
 end
