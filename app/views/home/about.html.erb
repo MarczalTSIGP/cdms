@@ -1,11 +1,7 @@
 <% provide(:head_title, t('views.about.head_title')) %>
 
-</main>
-  <div class="d-flex align-items-center justify-content-center vh-100">
-    <div class="card">
-      <div class="card-body">
-        <%= sanitize @page.content, attributes: %w(style class href target src) %>
-      </div>
-    </div>
+<div class="card">
+  <div class="card-body">
+    <%= sanitize @page.content, attributes: %w(style class href target src) %>
   </div>
-</main>
+</div>

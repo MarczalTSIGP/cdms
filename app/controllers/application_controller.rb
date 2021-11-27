@@ -14,6 +14,6 @@ class ApplicationController < ActionController::Base
   def layout_by_resource
     return 'layouts/devise/session' if devise_controller?
 
-    'layouts/home/application'
+    'layouts/public/application'
   end
 end

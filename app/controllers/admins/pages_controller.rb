@@ -22,6 +22,6 @@ class Admins::PagesController < Admins::BaseController
   end
 
   def set_page
-    @page = Page.first
+    @page = Page.find_by(url: 'about')
   end
 end

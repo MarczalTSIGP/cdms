@@ -3,6 +3,8 @@ require 'test_helper'
 class PageTest < ActiveSupport::TestCase
   context 'validations' do
     should validate_presence_of(:content)
+    should validate_presence_of(:url)
+    should validate_uniqueness_of(:url)
 
     context '#content' do
       setup do
@@ -15,6 +17,7 @@ class PageTest < ActiveSupport::TestCase
       end
 
       should 'valid content' do
+        @page.url = 'url'
         @page.content = 'content'
         assert @page.valid?
       end

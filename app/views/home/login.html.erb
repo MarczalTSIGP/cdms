@@ -1,38 +1,37 @@
 <% provide(:head_title, t('views.login.head_title')) %>
 
-<main>
-  <div class="d-flex align-items-center justify-content-center vh-100">
-    <div class="row row-cards">
-      <div class="col-12">
-        <div class="card p-3">
-          <div class="d-flex align-items-center">
-            <span class="stamp stamp-md bg-red text-white mr-3">
-              <%= icon('fas', 'user') %>
-            </span>
-            <div>
-              <h4 class="m-0" data-toggle="tooltip" data-placement="bottom" title="<%= t('views.tooltips.login.user.sign_in') %>">
-                <%= link_to t('views.links.public.user.sign_in'), new_user_session_path %>
-              </h4>
-              <small class="text-muted"><%= t('views.user.name.plural') %></small>
-            </div>
+<div class="d-flex justify-content-center">
+  <div class="row row-cards">
+    <div class="col-12">
+      <div class="card p-3">
+        <div class="d-flex align-items-center">
+          <span class="stamp stamp-md bg-red text-white mr-3">
+            <%= icon('fas', 'user') %>
+          </span>
+          <div>
+            <h4 class="m-0" data-toggle="tooltip" data-placement="bottom" title="<%= t('views.tooltips.login.user.sign_in') %>">
+              <%= link_to t('views.links.public.user.sign_in'), new_user_session_path %>
+            </h4>
+            <small class="text-muted"><%= t('views.user.name.plural') %></small>
           </div>
         </div>
       </div>
-      <div class="col-12">
-        <div class="card p-3">
-          <div class="d-flex align-items-center">
-            <span class="stamp stamp-md bg-blue text-white mr-3">
-              <%= icon('fas', 'users') %>
-            </span>
-            <div>
-              <h4 class="m-0" data-toggle="tooltip" data-placement="bottom" title="<%= t('views.tooltips.login.audience_member.sign_in') %>">
-                <%= link_to t('views.links.public.audience_member.sign_in'), new_user_session_path %>
-              </h4>
-              <small class="text-muted"><%= t('views.audience_member.name.plural') %></small>
-            </div>
+    </div>
+
+    <div class="col-12">
+      <div class="card p-3">
+        <div class="d-flex align-items-center">
+          <span class="stamp stamp-md bg-blue text-white mr-3">
+            <%= icon('fas', 'users') %>
+          </span>
+          <div>
+            <h4 class="m-0" data-toggle="tooltip" data-placement="bottom" title="<%= t('views.tooltips.login.audience_member.sign_in') %>">
+              <%= link_to t('views.links.public.audience_member.sign_in'), new_user_session_path %>
+            </h4>
+            <small class="text-muted"><%= t('views.audience_member.name.plural') %></small>
           </div>
         </div>
       </div>
     </div>
   </div>
-</main>
+</div>

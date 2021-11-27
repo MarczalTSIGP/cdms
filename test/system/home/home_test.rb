@@ -3,7 +3,7 @@ require 'application_system_test_case'
 class HomeTest < ApplicationSystemTestCase
   context 'navbar' do
     setup do
-      @page = create(:page)
+      @page = create(:page, url: 'about')
     end
 
     should 'have links' do

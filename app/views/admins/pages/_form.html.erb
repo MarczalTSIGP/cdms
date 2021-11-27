@@ -1,9 +1,5 @@
 <%= simple_form_for @page, url: admins_edit_about_page_path, method: :post do |f| %>
-  <div class="row">
-    <div class="col-12">
-       <%= f.input :content, input_html: { data: { type: 'summernote' } } %>
-    </div>
-  </div>
+  <%= f.input :content, input_html: { data: { type: 'summernote' } } %>
 
   <div class="form-footer">
     <div class="d-flex">

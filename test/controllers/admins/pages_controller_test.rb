@@ -6,7 +6,7 @@ class Admins::PagesControllerTest < ActionDispatch::IntegrationTest
       @user = create(:user)
       sign_in create(:user, :manager)
 
-      @page = create(:page)
+      @page = create(:page, url: 'about')
     end
 
     should 'get edit about page' do
