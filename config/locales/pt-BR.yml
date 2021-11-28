@@ -72,10 +72,11 @@ pt-BR:
         category: Tipo
         department: Departamento
         department_id: Departamento
-        situation: Situação
         variables: Variávies
-        false: Desativado para Assinaturas
-        true: Ativo para Assinaturas
+        available_to_sign: Ativo para Assinaturas
+        available_to_sign_boolean:
+          false: Desativado
+          true: Ativo
         default_variables: Variáveis Padrão
       department_module:
         name: Nome
@@ -97,6 +98,9 @@ pt-BR:
         active:
           one: Ativo
           other: Ativos
+        active_boolean:
+          false: Não
+          true: Sim
         inactive:
           one: Inativo
           other: Inativos

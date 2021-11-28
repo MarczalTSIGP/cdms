@@ -372,7 +372,6 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
-    u-observers (2.3.0)
     unicode-display_width (1.7.0)
     uniform_notifier (1.13.0)
     validators (3.2.1)
@@ -447,7 +446,6 @@ DEPENDENCIES
   sprockets-rails!
   turbolinks (~> 5)
   tzinfo-data
-  u-observers
   validators
   web-console (>= 3.3.0)
   webdrivers
