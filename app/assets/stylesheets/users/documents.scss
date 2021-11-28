@@ -3,3 +3,13 @@
     max-height: 150px;
   }
 }
+
+#documents-index table {
+  input[type='checkbox'] + label {
+    color: rgb(240, 109, 109);
+  }
+
+  input[type='checkbox']:checked + label {
+    color: rgb(89, 197, 0);
+  }
+}

@@ -48,6 +48,10 @@ class Users::DocumentsController < Users::BaseController
     redirect_to users_documents_path
   end
 
+  def toggle_available_to_sign
+    @document.toggle(:available_to_sign).save!
+  end
+
   private
 
   def can_manager?
@@ -75,6 +79,7 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def document_params
-    params.require(:document).permit(:title, :front_text, :back_text, :category, :department_id, :variables)
+    params.require(:document).permit(:title, :front_text, :back_text, :category,
+                                     :department_id, :variables, :available_to_sign)
   end
 end
