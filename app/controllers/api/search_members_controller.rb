@@ -11,7 +11,6 @@ class Api::SearchMembersController < ActionController::API
   end
 
   def search_non_members_document
-    find_document
     if params[:user_id].nil?
       non_members = @document.search_non_members(params[:term])
     else

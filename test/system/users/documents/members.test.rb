@@ -27,7 +27,6 @@ class MembersTest < ApplicationSystemTestCase
         assert_current_path users_document_members_path(@document)
         assert_selector base_selector, text: @user.name
         assert_selector base_selector, text: @user.email
-        assert_selector base_selector, text: I18n.t('enums.roles.responsible')
       end
 
       should 'unsuccessfully' do
