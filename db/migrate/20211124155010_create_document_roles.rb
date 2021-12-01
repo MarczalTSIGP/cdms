@@ -5,5 +5,6 @@ class CreateDocumentRoles < ActiveRecord::Migration[6.0]
       t.string :description
       t.timestamps
     end
+    add_index :document_roles, :name, unique: true
   end
 end
