@@ -44,6 +44,9 @@ pt-BR:
       audience_member:
         one: Membro de audiência
         other: Membros de audiência
+      page:
+        one: Página
+        other: Páginas
     attributes:
       attribute_commons: &commons
         name: Nome
@@ -70,6 +73,10 @@ pt-BR:
         department: Departamento
         department_id: Departamento
         variables: Variávies
+        available_to_sign: Ativo para Assinaturas
+        available_to_sign_boolean:
+          false: Desativado
+          true: Ativo
         default_variables: Variáveis Padrão
       department_module:
         name: Nome
@@ -91,6 +98,9 @@ pt-BR:
         active:
           one: Ativo
           other: Ativos
+        active_boolean:
+          false: Não
+          true: Sim
         inactive:
           one: Inativo
           other: Inativos
@@ -103,3 +113,5 @@ pt-BR:
       department_user:
         role: Papel
         user: Usuário
+      page:
+        content: Conteúdo

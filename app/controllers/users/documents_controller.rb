@@ -72,6 +72,10 @@ class Users::DocumentsController < Users::BaseController
     redirect_to users_documents_path
   end
 
+  def toggle_available_to_sign
+    @document.toggle(:available_to_sign).save!
+  end
+
   private
 
   def can_manager?
@@ -108,7 +112,8 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def document_params
-    params.require(:document).permit(:title, :front_text, :back_text, :category, :department_id, :variables)
+    params.require(:document).permit(:title, :front_text, :back_text, :category,
+                                     :department_id, :variables, :available_to_sign)
   end
 
   def users_params
@@ -119,5 +124,15 @@ class Users::DocumentsController < Users::BaseController
     add_breadcrumb I18n.t('views.breadcrumbs.show', model: Document.model_name.human, id: @document.id),
                    users_document_path(@document)
     add_breadcrumb I18n.t('views.document.members.name'), users_document_members_path(@document)
+  end
+
+  def search_non_members_document
+    if params[:user_id].nil?
+      non_members = @document.search_non_members(params[:term])
+    else
+      document_user = @document.users.find(params[:user_id])
+      non_members = document_user.search_non_members_document(params[:term])
+    end
+    render json: non_members.as_json(only: [:id, :name])
   end
 end

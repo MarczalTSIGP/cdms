@@ -44,6 +44,7 @@ class Admins::UsersController < Admins::BaseController
     else
       flash[:warning] = @user.errors.messages[:base].join
     end
+
     redirect_to admins_users_path
   end
 

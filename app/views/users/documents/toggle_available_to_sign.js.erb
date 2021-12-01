@@ -1,0 +1,2 @@
+var label = document.getElementById('document_<%= @document.id %>_available_to_sign_label');
+label.innerHTML = '<%= t("activerecord.attributes.document.available_to_sign_boolean.#{@document.available_to_sign}") %>';

@@ -1,0 +1,7 @@
+<% provide(:head_title, t('views.about.head_title')) %>
+
+<div class="card">
+  <div class="card-body">
+    <%= sanitize @page.content, attributes: %w(style class href target src) %>
+  </div>
+</div>

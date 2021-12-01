@@ -4,6 +4,17 @@
     <td><%= document.department.name %></td>
 
     <td>
+        <%= check_box_tag :available_to_sign, document.id, document.available_to_sign, id: "document_#{document.id}_available_to_sign", class: 'form-check-input',
+            data: {
+            remote: true,
+            url: users_document_availability_to_sign_path(document),
+            method: :PATCH
+        } %>
+        <label class="ml-2 form-check-label" id="document_<%= document.id %>_available_to_sign_label" for="document_<%= document.id %>_available_to_sign">
+            <span><%= t("activerecord.attributes.document.available_to_sign_boolean.#{document.available_to_sign}") %></span>
+        </label>
+    </td>
+    <td>
       <%= link_to users_document_members_path(document) do %>
           <%= icon('fas', 'users', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.user.name.plural')) %>
       <% end %>

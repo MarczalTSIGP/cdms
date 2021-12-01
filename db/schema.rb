@@ -107,8 +107,17 @@ ActiveRecord::Schema.define(version: 2021_11_25_005229) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.json "variables", default: []
+    t.boolean "available_to_sign", default: false
     t.index ["category"], name: "index_documents_on_category"
     t.index ["department_id"], name: "index_documents_on_department_id"
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.string "url"
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["url"], name: "index_pages_on_url", unique: true
   end
 
   create_table "roles", force: :cascade do |t|
