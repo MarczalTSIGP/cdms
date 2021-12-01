@@ -103,8 +103,7 @@ pt-BR:
       links:
         sign_out: Sair
         new: Novo usuário
-        access: Área do usuário
-        
+        access: Área do usuário      
     document:
       links:
         edit: Editar
@@ -119,6 +118,16 @@ pt-BR:
       variables:
         name: Nome
         identifier: Identificador
+    document_role:
+      name:
+        singular: Função
+        plural:  Funções
+      links:
+        edit: Editar
+        new: Nova Função
+        show: Visualizar função
+        edit: Editar função
+        create: Criar Função
     department:
       name:
         singular: Departamento

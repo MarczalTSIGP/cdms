@@ -59,6 +59,7 @@ Rails.application.routes.draw do
 
       resources :users, constraints: { id: /[0-9]+/ }, concerns: [:paginatable, :searchable_paginatable]
       resources :administrators, only: [:index, :create, :destroy]
+      resources :document_roles, concerns: [:paginatable, :searchable_paginatable], as: 'document_roles'
       get '/administrators/search/(:term)', to: 'administrators#search_non_admins',
                                             as: 'search_non_administrators'
 
