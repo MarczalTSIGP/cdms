@@ -125,4 +125,14 @@ class Users::DocumentsController < Users::BaseController
                    users_document_path(@document)
     add_breadcrumb I18n.t('views.document.members.name'), users_document_members_path(@document)
   end
+
+  def search_non_members_document
+    if params[:user_id].nil?
+      non_members = @document.search_non_members(params[:term])
+    else
+      document_user = @document.users.find(params[:user_id])
+      non_members = document_user.search_non_members_document(params[:term])
+    end
+    render json: non_members.as_json(only: [:id, :name])
+  end
 end

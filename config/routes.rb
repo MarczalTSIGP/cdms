@@ -15,11 +15,6 @@ Rails.application.routes.draw do
           costraints: { term: %r{[^/]+} }, # allows anything except a slash.
           to: 'search_members#search_non_members',
           as: 'search_non_members'
-
-      get '(:document_id)/(:user_id)/non-members/search/(:term)',
-          costraints: { term: %r{[^/]+} },
-          to: 'search_members#search_non_members_document',
-          as: 'search_non_members_document'
     end
 
     namespace :users do
@@ -44,11 +39,15 @@ Rails.application.routes.draw do
       post 'documents/:id/members', to: 'documents#add_member', as: :document_add_member
       delete 'documents/:document_id/members/:id', to: 'documents#remove_member',
                                                    as: :document_remove_member
+      get '(:document_id)/(:user_id)/non-members/search/(:term)',
+          to: 'documents#search_non_members_document',
+          as: 'search_non_members_documents'
 
       get 'documents/:id/preview', to: 'documents#preview', as: :preview_document
       get 'team-departments-modules', to: 'team_departments_modules#index', action: :index
       get 'show-department/:id', to: 'team_departments_modules#show_department',
                                  action: :show_department, as: :show_department
+
       get 'show-module/:id', to: 'team_departments_modules#show_module', action: :show_module, as: :show_module
       patch 'documents/:id/availability-to-sign', to: 'documents#toggle_available_to_sign',
                                                   as: :document_availability_to_sign

@@ -112,7 +112,6 @@ ActiveRecord::Schema.define(version: 2021_11_25_005229) do
     t.index ["department_id"], name: "index_documents_on_department_id"
   end
 
-<<<<<<< HEAD
   create_table "pages", force: :cascade do |t|
     t.string "url"
     t.text "content"
@@ -121,8 +120,6 @@ ActiveRecord::Schema.define(version: 2021_11_25_005229) do
     t.index ["url"], name: "index_pages_on_url", unique: true
   end
 
-=======
->>>>>>> Added staffs to sign the certificate
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "identifier"
