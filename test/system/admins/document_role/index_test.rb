@@ -37,7 +37,7 @@ class IndexTest < ApplicationSystemTestCase
       fill_in 'search', with: second_name
       submit_form('button.submit-search')
 
-      assert_selector 'tr:nth-child(1) td:nth-child(2)', text: second_name
+      assert_selector 'tr:nth-child(1) td:nth-child(1)', text: second_name
     end
   end
 end
