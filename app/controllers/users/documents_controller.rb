@@ -11,7 +11,7 @@ class Users::DocumentsController < Users::BaseController
     @document_users = @document.members
   end
 
-  def add_member_subscribers
+  def add_member
     breadcrumbs_members(@document)
 
     if @document.add_member(users_params)
