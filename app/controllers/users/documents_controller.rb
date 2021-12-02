@@ -12,11 +12,12 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def add_member_subscribers
+    breadcrumbs_members(@document)
+
     if @document.add_member(users_params)
       flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
       redirect_to users_document_members_path(@document)
     else
-      breadcrumbs_members(@document)
       @document_user = @document.document_users.last
       set_document_members
       render :members
