@@ -36,7 +36,7 @@ Rails.application.routes.draw do
                                                        as: :department_remove_member
 
       resources :documents, concerns: [:paginatable, :searchable_paginatable]
-      post 'documents/:id/members', to: 'documents#add_member', as: :document_add_member
+      post 'documents/:id/members', to: 'documents#add_member', as: :add_member_subscribers
       delete 'documents/:document_id/members/:id', to: 'documents#remove_member',
                                                    as: :document_remove_member
       get '(:document_id)/(:user_id)/non-members/search/(:term)',

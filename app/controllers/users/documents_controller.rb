@@ -11,7 +11,7 @@ class Users::DocumentsController < Users::BaseController
     @document_users = @document.members
   end
 
-  def add_member
+  def add_member_subscribers
     if @document.add_member(users_params)
       flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
       redirect_to users_document_members_path(@document)
