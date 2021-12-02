@@ -91,10 +91,6 @@ class Users::DocumentsController < Users::BaseController
     @document = Document.find(id)
   end
 
-  def set_documents
-    @documents = current_user.documents
-  end
-
   def set_departments
     @departments = current_user.departments
   end
