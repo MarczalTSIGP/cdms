@@ -1,4 +1,6 @@
 class Admins::DepartmentModulesController < Admins::BaseController
+  include BreadcrumbsMembers
+
   before_action :set_department
   before_action :set_module, except: [:new, :create, :remove_module_member]
   before_action :set_breadcrumbs
@@ -40,13 +42,13 @@ class Admins::DepartmentModulesController < Admins::BaseController
   end
 
   def members
-    breadcrumbs_members
+    breadcrumbs_members(@module)
     @department_module_user = DepartmentModuleUser.new
     set_module_members
   end
 
   def add_module_member
-    breadcrumbs_members
+    breadcrumbs_members(@module)
 
     if @module.add_member(users_params)
       flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
@@ -62,7 +64,7 @@ class Admins::DepartmentModulesController < Admins::BaseController
     @module = @department.modules.find(params[:module_id])
     @module_user = @module.remove_member(params[:id])
 
-    breadcrumbs_members
+    breadcrumbs_members(@module)
     flash[:success] = I18n.t('flash.actions.remove.m', resource_name: User.model_name.human)
 
     redirect_to admins_department_module_members_path(@department, @module)
@@ -87,8 +89,9 @@ class Admins::DepartmentModulesController < Admins::BaseController
   end
 
   def users_params
-    { user_id: params[:department_module_user][:user_id],
-      role: params[:department_module_user][:role] }
+    department_module_user = params[:department_module_user]
+    { user_id: department_module_user[:user_id],
+      role: department_module_user[:role] }
   end
 
   def set_breadcrumbs
@@ -105,11 +108,5 @@ class Admins::DepartmentModulesController < Admins::BaseController
 
   def set_create_breadcrumbs
     add_breadcrumb I18n.t('views.breadcrumbs.new.m'), new_admins_department_module_path
-  end
-
-  def breadcrumbs_members
-    add_breadcrumb I18n.t('views.breadcrumbs.show', model: DepartmentModule.model_name.human, id: @module.id),
-                   admins_department_path(@department)
-    add_breadcrumb I18n.t('views.department_module.members.name'), admins_department_module_members_path(@department)
   end
 end

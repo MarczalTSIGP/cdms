@@ -3,9 +3,10 @@ class Users::DocumentsController < Users::BaseController
   before_action :set_document, except: [:index, :new, :create]
   before_action :set_departments, only: [:edit, :new, :update, :create]
   include Breadcrumbs
+  include BreadcrumbsMembers
 
   def members
-    breadcrumbs_members
+    breadcrumbs_members(@document)
     @document_user = DocumentUser.new
     @document_users = @document.members
   end
@@ -15,7 +16,7 @@ class Users::DocumentsController < Users::BaseController
       flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
       redirect_to users_document_members_path(@document)
     else
-      breadcrumbs_members
+      breadcrumbs_members(@document)
       @document_user = @document.document_users.last
       set_document_members
       render :members
@@ -103,8 +104,9 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def create_document
-    if document_params[:department_id].present?
-      department = current_user.departments.find(document_params[:department_id])
+    department_id = document_params[:department_id]
+    if department_id.present?
+      department = current_user.departments.find(department_id)
       department.documents.create(document_params)
     else
       Document.new(document_params)
@@ -120,18 +122,14 @@ class Users::DocumentsController < Users::BaseController
     { user_id: params[:document_user][:user_id] }
   end
 
-  def breadcrumbs_members
-    add_breadcrumb I18n.t('views.breadcrumbs.show', model: Document.model_name.human, id: @document.id),
-                   users_document_path(@document)
-    add_breadcrumb I18n.t('views.document.members.name'), users_document_members_path(@document)
-  end
-
   def search_non_members_document
-    if params[:user_id].nil?
-      non_members = @document.search_non_members(params[:term])
+    user_id = params[:user_id]
+    term = params[:term]
+    if user_id
+      non_members = @document.search_non_members(term)
     else
-      document_user = @document.users.find(params[:user_id])
-      non_members = document_user.search_non_members_document(params[:term])
+      document_user = @document.users.find(user_id)
+      non_members = document_user.search_non_members_document(term)
     end
     render json: non_members.as_json(only: [:id, :name])
   end
