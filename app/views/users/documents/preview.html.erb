@@ -2,5 +2,6 @@
 
 <%= render 'not_print' %>
 
-<%= render 'page', text: @document.front_text, show_title: true %>
-<%= render 'page', text: @document.back_text, show_title: false %>
+
+<%= render 'page', text: sanitize(@document.front_text, attributes: %w(style class href target src)), show_title: true %>
+<%= render 'page', text: sanitize(@document.back_text, attributes: %w(style class href target src)), show_title: false %>
