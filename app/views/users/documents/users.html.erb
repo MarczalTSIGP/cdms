@@ -1,0 +1,46 @@
+<% provide(:head_title, t('views.document.users.name', name: @document.title)) %>
+<% provide(:page_title, t('views.document.users.nwdp', name: @document.title)) %>
+
+<%= simple_form_for(@document_receiver, url: users_document_add_user_path, method: :post) do |f| %>
+  <div class="row">
+    <%= f.hidden_field :user_id %>
+    <%= f.input :user, label: false,
+                wrapper_html: { class: 'col-sm-6' },
+                placeholder: 'Pesquise por um usuário',
+                input_html: { data: { search: 'keypress', search_url: api_search_non_document_users_path(@document) } } %>
+
+    <div class="col-sm-1">
+      <%= button_tag type: 'submit', class: 'btn btn-primary' do %>
+        <i class="fe fe-user-plus"></i>
+      <% end %>
+    </div>
+  </div>
+<%end%>
+
+<div class="table-responsive">
+  <table class="table card-table table-striped table-vcenter table-options">
+    <thead>
+      <tr>
+        <th><%= User.human_attribute_name(:id) %></th>
+        <th><%= User.human_attribute_name(:name) %></th>
+        <th><%= User.human_attribute_name(:cpf) %></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @document_users.each do |document_user| %>
+        <tr>
+          <td><%= document_user['id'] %></td>
+          <td><%= document_user['name'] %></td>
+          <td><%= document_user['cpf'] %></td>
+          <td>
+            <%= link_to users_document_remove_user_path(@document, document_user['id']), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
+              <%= icon('fas', 'trash', class: 'icon mr-6', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

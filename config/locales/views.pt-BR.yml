@@ -119,6 +119,9 @@ pt-BR:
       variables:
         name: Nome
         identifier: Identificador
+      users:
+        name: Usuários
+        nwdp: 'Usuários do Documento %{name}'
     department:
       name:
         singular: Departamento

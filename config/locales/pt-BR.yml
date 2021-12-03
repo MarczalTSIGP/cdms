@@ -24,7 +24,7 @@ pt-BR:
   activerecord:
     errors:
       messages:
-        not_an_array: não é uma Array
+        not_an: Deve ser do tipo %{type}
     models:
       admin:
         one: Administrador

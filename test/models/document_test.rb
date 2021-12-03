@@ -57,7 +57,7 @@ class DocumentTest < ActiveSupport::TestCase
 
       assert_not @document.valid?
       assert_equal 1, @document.errors.messages[:variables].size
-      assert_contains @document.errors.messages[:variables], I18n.t('activerecord.errors.messages.not_an_array')
+      assert_contains @document.errors.messages[:variables], I18n.t('activerecord.errors.messages.not_an', type: Array)
 
       @document.variables = [{ name: 'Nome', identifier: 'name' }]
       assert @document.valid?
@@ -92,6 +92,61 @@ class DocumentTest < ActiveSupport::TestCase
       assert_raise JSON::ParserError do
         @document.variables = json_s
       end
+    end
+  end
+
+  context 'users' do
+    setup do
+      department = create(:department)
+      @document = build(:document, :declaration, department: department)
+    end
+
+    should 'be an empty array by default' do
+      assert @document.valid?
+    end
+
+    should 'only accept array of json' do
+      @document.users = { id: 1, name: 'name', cpf: '877.919.020-01' }
+
+      assert_not @document.valid?
+      assert_equal 1, @document.errors.messages[:users].size
+      assert_contains @document.errors.messages[:users], I18n.t('activerecord.errors.messages.not_an', type: Array)
+
+      @document.users = [{ id: 1, name: 'name', cpf: '877.919.020-01' }]
+      assert @document.valid?
+    end
+
+    should 'accept only keys from schema' do
+      @document.users = [{ name: 'Nome', identiier: 'name' }]
+
+      assert_not @document.valid?
+      assert_contains @document.errors.messages[:users], I18n.t('activerecord.errors.messages.invalid')
+    end
+
+    should 'accept json format in string' do
+      json_s = '[{"id":"1","name":"Joseph", "cpf":"877.919.020-01"}]'
+      @document.users = json_s
+
+      assert_equal '1', @document.users[0]['id']
+      assert_equal 'Joseph', @document.users[0]['name']
+      assert_equal '877.919.020-01', @document.users[0]['cpf']
+    end
+
+    should 'not accept json string unformated' do
+      json_s = '[{"name:"Nome","identifier":"name"}]'
+
+      assert_raise JSON::ParserError do
+        @document.users = json_s
+      end
+    end
+
+    should 'be a uniqueness on json' do
+      @document.users = [{ id: 1, name: 'name', cpf: '877.919.020-01' },
+                         { id: 1, name: 'name', cpf: '877.919.020-01' },
+                         { id: 2, name: 'name', cpf: '877.919.020-01' }]
+
+      assert_not @document.valid?
+      assert_contains @document.errors.messages[:users], I18n.t('activerecord.errors.messages.taken')
     end
   end
 end
