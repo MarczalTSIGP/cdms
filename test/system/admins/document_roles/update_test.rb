@@ -25,6 +25,11 @@ class UpdateTest < ApplicationSystemTestCase
 
       flash_message = I18n.t('flash.actions.update.f', resource_name: t('views.document_role.name.singular'))
       assert_selector('div.alert.alert-success', text: flash_message)
+
+      within('table.table tbody') do
+        assert_selector 'tr td', text: document_role.name
+        assert_selector 'tr td', text: document_role.description
+      end
     end
 
     should 'unsuccessfully' do

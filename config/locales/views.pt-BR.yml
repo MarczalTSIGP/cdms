@@ -11,6 +11,7 @@ pt-BR:
         users: Usuários
         administrators: Administradores
         team: Equipe
+        roles: Funções
     home:
       head_title: Início
       page_title: Início
@@ -103,7 +104,7 @@ pt-BR:
       links:
         sign_out: Sair
         new: Novo usuário
-        access: Área do usuário      
+        access: Área do usuário
     document:
       links:
         edit: Editar

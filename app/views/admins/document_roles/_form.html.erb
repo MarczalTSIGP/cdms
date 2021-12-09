@@ -1,8 +1,7 @@
 <%= simple_form_for([:admins, @document_role]) do |f| %>
-  <div class="row">
-    <%= f.input :name, wrapper_html: { class: 'col-sm-12' } %>
-    <%= f.input :description, wrapper_html: { class: 'col-sm-12' } %>
-  </div>
+
+  <%= f.input :name %>
+  <%= f.input :description %>
 
   <div class="form-footer">
     <div class="d-flex">

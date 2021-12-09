@@ -38,6 +38,7 @@ class IndexTest < ApplicationSystemTestCase
       submit_form('button.submit-search')
 
       assert_selector 'tr:nth-child(1) td:nth-child(1)', text: second_name
+      refute_text first_name
     end
   end
 end
