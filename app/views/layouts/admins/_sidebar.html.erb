@@ -26,5 +26,8 @@
       <span class="icon mr-3"><i class="fas fa-user-tie"></i></span> <%= t("views.app.sidebar.administrators") %>
     <% end %>
 
+    <%= active_link_to admins_document_roles_path, class: 'list-group-item list-group-item-action' do %>
+      <span class="icon mr-3"><i class="fas fa-address-card"></i></span> <%= t("views.app.sidebar.roles") %>
+    <% end %>
   </div>
 </div>

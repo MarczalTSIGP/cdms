@@ -1,0 +1,13 @@
+<%= simple_form_for([:admins, @document_role]) do |f| %>
+
+  <%= f.input :name %>
+  <%= f.input :description %>
+
+  <div class="form-footer">
+    <div class="d-flex">
+      <%= link_to t('views.links.back'), admins_document_roles_path, class: 'btn btn-secondary' %>
+      <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+    </div>
+  </div>
+
+<% end %>
