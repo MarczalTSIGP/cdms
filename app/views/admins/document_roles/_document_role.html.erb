@@ -1,0 +1,13 @@
+<tr>
+    <td><%= document_role.name %></td>
+    <td><%= document_role.description %></td>
+
+    <td>
+      <%= link_to edit_admins_document_role_path(document_role) do %>
+        <%= icon('fas', 'edit', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.edit')) %>
+      <% end %>
+      <%= link_to admins_document_role_path(document_role), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
+        <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
+      <% end %>
+    </td>
+</tr>

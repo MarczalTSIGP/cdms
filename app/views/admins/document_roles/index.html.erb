@@ -1,0 +1,27 @@
+<% provide(:head_title, t('activerecord.models.document_role.other')) %>
+<% provide(:page_title, t('activerecord.models.document_role.other')) %>
+
+<%= render 'shared/search_and_new', new_path: new_admins_document_role_path, new_link: 'views.document_role.links.new',
+                                    search_path: search_admins_document_roles_path %>
+
+<div class="text-right mb-4">
+  <%= page_entries_info @document_roles %>
+</div>
+
+<div class="table-responsive dataTables_wrapper">
+  <table class="table card-table table-striped table-vcenter table-options">
+    <thead>
+      <tr>
+        <th><%= t('activerecord.attributes.document_role.name') %></th>
+        <th><%= t('activerecord.attributes.document_role.description') %></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= render @document_roles %>
+    </tbody>
+  </table>
+
+  <%= paginate @document_roles %>
+</div>
