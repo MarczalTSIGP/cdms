@@ -1,8 +1,12 @@
 class Document < ApplicationRecord
   include Searchable
+  include Members
+
   search_by :title
 
   belongs_to :department
+  has_many :document_users, dependent: :destroy
+  has_many :users, through: :document_users
 
   enum category: { declaration: 'declaration', certification: 'certification' }, _suffix: :category
 

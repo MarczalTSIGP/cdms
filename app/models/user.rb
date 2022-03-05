@@ -3,12 +3,16 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   include Searchable
+
   search_by :name
 
   before_destroy :can_destroy?
 
   has_many :department_users, dependent: :destroy
   has_many :departments, through: :department_users
+
+  has_many :document_users, dependent: :destroy
+  has_many :documents, through: :document_users
 
   has_many :department_module_users, dependent: :destroy
   has_many :department_modules, through: :department_module_users

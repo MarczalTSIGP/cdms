@@ -17,6 +17,9 @@
       <%= link_to users_document_users_path(document) do %>
         <%= icon('fas', 'users', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.user.name.plural')) %>
       <% end %>
+      <%= link_to users_document_members_path(document) do %>
+          <%= icon('fas', 'users', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.user.name.plural')) %>
+      <% end %>
       <%= link_to users_preview_document_path(document) do %>
           <%= icon('fas', 'print', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.document.name.singular')) %>
       <% end %>

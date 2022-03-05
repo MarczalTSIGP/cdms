@@ -32,6 +32,9 @@ pt-BR:
       document:
         one: Certificado/Declaração
         other: Certificados/Declarações
+      document_role:
+        one: Função
+        other: Funções
       department:
         one: Departamento
         other: Departamentos
@@ -78,6 +81,9 @@ pt-BR:
           false: Desativado
           true: Ativo
         default_variables: Variáveis Padrão
+      document_role:
+        name: Nome da Função
+        description: Descrição da Função
       department_module:
         name: Nome
         description: Descrição

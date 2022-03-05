@@ -11,6 +11,7 @@ pt-BR:
         users: Usuários
         administrators: Administradores
         team: Equipe
+        roles: Funções
     home:
       head_title: Início
       page_title: Início
@@ -104,7 +105,6 @@ pt-BR:
         sign_out: Sair
         new: Novo usuário
         access: Área do usuário
-        
     document:
       links:
         edit: Editar
@@ -122,6 +122,19 @@ pt-BR:
       users:
         name: Usuários
         nwdp: 'Usuários do Documento %{name}'
+      members:
+        name: Membros
+        nwdc: 'Membros Assinantes do %{name}'
+    document_role:
+      name:
+        singular: Função
+        plural:  Funções
+      links:
+        edit: Editar
+        new: Nova Função
+        show: Visualizar função
+        edit: Editar função
+        create: Criar Função
     department:
       name:
         singular: Departamento

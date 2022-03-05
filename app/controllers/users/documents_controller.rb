@@ -3,6 +3,32 @@ class Users::DocumentsController < Users::BaseController
   before_action :set_document, except: [:index, :new, :create, :remove_user]
   before_action :set_departments, only: [:edit, :new, :update, :create]
   include Breadcrumbs
+  include BreadcrumbsMembers
+
+  def members
+    breadcrumbs_members(@document)
+    @document_user = DocumentUser.new
+    @document_users = @document.members
+  end
+
+  def add_member
+    breadcrumbs_members(@document)
+
+    if @document.add_member(users_params)
+      flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
+      redirect_to users_document_members_path(@document)
+    else
+      @document_user = @document.document_users.last
+      set_document_members
+      render :members
+    end
+  end
+
+  def remove_member
+    @document.remove_member(params[:id])
+    flash[:success] = I18n.t('flash.actions.remove.m', resource_name: User.model_name.human)
+    redirect_to users_document_members_path(@document)
+  end
 
   def index
     @documents = current_user.documents.search(params[:term]).page(params[:page]).includes(:department)
@@ -97,16 +123,22 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def set_document
-    @document = current_user.documents.find(params[:id])
+    id = params[:document_id] || params[:id]
+    @document = Document.find(id)
   end
 
   def set_departments
     @departments = current_user.departments
   end
 
+  def set_document_members
+    @document_users = @document.members
+  end
+
   def create_document
-    if document_params[:department_id].present?
-      department = current_user.departments.find(document_params[:department_id])
+    department_id = document_params[:department_id]
+    if department_id.present?
+      department = current_user.departments.find(department_id)
       department.documents.create(document_params)
     else
       Document.new(document_params)
@@ -126,5 +158,21 @@ class Users::DocumentsController < Users::BaseController
     add_breadcrumb I18n.t('views.breadcrumbs.show', model: Document.model_name.human, id: @document.id),
                    users_document_path(@document)
     add_breadcrumb I18n.t('views.user.name.plural'), users_document_users_path(@document)
+  end
+  
+  def users_params
+    { user_id: params[:document_user][:user_id] }
+  end
+
+  def search_non_members_document
+    user_id = params[:user_id]
+    term = params[:term]
+    if user_id
+      non_members = @document.search_non_members(term)
+    else
+      document_user = @document.users.find(user_id)
+      non_members = document_user.search_non_members_document(term)
+    end
+    render json: non_members.as_json(only: [:id, :name])
   end
 end

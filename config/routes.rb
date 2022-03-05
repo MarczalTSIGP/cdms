@@ -32,6 +32,8 @@ Rails.application.routes.draw do
 
       root to: 'dashboard#index'
 
+      get 'documents/:id/members', to: 'documents#members', as: :document_members
+
       get 'departments/:id/members', to: 'departments#members', as: :department_members
 
       post 'departments/:id/members', to: 'departments#add_member', as: :department_add_member
@@ -39,6 +41,12 @@ Rails.application.routes.draw do
                                                        as: :department_remove_member
 
       resources :documents, concerns: [:paginatable, :searchable_paginatable]
+      post 'documents/:id/members', to: 'documents#add_member', as: :document_add_member
+      delete 'documents/:document_id/members/:id', to: 'documents#remove_member',
+                                                   as: :document_remove_member
+      get '(:document_id)/(:user_id)/non-members/search/(:term)',
+          to: 'documents#search_non_members_document',
+          as: 'search_non_members_documents'
 
       get 'documents/:id/preview', to: 'documents#preview', as: :preview_document
 
@@ -49,6 +57,7 @@ Rails.application.routes.draw do
       get 'team-departments-modules', to: 'team_departments_modules#index', action: :index
       get 'show-department/:id', to: 'team_departments_modules#show_department',
                                  action: :show_department, as: :show_department
+
       get 'show-module/:id', to: 'team_departments_modules#show_module', action: :show_module, as: :show_module
       patch 'documents/:id/availability-to-sign', to: 'documents#toggle_available_to_sign',
                                                   as: :document_availability_to_sign
@@ -69,6 +78,7 @@ Rails.application.routes.draw do
 
       resources :users, constraints: { id: /[0-9]+/ }, concerns: [:paginatable, :searchable_paginatable]
       resources :administrators, only: [:index, :create, :destroy]
+      resources :document_roles, concerns: [:paginatable, :searchable_paginatable]
       get '/administrators/search/(:term)', to: 'administrators#search_non_admins',
                                             as: 'search_non_administrators'
 

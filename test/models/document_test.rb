@@ -93,6 +93,39 @@ class DocumentTest < ActiveSupport::TestCase
         @document.variables = json_s
       end
     end
+
+    context 'members' do
+      should 'search non members' do
+        department = create(:department)
+
+        @document = create(:document, :declaration, department: department)
+        user_a = create(:user, name: 'user_a')
+        user_b = create(:user, name: 'user_b')
+        create(:document_user, user: user_a, document: @document)
+
+        assert_not_equal [user_a], @document.search_non_members('a')
+        assert_equal [user_b], @document.search_non_members('b')
+      end
+
+      should 'add member' do
+        department = create(:department)
+        @document = create(:document, :declaration, department: department)
+        user_a = create(:user, name: 'user_a')
+        create(:document_user, user: user_a, document: @document)
+        @document.add_member({ user: user_a })
+
+        assert_equal 1, @document.members.count
+      end
+
+      should 'remove member' do
+        department = create(:department)
+        @document = create(:document, :declaration, department: department)
+        user_a = create(:user, name: 'user_a')
+        create(:document_user, user: user_a, document: @document)
+        @document.remove_member(user_a.id)
+        assert_equal 0, @document.members.count
+      end
+    end
   end
 
   context 'users' do
