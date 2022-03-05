@@ -16,11 +16,11 @@
     </p>
     <p>
       <strong><%= t('activerecord.attributes.document.front_text') %>:</strong>
-      <%= raw(@document.front_text) %>
+      <%= sanitize  @document.front_text, attributes: %w(style class href target src) %>
     </p>
     <p>
       <strong><%= t('activerecord.attributes.document.back_text') %>:</strong>
-      <%= raw(@document.back_text) %>
+      <%= sanitize  @document.back_text, attributes: %w(style class href target src) %>
     </p>
   </div>
 </div>

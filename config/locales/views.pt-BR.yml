@@ -119,6 +119,9 @@ pt-BR:
       variables:
         name: Nome
         identifier: Identificador
+      members:
+        name: Membros
+        nwdc: 'Membros Assinantes do %{name}'
     document_role:
       name:
         singular: Função

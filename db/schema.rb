@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_24_155010) do
+ActiveRecord::Schema.define(version: 2021_11_25_005229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,16 @@ ActiveRecord::Schema.define(version: 2021_11_24_155010) do
     t.index ["name"], name: "index_document_roles_on_name", unique: true
   end
 
+  create_table "document_users", force: :cascade do |t|
+    t.bigint "document_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["document_id", "user_id"], name: "index_document_users_on_document_id_and_user_id", unique: true
+    t.index ["document_id"], name: "index_document_users_on_document_id"
+    t.index ["user_id"], name: "index_document_users_on_user_id"
+  end
+
   create_table "documents", force: :cascade do |t|
     t.bigint "department_id", null: false
     t.enum "category", enum_name: "document_categories"
@@ -152,6 +162,8 @@ ActiveRecord::Schema.define(version: 2021_11_24_155010) do
   add_foreign_key "department_modules", "departments"
   add_foreign_key "department_users", "departments"
   add_foreign_key "department_users", "users"
+  add_foreign_key "document_users", "documents"
+  add_foreign_key "document_users", "users"
   add_foreign_key "documents", "departments"
   add_foreign_key "users", "roles"
 end
