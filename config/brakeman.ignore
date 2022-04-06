@@ -7,7 +7,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/users/documents/index.html.erb",
-      "line": 22,
+      "line": 23,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(action => current_user.documents.search(params[:term]).page(params[:page]).includes(:department), {})",
       "render_path": [
@@ -15,7 +15,7 @@
           "type": "controller",
           "class": "Users::DocumentsController",
           "method": "index",
-          "line": 9,
+          "line": 35,
           "file": "app/controllers/users/documents_controller.rb",
           "rendered": {
             "name": "users/documents/index",
@@ -63,6 +63,26 @@
       "note": ""
     },
     {
+      "warning_type": "Remote Code Execution",
+      "warning_code": 24,
+      "fingerprint": "fb4bcbb2ac2bad3c3f45a29d999d2024f6b7974cad6382b31114e1f9899cde01",
+      "check_name": "UnsafeReflection",
+      "message": "Unsafe reflection method `constantize` called with parameter value",
+      "file": "app/controllers/api/search_members_controller.rb",
+      "line": 4,
+      "link": "https://brakemanscanner.org/docs/warning_types/remote_code_execution/",
+      "code": "params[:model_name].classify.constantize",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::SearchMembersController",
+        "method": "search_non_members"
+      },
+      "user_input": "params[:model_name].classify",
+      "confidence": "High",
+      "note": ""
+    },
+    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "fc349a47e2e801aa713b44c83552d13f338d5b78c8144043525960341e9c67d1",
@@ -94,6 +114,6 @@
       "note": ""
     }
   ],
-  "updated": "2020-11-06 23:38:12 +0000",
+  "updated": "2022-04-06 21:32:38 +0000",
   "brakeman_version": "4.10.0"
 }
