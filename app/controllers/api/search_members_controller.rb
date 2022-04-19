@@ -1,18 +1,17 @@
 class Api::SearchMembersController < ActionController::API
   def search_non_members
-    find_department
-    if params[:module_id].nil?
-      non_members = @department.search_non_members(params[:term])
-    else
-      department_module = @department.modules.find(params[:module_id])
-      non_members = department_module.search_non_members(params[:term])
-    end
+    @model = model.find(params[:id])
+    non_members = @model.search_non_members(params[:term])
+
     render json: non_members.as_json(only: [:id, :name])
   end
 
   private
 
-  def find_department
-    @department = Department.find(params[:department_id])
+  def model
+    model_name = params[:model_name].classify
+
+    whitelist = [::Department, ::DepartmentModule]
+    whitelist.find { |model| model.name.eql?(model_name) }
   end
 end
