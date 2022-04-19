@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   authenticate :user do
     namespace :api do
-      get '(:department_id)/(:module_id)/non-members/search/(:term)',
+      get ':model_name/:id/non-members/search/(:term)',
           costraints: { term: %r{[^/]+} }, # allows anything except a slash.
           to: 'search_members#search_non_members',
           as: 'search_non_members'
