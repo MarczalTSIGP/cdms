@@ -6,7 +6,7 @@ class UpdateTest < ApplicationSystemTestCase
       user = create(:user, :manager)
       login_as(user, as: :user)
 
-      @user = create(:user)
+      @user = create(:user, active: false)
       visit edit_admins_user_path(@user)
     end
 

@@ -133,7 +133,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   context 'search' do
-    should 'by name' do
+    should 'by name case insensitive' do
       first_name = 'Eduardo'
       second_name = 'Pedro'
 
@@ -142,6 +142,8 @@ class UserTest < ActiveSupport::TestCase
 
       assert_equal(1, User.search(first_name).count)
       assert_equal(1, User.search(second_name).count)
+      assert_equal(1, User.search(first_name.downcase).count)
+      assert_equal(1, User.search(second_name.downcase).count)
       assert_equal(2, User.search('').count)
     end
   end

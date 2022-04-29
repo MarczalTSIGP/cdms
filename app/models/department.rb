@@ -2,7 +2,7 @@ class Department < ApplicationRecord
   include Searchable
   include Members
 
-  search_by :name, :initials
+  search_by :name, initials: { case_sensitive: true }
 
   has_many :department_modules, dependent: :destroy
   has_many :department_users, dependent: :destroy
