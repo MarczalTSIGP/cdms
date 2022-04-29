@@ -11,7 +11,7 @@ class Api::SearchMembersController < ActionController::API
   def model
     model_name = params[:model_name].classify
 
-    whitelist = [::Department, ::DepartmentModule]
+    whitelist = [::Department, ::DepartmentModule, ::Document]
     whitelist.find { |model| model.name.eql?(model_name) }
   end
 end
