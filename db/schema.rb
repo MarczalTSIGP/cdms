@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_25_005229) do
+ActiveRecord::Schema.define(version: 2022_03_24_234450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 2021_11_25_005229) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["cpf"], name: "index_audience_members_on_cpf", unique: true
     t.index ["email"], name: "index_audience_members_on_email", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.text "text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
   create_table "department_module_users", force: :cascade do |t|
@@ -128,6 +136,13 @@ ActiveRecord::Schema.define(version: 2021_11_25_005229) do
     t.index ["url"], name: "index_pages_on_url", unique: true
   end
 
+  create_table "posts", force: :cascade do |t|
+    t.string "title"
+    t.text "text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "identifier"
@@ -157,6 +172,7 @@ ActiveRecord::Schema.define(version: 2021_11_25_005229) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "comments", "posts"
   add_foreign_key "department_module_users", "department_modules"
   add_foreign_key "department_module_users", "users"
   add_foreign_key "department_modules", "departments"

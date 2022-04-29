@@ -46,7 +46,7 @@ class AudienceMemberTest < ActiveSupport::TestCase
   end
 
   context 'search' do
-    should 'search' do
+    should 'by member name case insensitive' do
       first_name = 'Eduardo'
       second_name = 'Pedro'
 
@@ -55,6 +55,8 @@ class AudienceMemberTest < ActiveSupport::TestCase
 
       assert_equal(1, AudienceMember.search(first_name).count)
       assert_equal(1, AudienceMember.search(second_name).count)
+      assert_equal(1, AudienceMember.search(first_name.downcase).count)
+      assert_equal(1, AudienceMember.search(second_name.downcase).count)
       assert_equal(2, AudienceMember.search('').count)
     end
   end
