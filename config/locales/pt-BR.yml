@@ -84,6 +84,10 @@ pt-BR:
       document_role:
         name: Nome da Função
         description: Descrição da Função
+      document_sign:
+        one: Documento à assinar
+        other: Documentos à assinar
+        sign: Assinar
       department_module:
         name: Nome
         description: Descrição

@@ -1,3 +1,5 @@
 class Users::DashboardController < Users::BaseController
-  def index; end
+  def index
+    @unsigned_documents = current_user.unsigned_documents
+  end
 end
