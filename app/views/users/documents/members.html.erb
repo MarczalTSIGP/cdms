@@ -8,7 +8,12 @@
                   wrapper_html: { class: 'col-sm-6' },
                   placeholder: 'Pesquise por um usuário',
                   input_html: { data: { search: 'keypress', search_url: api_search_non_members_path(:document, @document) },
-                                value: f.object.user&.name  } %>    
+                                value: f.object.user&.name  } %>
+      <%= f.input :document_role, label: false, wrapper_html: { class: 'col-sm-5' },
+                input_html: { class: 'apply-selectize' },
+                collection: DocumentRole.all,
+                prompt: t('views.prompt.select.m', name: User.human_attribute_name(:role)) %>
+
       <div class="col-sm-1">
         <%= button_tag type: 'submit', class: 'btn btn-primary' do %>
           <i class="fe fe-user-plus"></i>
@@ -25,6 +30,7 @@
       <th><%= User.human_attribute_name(:name) %></th>
       <th><%= User.human_attribute_name(:email) %></th>
       <th><%= User.human_attribute_name(:active) %></th>
+      <th><%= User.human_attribute_name(:role) %></th>
       <th></th>
     </tr>
   </thead>
@@ -35,6 +41,7 @@
         <td><%= document_user.user.name %></td>
         <td><%= document_user.user.email %></td>
         <td><%= t("views.status.#{document_user.user.active?}") %></td>
+        <td><%= document_user.document_role.name %></td>
         <td>
           <%= link_to users_document_remove_member_path(@document, document_user.user), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
             <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>

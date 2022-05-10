@@ -8,7 +8,7 @@ class Users::DocumentsController < Users::BaseController
   def members
     breadcrumbs_members(@document)
     @document_user = DocumentUser.new
-    @document_users = @document.members
+    @document_users = @document.members(:user, :document_role)
   end
 
   def add_member
@@ -97,7 +97,7 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def set_document_members
-    @document_users = @document.members
+    @document_users = @document.members(:user, :document_role)
   end
 
   def create_document
@@ -116,7 +116,7 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def users_params
-    { user_id: params[:document_user][:user_id] }
+    { user_id: params[:document_user][:user_id], document_role_id: params[:document_user][:document_role] }
   end
 
   def search_non_members_document

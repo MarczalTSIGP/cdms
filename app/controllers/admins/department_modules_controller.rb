@@ -77,7 +77,7 @@ class Admins::DepartmentModulesController < Admins::BaseController
   end
 
   def set_module_members
-    @department_module_users = @module.members
+    @department_module_users = @module.members(:user)
   end
 
   def set_module

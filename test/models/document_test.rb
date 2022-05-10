@@ -46,6 +46,7 @@ class DocumentTest < ActiveSupport::TestCase
     setup do
       department = create(:department)
       @document = build(:document, :declaration, department: department)
+      @document_role = create(:document_role)
     end
 
     should 'be an empty array by default' do
@@ -101,7 +102,7 @@ class DocumentTest < ActiveSupport::TestCase
         @document = create(:document, :declaration, department: department)
         user_a = create(:user, name: 'user_a')
         user_b = create(:user, name: 'user_b')
-        create(:document_user, user: user_a, document: @document)
+        create(:document_user, user: user_a, document: @document, document_role: @document_role)
 
         assert_not_equal [user_a], @document.search_non_members('a')
         assert_equal [user_b], @document.search_non_members('b')
@@ -111,7 +112,7 @@ class DocumentTest < ActiveSupport::TestCase
         department = create(:department)
         @document = create(:document, :declaration, department: department)
         user_a = create(:user, name: 'user_a')
-        create(:document_user, user: user_a, document: @document)
+        create(:document_user, user: user_a, document: @document, document_role: @document_role)
         @document.add_member({ user: user_a })
 
         assert_equal 1, @document.members.count
@@ -121,7 +122,7 @@ class DocumentTest < ActiveSupport::TestCase
         department = create(:department)
         @document = create(:document, :declaration, department: department)
         user_a = create(:user, name: 'user_a')
-        create(:document_user, user: user_a, document: @document)
+        create(:document_user, user: user_a, document: @document, document_role: @document_role)
         @document.remove_member(user_a.id)
         assert_equal 0, @document.members.count
       end
