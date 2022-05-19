@@ -7,6 +7,7 @@
         margin-left: 0.5rem; 
         font-size: 0.7rem; 
         font-weight: bold;
+        margin-left: auto;
     }
 
     .card-table{
@@ -20,6 +21,22 @@
                 max-width: 11rem;
             }
         }
+    }
+
+    .card-table tr td:first-child, .card-table tr th:first-child {
+          padding-left: 0;
+    }
+
+    .card-table tr td:last-child, .card-table tr th:last-child {
+        padding-right: 0;
+
+        a {
+           float: right;
+        }
+    }
+
+    .card-header {
+      padding: 0;
     }
 } 
 

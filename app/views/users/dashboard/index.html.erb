@@ -1,23 +1,4 @@
 <% provide(:head_title, 'Dashboard') %>
 <% provide(:page_title, 'Dashboard') %>
 
-<%if @unsigned_documents.size > 0 %>
-    <div class="card col-12 col-sm-6 col-lg-5 col-xl-3" id="doc-sign-notification">
-        <div class="card-header">
-            <h3 class="card-title"><%=t('activerecord.attributes.document_sign.other')%></h3>
-            <span class="notification-counter"><%=@unsigned_documents.size%></span> 
-        </div>
-        <div class="card-table table-responsive">
-            <table class="table">
-                <tbody>
-                    <%= render partial: "document_sign", collection: @unsigned_documents %>
-                </tbody>
-            </table>
-        </div>
-    </div>
-<%else%>
-    <div class="card col-12 col-sm-6 col-lg-5 col-xl-3 d-flex flex-column align-items-center" id="non-doc-sign">
-        <h1 class="pt-2"><%= @unsigned_documents.size%></h1>
-        <p class="text-muted "><%= t('activerecord.attributes.document_sign.other')%></p> 
-    </div>   
-<%end%>
+<%= render partial: documents_to_sign_partial(@unsigned_documents) %>

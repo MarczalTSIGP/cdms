@@ -21,8 +21,8 @@ class DashboardTest < ApplicationSystemTestCase
       visit users_root_path
 
       assert_no_selector '#doc-sign-notification'
-      assert_selector '#non-doc-sign h1', exact_text: '0'
-      assert_selector '#non-doc-sign .text-muted', exact_text: I18n.t('activerecord.attributes.document_sign.other')
+      assert_selector '#non-doc-sign div.h1', exact_text: '0'
+      assert_selector '#non-doc-sign .text-muted', exact_text: I18n.t('activerecord.models.document_user.other')
     end
 
     should 'list documents available to sign' do

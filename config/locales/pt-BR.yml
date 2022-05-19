@@ -35,6 +35,9 @@ pt-BR:
       document_role:
         one: Função
         other: Funções
+      document_user:
+        one: Documento à assinar
+        other: Documentos à assinar
       department:
         one: Departamento
         other: Departamentos
@@ -84,9 +87,7 @@ pt-BR:
       document_role:
         name: Nome da Função
         description: Descrição da Função
-      document_sign:
-        one: Documento à assinar
-        other: Documentos à assinar
+      document_user:
         sign: Assinar
       department_module:
         name: Nome
@@ -98,8 +99,6 @@ pt-BR:
         cpf: CPF
         status: Acesso
         system_access: Acesso ao sistema
-        active: Habilitado
-        unactive: Desabilitado
         password: Senha
         current_password: Senha atual
         password_confirmation: Confirmação de senha
@@ -114,7 +113,6 @@ pt-BR:
         inactive:
           one: Inativo
           other: Inativos
-        <<: *commons
         <<: *commons
       audience_member:
         cpf: CPF
