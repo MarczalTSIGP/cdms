@@ -77,7 +77,7 @@ class Admins::DepartmentsController < Admins::BaseController
   end
 
   def set_department_members
-    @department_users = @department.members(:user)
+    @department_users = @department.members
   end
 
   def department_params

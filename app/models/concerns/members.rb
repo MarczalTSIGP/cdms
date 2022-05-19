@@ -6,8 +6,8 @@ module Members
       User.where('unaccent(name) ILIKE unaccent(?)', "%#{term}%").order('name ASC').where.not(id: user_ids)
     end
 
-    def members(*fields)
-      relationship.includes(fields)
+    def members
+      relationship.includes(:user)
     end
 
     def add_member(user)

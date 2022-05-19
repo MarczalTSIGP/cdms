@@ -8,7 +8,7 @@ class Users::DocumentsController < Users::BaseController
   def members
     breadcrumbs_members(@document)
     @document_user = DocumentUser.new
-    @document_users = @document.members(:user, :document_role)
+    @document_users = @document.members.includes(:document_role)
   end
 
   def add_member
@@ -97,7 +97,7 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def set_document_members
-    @document_users = @document.members(:user, :document_role)
+    @document_users = @document.members.includes(:document_role)
   end
 
   def create_document
@@ -117,17 +117,5 @@ class Users::DocumentsController < Users::BaseController
 
   def users_params
     { user_id: params[:document_user][:user_id], document_role_id: params[:document_user][:document_role] }
-  end
-
-  def search_non_members_document
-    user_id = params[:user_id]
-    term = params[:term]
-    if user_id
-      non_members = @document.search_non_members(term)
-    else
-      document_user = @document.users.find(user_id)
-      non_members = document_user.search_non_members_document(term)
-    end
-    render json: non_members.as_json(only: [:id, :name])
   end
 end

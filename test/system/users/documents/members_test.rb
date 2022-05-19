@@ -45,7 +45,7 @@ class MembersTest < ApplicationSystemTestCase
     end
 
     should 'remove a member' do
-      du = create(:document_user, :collaborator)
+      du = create(:document_user)
       user = du.user
       document = du.document
 
