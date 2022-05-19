@@ -99,15 +99,30 @@ class DepartmentTest < ActiveSupport::TestCase
   end
 
   context 'search' do
-    should 'by name' do
-      first_name = 'TSI'
-      second_name = 'TMI'
+    should 'by name case insensitive' do
+      first_name = 'Tecnologia em Sistemas Para Internet'
+      second_name = 'Tecnologia em Manutenção Industrial'
 
       FactoryBot.create(:department, name: first_name)
       FactoryBot.create(:department, name: second_name)
 
       assert_equal(1, Department.search(first_name).count)
       assert_equal(1, Department.search(second_name).count)
+      assert_equal(1, Department.search(first_name.downcase).count)
+      assert_equal(1, Department.search(second_name.downcase).count)
+      assert_equal(2, Department.search('').count)
+    end
+    should 'by initials case sensitive' do
+      first_initial = 'TSI'
+      second_initial = 'TMI'
+
+      FactoryBot.create(:department, initials: first_initial)
+      FactoryBot.create(:department, initials: second_initial)
+
+      assert_equal(1, Department.search(first_initial).count)
+      assert_equal(1, Department.search(second_initial).count)
+      assert_equal(0, Department.search(first_initial.downcase).count)
+      assert_equal(0, Department.search(second_initial.downcase).count)
       assert_equal(2, Department.search('').count)
     end
   end

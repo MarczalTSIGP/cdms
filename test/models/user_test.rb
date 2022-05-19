@@ -133,7 +133,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   context 'search' do
-    should 'by name' do
+    should 'by name case insensitive' do
       first_name = 'Eduardo'
       second_name = 'Pedro'
 
@@ -142,6 +142,8 @@ class UserTest < ActiveSupport::TestCase
 
       assert_equal(1, User.search(first_name).count)
       assert_equal(1, User.search(second_name).count)
+      assert_equal(1, User.search(first_name.downcase).count)
+      assert_equal(1, User.search(second_name.downcase).count)
       assert_equal(2, User.search('').count)
     end
   end
@@ -201,6 +203,43 @@ class UserTest < ActiveSupport::TestCase
       create_list(:document, 3, :declaration, department: department)
 
       assert_same_elements documents, user.documents
+    end
+  end
+
+  context 'documents to sign' do
+    setup do
+      @user = create(:user)
+      document_users = create_list(:document_user, 4, user: @user)
+      @documents = document_users.map(&:document)
+      @documents.each { |document| document.update(available_to_sign: true) }
+    end
+
+    should 'return all documents available to signer' do
+      assert 4, @user.unsigned_documents.size
+      assert_same_elements @documents, @user.unsigned_documents
+    end
+
+    should 'not return documents not available to signer' do
+      documents = @documents.pop(2)
+      documents.each { |document| document.update(available_to_sign: false) }
+
+      assert 2, @user.unsigned_documents.size
+      assert_same_elements @documents, @user.unsigned_documents
+    end
+
+    should 'not return documents signed' do
+      create_list(:document_user, 2, user: @user, signed: true)
+
+      assert 4, @user.unsigned_documents.size
+      assert_same_elements @documents, @user.unsigned_documents
+    end
+
+    should 'not return documents from other users' do
+      other_user = create(:user)
+      create_list(:document_user, 2, user: other_user)
+
+      assert 4, @user.unsigned_documents.size
+      assert_same_elements @documents, @user.unsigned_documents
     end
   end
 end

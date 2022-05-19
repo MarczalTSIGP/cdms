@@ -1,2 +1,4 @@
 <% provide(:head_title, 'Dashboard') %>
 <% provide(:page_title, 'Dashboard') %>
+
+<%= render partial: documents_to_sign_partial(@unsigned_documents) %>

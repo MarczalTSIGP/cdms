@@ -128,4 +128,20 @@ class DocumentTest < ActiveSupport::TestCase
       end
     end
   end
+
+  context 'search' do
+    should 'by title case insensitive' do
+      first_title = 'Certificado Um'
+      second_title = 'Certificado Dois'
+
+      FactoryBot.create(:document, :certification, title: first_title)
+      FactoryBot.create(:document, :certification, title: second_title)
+
+      assert_equal(1, Document.search(first_title).count)
+      assert_equal(1, Document.search(second_title).count)
+      assert_equal(1, Document.search(first_title.downcase).count)
+      assert_equal(1, Document.search(second_title.downcase).count)
+      assert_equal(2, Document.search('').count)
+    end
+  end
 end

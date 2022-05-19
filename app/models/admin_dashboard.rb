@@ -1,7 +1,10 @@
 class AdminDashboard
   def self.departments
-    key = "#{Department.model_name.human}-#{Department.count}"
-    OpenStruct.new count: Department.count, human: Department.model_name.human(count: Department.count), cache_key: key
+    model_name = Department.model_name
+    model_count = Department.count
+
+    key = "#{model_name.human}-#{model_count}"
+    OpenStruct.new count: model_count, human: model_name.human(count: model_count), cache_key: key
   end
 
   def self.active_users
@@ -22,7 +25,8 @@ class AdminDashboard
 
   def self.audience_members
     members = AudienceMember.count
-    key = "#{AudienceMember.model_name.human}-#{AudienceMember.count}"
+
+    key = "#{AudienceMember.model_name.human}-#{members}"
     OpenStruct.new count: members, human: AudienceMember.model_name.human(count: members), cache_key: key
   end
 
