@@ -89,6 +89,7 @@ pt-BR:
         description: Descrição da Função
       document_user:
         sign: Assinar
+        document_role: Função
       department_module:
         name: Nome
         description: Descrição

@@ -102,8 +102,10 @@ ActiveRecord::Schema.define(version: 2022_05_04_033201) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "signed", default: false
+    t.bigint "document_role_id"
     t.index ["document_id", "user_id"], name: "index_document_users_on_document_id_and_user_id", unique: true
     t.index ["document_id"], name: "index_document_users_on_document_id"
+    t.index ["document_role_id"], name: "index_document_users_on_document_role_id"
     t.index ["user_id"], name: "index_document_users_on_user_id"
   end
 
@@ -163,6 +165,7 @@ ActiveRecord::Schema.define(version: 2022_05_04_033201) do
   add_foreign_key "department_modules", "departments"
   add_foreign_key "department_users", "departments"
   add_foreign_key "department_users", "users"
+  add_foreign_key "document_users", "document_roles"
   add_foreign_key "document_users", "documents"
   add_foreign_key "document_users", "users"
   add_foreign_key "documents", "departments"

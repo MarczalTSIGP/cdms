@@ -11,6 +11,7 @@ class MembersTest < ApplicationSystemTestCase
       setup do
         @document = create(:document)
         @user = create(:user)
+        @document_role = create(:document_role)
         visit users_document_members_path(@document)
       end
 
@@ -18,12 +19,16 @@ class MembersTest < ApplicationSystemTestCase
         fill_in 'document_user_user', with: @user.name
         find("#document_user_user-dropdown .dropdown-item[data-value='#{@user.id}']").click
 
+        find('#document_user_document_role-selectized').click
+        find(".selectize-dropdown-content .option[data-value='#{@document_role.id}']").click
+
         submit_form("button[type='submit']")
 
         base_selector = 'table tbody tr:nth-child(1)'
         assert_current_path users_document_members_path(@document)
         assert_selector base_selector, text: @user.name
         assert_selector base_selector, text: @user.email
+        assert_selector base_selector, text: @document_role.name
       end
 
       should 'unsuccessfully' do
@@ -32,11 +37,15 @@ class MembersTest < ApplicationSystemTestCase
         within('div.document_user_user') do
           assert_text(I18n.t('errors.messages.required'))
         end
+
+        within('div.document_user_document_role') do
+          assert_text(I18n.t('errors.messages.required'))
+        end
       end
     end
 
     should 'remove a member' do
-      du = create(:document_user, :collaborator)
+      du = create(:document_user)
       user = du.user
       document = du.document
 

@@ -3,11 +3,12 @@ require 'test_helper'
 class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
   context 'authenticated' do
     setup do
-      user = create(:user)
+      @user = create(:user)
       @department = create(:department)
-      @department.department_users.create(user: user, role: :responsible)
+      @department.department_users.create(user: @user, role: :responsible)
       @document = create(:document, :certification, department: @department)
-      sign_in user
+      @document_role = create(:document_role)
+      sign_in @user
     end
 
     should 'get index' do
@@ -80,6 +81,48 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
       end
       assert_redirected_to users_documents_path
       assert_equal I18n.t('flash.actions.destroy.m', resource_name: Document.model_name.human), flash[:success]
+    end
+
+    context 'members' do
+      should 'get members' do
+        get users_document_members_path(@document)
+        assert_response :success
+        assert_active_link(href: users_documents_path)
+      end
+
+      context 'add' do
+        should 'successfully' do
+          params = { user_id: @user.id, document_id: @document.id, document_role: @document_role.id }
+
+          assert_difference('DocumentUser.count', 1) do
+            post users_document_add_member_path(@document), params: { document_user: params }
+          end
+
+          assert_redirected_to users_document_members_path(@document)
+          assert_equal I18n.t('flash.actions.add.m', resource_name: User.model_name.human), flash[:success]
+          @document.reload
+          assert_equal 1, @document.users.count
+          follow_redirect!
+          assert_active_link(href: users_documents_path)
+        end
+
+        should 'unsuccessfully' do
+          post users_document_add_member_path(@document), params: { document_user: { user_id: '' } }
+          assert_response :success
+          @document.reload
+          assert_equal 0, @document.users.count
+        end
+      end
+
+      should 'remove' do
+        document_user = create(:document_user, user: @user, document: @document, document_role: @document_role)
+
+        assert_difference('DocumentUser.count', -1) do
+          delete users_document_remove_member_path(@document, document_user.user)
+        end
+
+        assert_redirected_to users_document_members_path(@document)
+      end
     end
   end
 

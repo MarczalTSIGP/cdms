@@ -39,9 +39,6 @@ Rails.application.routes.draw do
       post 'documents/:id/members', to: 'documents#add_member', as: :document_add_member
       delete 'documents/:document_id/members/:id', to: 'documents#remove_member',
                                                    as: :document_remove_member
-      get '(:document_id)/(:user_id)/non-members/search/(:term)',
-          to: 'documents#search_non_members_document',
-          as: 'search_non_members_documents'
 
       get 'documents/:id/preview', to: 'documents#preview', as: :preview_document
       get 'team-departments-modules', to: 'team_departments_modules#index', action: :index
