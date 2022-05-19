@@ -1,0 +1,13 @@
+<div class="card col-12 col-sm-6 col-lg-5 col-xl-3" id="doc-sign-notification">
+  <div class="card-header">
+    <h3 class="card-title"><%= t('activerecord.models.document_user.other') %></h3>
+    <span class="notification-counter ms-auto"><%= @unsigned_documents.size %></span> 
+  </div>
+  <div class="card-table table-responsive">
+    <table class="table">
+      <tbody>
+        <%= render partial: "users/dashboard/documents/document_to_sign", collection: @unsigned_documents %>
+      </tbody>
+    </table>
+  </div>
+</div>

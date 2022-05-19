@@ -1,0 +1,55 @@
+#doc-sign-notification{
+    .notification-counter{
+        background-color: #00A0C8; 
+        color: #fff; 
+        border-radius: 1rem; 
+        padding:0.1rem 0.5rem; 
+        margin-left: 0.5rem; 
+        font-size: 0.7rem; 
+        font-weight: bold;
+        margin-left: auto;
+    }
+
+    .card-table{
+        max-height: 8.9rem;
+        min-height: 4rem;
+
+        .table{
+            margin-bottom: 0!important;
+            
+            td{
+                max-width: 11rem;
+            }
+        }
+    }
+
+    .card-table tr td:first-child, .card-table tr th:first-child {
+          padding-left: 0;
+    }
+
+    .card-table tr td:last-child, .card-table tr th:last-child {
+        padding-right: 0;
+
+        a {
+           float: right;
+        }
+    }
+
+    .card-header {
+      padding: 0;
+    }
+} 
+
+@media screen and (max-width: 1400px){
+    #doc-sign-notification{
+        .card-title{
+            font-size: 16px!important;
+        }
+        
+        .table{
+            td{
+                font-size: 14px;
+            }
+        }
+    }
+}

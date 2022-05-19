@@ -77,6 +77,11 @@ class User < ApplicationRecord
     Document.where(department_id: department_ids)
   end
 
+  def unsigned_documents
+    unsigned_document_ids = document_users.where(signed: false).pluck(:document_id)
+    Document.where(id: unsigned_document_ids, available_to_sign: true)
+  end
+
   # Class methods
   # --------------------------
   def self.admins
