@@ -5,29 +5,29 @@ class Users::DocumentsController < Users::BaseController
   include Breadcrumbs
   include BreadcrumbsMembers
 
-  def members
+  def signers
     breadcrumbs_members(@document)
-    @document_user = DocumentUser.new
-    @document_users = @document.members.includes(:document_role)
+    @document_signer = DocumentSigner.new
+    @document_signers = @document.signers.includes(:document_role)
   end
 
-  def add_member
+  def add_signer
     breadcrumbs_members(@document)
 
-    if @document.add_member(users_params)
+    if @document.add_signer(users_params)
       flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
-      redirect_to users_document_members_path(@document)
+      redirect_to users_document_signers_path(@document)
     else
-      @document_user = @document.document_users.last
-      set_document_members
-      render :members
+      @document_signer = @document.document_signers.last
+      set_document_signers
+      render :signers
     end
   end
 
-  def remove_member
-    @document.remove_member(params[:id])
+  def remove_signer
+    @document.remove_signer(params[:id])
     flash[:success] = I18n.t('flash.actions.remove.m', resource_name: User.model_name.human)
-    redirect_to users_document_members_path(@document)
+    redirect_to users_document_signers_path(@document)
   end
 
   def index
@@ -96,8 +96,8 @@ class Users::DocumentsController < Users::BaseController
     @departments = current_user.departments
   end
 
-  def set_document_members
-    @document_users = @document.members.includes(:document_role)
+  def set_document_signers
+    @document_signers = @document.signers.includes(:document_role)
   end
 
   def create_document
@@ -116,6 +116,6 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def users_params
-    { user_id: params[:document_user][:user_id], document_role_id: params[:document_user][:document_role] }
+    { user_id: params[:document_signer][:user_id], document_role_id: params[:document_signer][:document_role] }
   end
 end

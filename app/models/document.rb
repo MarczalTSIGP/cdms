@@ -1,12 +1,11 @@
 class Document < ApplicationRecord
   include Searchable
-  include Members
 
   search_by :title
 
   belongs_to :department
-  has_many :document_users, dependent: :destroy
-  has_many :users, through: :document_users
+  has_many :document_signers, dependent: :destroy
+  has_many :signers, through: :document_signers, source: :user
 
   enum category: { declaration: 'declaration', certification: 'certification' }, _suffix: :category
 
@@ -33,5 +32,27 @@ class Document < ApplicationRecord
     dv <<  { name: User.human_attribute_name(:register_number), identifier: :register_number }
 
     dv
+  end
+
+  def search_non_members(term)
+    User.where('unaccent(name) ILIKE unaccent(?)', "%#{term}%").order('name ASC').where.not(id: signer_ids)
+  end
+
+  def signers
+    relationship.includes(:user)
+  end
+
+  def add_signer(user)
+    relationship.create(user).valid?
+  end
+
+  def remove_signer(user_id)
+    relationship.find_by(user_id: user_id).destroy
+  end
+
+  private
+
+  def relationship
+    send("#{self.class.name.underscore}_signers".to_sym)
   end
 end
