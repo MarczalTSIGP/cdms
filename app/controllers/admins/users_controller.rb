@@ -16,6 +16,9 @@ class Admins::UsersController < Admins::BaseController
 
   def create
     @user = User.new(user_params)
+
+    @user.cpf = remove_mask_cpf(@user.cpf) if @user.cpf.present?
+
     if @user.save
       success_create_message
       redirect_to admins_users_path
@@ -29,7 +32,11 @@ class Admins::UsersController < Admins::BaseController
   def update
     remove_empty_password
 
-    if @user.update(user_params)
+    user_parameters = user_params
+
+    user_parameters['cpf'] = remove_mask_cpf(user_parameters['cpf']) if user_parameters['cpf'].present?
+
+    if @user.update(user_parameters)
       success_update_message
       redirect_to admins_users_path
     else
@@ -49,6 +56,10 @@ class Admins::UsersController < Admins::BaseController
   end
 
   private
+
+  def remove_mask_cpf(cpf)
+    cpf.gsub(/[.-]/, '')
+  end
 
   def remove_empty_password
     user_param = params[:user]
