@@ -2,6 +2,8 @@ class AudienceMember < ApplicationRecord
   include Searchable
   search_by :name
 
+  has_many :document_recipient, as: :profile, dependent: :destroy
+
   validates :name, presence: true, length: { minimum: 2 }
   validates :cpf, :email, uniqueness: { case_sensitive: false }
   validates_email_format_of :email, message: I18n.t('errors.messages.invalid')

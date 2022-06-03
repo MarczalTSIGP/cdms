@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   before_destroy :can_destroy?
 
+  has_many :document_recipient, as: :profile, dependent: :destroy
+
   has_many :department_users, dependent: :destroy
   has_many :departments, through: :department_users
 

@@ -1,0 +1,29 @@
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="table-responsive">
+            <table class="table card-table table-striped table-vcenter table-options">
+                <thead>
+                    <tr>
+                    <th><%= User.human_attribute_name(:cpf) %></th>
+                    <th><%= User.human_attribute_name(:name) %></th>
+                    <th><%= User.human_attribute_name(:email) %></th>
+                    <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><%= @profile.cpf %></td>
+                        <td><%= @profile.name %></td>
+                        <td><%= @profile.email %></td>
+                        <td>
+                            <%= link_to users_document_add_recipient_path, class: "btn btn-primary", method: :post do %>
+                                <%= icon('fas', 'plus', class: 'mr-2')%><%= I18n.t('views.links.add')%>
+                            <% end %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -122,6 +122,11 @@ pt-BR:
       members:
         name: Membros
         nwdc: 'Membros Assinantes do %{name}'
+      recipients:
+        new: 'Novo Destinatário'
+        name: 'Destinatário'
+        plural: 'Destinatários'
+        nwdp: 'Destinatários do %{name}'
     document_role:
       name:
         singular: Função

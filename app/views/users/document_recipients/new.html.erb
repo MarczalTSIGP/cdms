@@ -1,0 +1,5 @@
+<% provide(:head_title, t('views.document.recipients.new'))%>
+<% provide(:page_title, t('views.document.recipients.new')) %>
+
+<%= render 'search' %>
+<%= render partial: 'table_profile' unless @profile.nil? %>
