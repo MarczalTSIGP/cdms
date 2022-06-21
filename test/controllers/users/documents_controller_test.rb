@@ -83,9 +83,9 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
       assert_equal I18n.t('flash.actions.destroy.m', resource_name: Document.model_name.human), flash[:success]
     end
 
-    context 'members' do
-      should 'get members' do
-        get users_document_members_path(@document)
+    context 'signers' do
+      should 'get signers' do
+        get users_document_signers_path(@document)
         assert_response :success
         assert_active_link(href: users_documents_path)
       end
@@ -94,34 +94,34 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
         should 'successfully' do
           params = { user_id: @user.id, document_id: @document.id, document_role: @document_role.id }
 
-          assert_difference('DocumentUser.count', 1) do
-            post users_document_add_member_path(@document), params: { document_user: params }
+          assert_difference('DocumentSigner.count', 1) do
+            post users_document_add_signer_path(@document), params: { document_signer: params }
           end
 
-          assert_redirected_to users_document_members_path(@document)
+          assert_redirected_to users_document_signers_path(@document)
           assert_equal I18n.t('flash.actions.add.m', resource_name: User.model_name.human), flash[:success]
           @document.reload
-          assert_equal 1, @document.users.count
+          assert_equal 1, @document.signers.count
           follow_redirect!
           assert_active_link(href: users_documents_path)
         end
 
         should 'unsuccessfully' do
-          post users_document_add_member_path(@document), params: { document_user: { user_id: '' } }
+          post users_document_add_signer_path(@document), params: { document_signer: { user_id: '' } }
           assert_response :success
           @document.reload
-          assert_equal 0, @document.users.count
+          assert_equal 0, @document.signers.count
         end
       end
 
       should 'remove' do
-        document_user = create(:document_user, user: @user, document: @document, document_role: @document_role)
+        document_signer = create(:document_signer, user: @user, document: @document, document_role: @document_role)
 
-        assert_difference('DocumentUser.count', -1) do
-          delete users_document_remove_member_path(@document, document_user.user)
+        assert_difference('DocumentSigner.count', -1) do
+          delete users_document_remove_signer_path(@document, document_signer.user)
         end
 
-        assert_redirected_to users_document_members_path(@document)
+        assert_redirected_to users_document_signers_path(@document)
       end
     end
   end

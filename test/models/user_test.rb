@@ -209,8 +209,8 @@ class UserTest < ActiveSupport::TestCase
   context 'documents to sign' do
     setup do
       @user = create(:user)
-      document_users = create_list(:document_user, 4, user: @user)
-      @documents = document_users.map(&:document)
+      document_signers = create_list(:document_signer, 4, user: @user)
+      @documents = document_signers.map(&:document)
       @documents.each { |document| document.update(available_to_sign: true) }
     end
 
@@ -228,7 +228,7 @@ class UserTest < ActiveSupport::TestCase
     end
 
     should 'not return documents signed' do
-      create_list(:document_user, 2, user: @user, signed: true)
+      create_list(:document_signer, 2, user: @user, signed: true)
 
       assert 4, @user.unsigned_documents.size
       assert_same_elements @documents, @user.unsigned_documents
@@ -236,7 +236,7 @@ class UserTest < ActiveSupport::TestCase
 
     should 'not return documents from other users' do
       other_user = create(:user)
-      create_list(:document_user, 2, user: other_user)
+      create_list(:document_signer, 2, user: other_user)
 
       assert 4, @user.unsigned_documents.size
       assert_same_elements @documents, @user.unsigned_documents
