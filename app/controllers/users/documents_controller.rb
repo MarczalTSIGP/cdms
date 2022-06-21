@@ -8,13 +8,13 @@ class Users::DocumentsController < Users::BaseController
   def signers
     breadcrumbs_members(@document)
     @document_signer = DocumentSigner.new
-    @document_signers = @document.signers.includes(:document_role)
+    @document_signers = @document.signing_members.includes(:document_role)
   end
 
   def add_signer
     breadcrumbs_members(@document)
 
-    if @document.add_signer(users_params)
+    if @document.add_signing_member(users_params)
       flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
       redirect_to users_document_signers_path(@document)
     else
@@ -25,7 +25,7 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def remove_signer
-    @document.remove_signer(params[:id])
+    @document.remove_signing_member(params[:id])
     flash[:success] = I18n.t('flash.actions.remove.m', resource_name: User.model_name.human)
     redirect_to users_document_signers_path(@document)
   end
@@ -116,6 +116,7 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def users_params
-    { user_id: params[:document_signer][:user_id], document_role_id: params[:document_signer][:document_role] }
+    document_signer = params[:document_signer]
+    { user_id: document_signer[:user_id], document_role_id: document_signer[:document_role] }
   end
 end

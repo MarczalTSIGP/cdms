@@ -113,7 +113,7 @@ class DocumentTest < ActiveSupport::TestCase
         @document = create(:document, :declaration, department: department)
         user_a = create(:user, name: 'user_a')
         create(:document_signer, user: user_a, document: @document, document_role: @document_role)
-        @document.add_signer({ user: user_a })
+        @document.add_signing_member({ user: user_a })
 
         assert_equal 1, @document.signers.count
       end
@@ -123,7 +123,7 @@ class DocumentTest < ActiveSupport::TestCase
         @document = create(:document, :declaration, department: department)
         user_a = create(:user, name: 'user_a')
         create(:document_signer, user: user_a, document: @document, document_role: @document_role)
-        @document.remove_signer(user_a.id)
+        @document.remove_signing_member(user_a.id)
         assert_equal 0, @document.signers.count
       end
     end

@@ -1,7 +1,9 @@
 class Document < ApplicationRecord
   include Searchable
-
   search_by :title
+
+  include Members
+  build_member_methods(relationship: :signers, name: :signing_member)
 
   belongs_to :department
   has_many :document_signers, dependent: :destroy
@@ -25,34 +27,10 @@ class Document < ApplicationRecord
   end
 
   def default_variables
-    dv = []
-    dv <<  { name: User.human_attribute_name(:name),  identifier: :name  }
-    dv <<  { name: User.human_attribute_name(:cpf),   identifier: :cpf   }
-    dv <<  { name: User.human_attribute_name(:email), identifier: :email }
-    dv <<  { name: User.human_attribute_name(:register_number), identifier: :register_number }
+    variables = [:name, :cpf, :email, :register_number]
 
-    dv
-  end
-
-  def search_non_members(term)
-    User.where('unaccent(name) ILIKE unaccent(?)', "%#{term}%").order('name ASC').where.not(id: signer_ids)
-  end
-
-  def signers
-    relationship.includes(:user)
-  end
-
-  def add_signer(user)
-    relationship.create(user).valid?
-  end
-
-  def remove_signer(user_id)
-    relationship.find_by(user_id: user_id).destroy
-  end
-
-  private
-
-  def relationship
-    send("#{self.class.name.underscore}_signers".to_sym)
+    variables.map do |variable|
+      { name: User.human_attribute_name(variable), identifier: variable }
+    end
   end
 end
