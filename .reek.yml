@@ -9,6 +9,8 @@ detectors:
       - 'Admins::DepartmentsController#department_users_params'
       - 'User#is?'
       - 'Populators::DepartmentUserPopulate'
+      - 'AdminDashboard#self.audience_members'
+      - 'BreadcrumbsMembers#breadcrumbs_members'  
   Attribute:
     exclude:
       - 'Administrator'
@@ -17,6 +19,8 @@ detectors:
       - 'Admins::UsersController#remove_empty_password'
       - 'User#populate_modules'
       - 'CreateAudienceMembersFromCsv#included?'
+      - 'Users::DocumentsController#users_params'
+      - 'Admins::DepartmentModulesController#users_params'
   UtilityFunction:
     exclude:
       - 'Admins::AdministratorsController#resource_name'
@@ -24,6 +28,15 @@ detectors:
   TooManyInstanceVariables:
     exclude:
       - 'CreateAudienceMembersFromCsv'
+
+  NilCheck:
+    exclude:
+      - 'Users::TeamDepartmentsModulesController#set_department'
+      - 'Users::TeamDepartmentsModulesController#set_module'
+
+  InstanceVariableAssumption:
+    exclude:
+      - 'JsonValidator'
 
 directories:
   "app/controllers":

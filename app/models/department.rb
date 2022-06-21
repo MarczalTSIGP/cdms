@@ -1,8 +1,9 @@
 class Department < ApplicationRecord
   include Searchable
-  include Members
-
   search_by :name, initials: { case_sensitive: true }
+
+  include Members
+  build_member_methods(relationship: :users, name: :member)
 
   has_many :department_modules, dependent: :destroy
   has_many :department_users, dependent: :destroy

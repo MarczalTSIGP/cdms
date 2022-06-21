@@ -11,8 +11,8 @@ class User < ApplicationRecord
   has_many :department_users, dependent: :destroy
   has_many :departments, through: :department_users
 
-  has_many :document_users, dependent: :destroy
-  has_many :documents, through: :document_users
+  has_many :document_signers, dependent: :destroy
+  has_many :documents, through: :document_signers
 
   has_many :department_module_users, dependent: :destroy
   has_many :department_modules, through: :department_module_users
@@ -78,7 +78,7 @@ class User < ApplicationRecord
   end
 
   def unsigned_documents
-    unsigned_document_ids = document_users.where(signed: false).pluck(:document_id)
+    unsigned_document_ids = document_signers.where(signed: false).pluck(:document_id)
     Document.where(id: unsigned_document_ids, available_to_sign: true)
   end
 

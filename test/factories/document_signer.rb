@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :document_user do
+  factory :document_signer do
     document
     user
     document_role

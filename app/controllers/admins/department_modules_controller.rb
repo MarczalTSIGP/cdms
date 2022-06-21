@@ -95,8 +95,9 @@ class Admins::DepartmentModulesController < Admins::BaseController
   end
 
   def set_breadcrumbs
-    add_breadcrumb @department.model_name.human(count: 2), admins_departments_path
-    add_breadcrumb I18n.t('views.breadcrumbs.show', model: @department.model_name.human, id: @department.id),
+    model_name = @department.model_name
+    add_breadcrumb model_name.human(count: 2), admins_departments_path
+    add_breadcrumb I18n.t('views.breadcrumbs.show', model: model_name.human, id: @department.id),
                    admins_department_path(@department)
   end
 

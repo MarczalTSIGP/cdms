@@ -1,4 +1,4 @@
-class DocumentUser < ApplicationRecord
+class DocumentSigner < ApplicationRecord
   belongs_to :document
   belongs_to :user
   belongs_to :document_role

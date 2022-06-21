@@ -16,7 +16,7 @@ class DashboardTest < ApplicationSystemTestCase
 
     should 'no documents available to sign' do
       document = create(:document, :certification, department: @department)
-      create(:document_user, document: document, user: @user)
+      create(:document_signer, document: document, user: @user)
 
       visit users_root_path
 
@@ -31,7 +31,7 @@ class DashboardTest < ApplicationSystemTestCase
                               available_to_sign: true, department: @department)
 
       documents.each do |document|
-        create(:document_user, document: document, user: @user)
+        create(:document_signer, document: document, user: @user)
       end
 
       visit users_root_path
@@ -53,7 +53,7 @@ class DashboardTest < ApplicationSystemTestCase
       documents.push(create(:document, :certification, department: @department))
 
       documents.each do |document|
-        create(:document_user, document: document, user: @user)
+        create(:document_signer, document: document, user: @user)
       end
 
       visit users_root_path
