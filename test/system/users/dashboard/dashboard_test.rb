@@ -60,5 +60,16 @@ class DashboardTest < ApplicationSystemTestCase
 
       assert_selector '#doc-sign-notification .notification-counter', exact_text: documents_available
     end
+
+    should 'show modal when clicking at sing button' do
+      document = create(:document, :certification, available_to_sign: true, department: @department)
+      create(:document_user, document: document, user: @user)
+
+      visit users_root_path
+
+      find('i.fa-file-signature').click
+      assert_selector '#sign_document_modal', text: @user.name
+      assert_selector '#sign_document_modal', text: @user.cpf
+    end
   end
 end

@@ -48,6 +48,9 @@ Rails.application.routes.draw do
       get 'show-module/:id', to: 'team_departments_modules#show_module', action: :show_module, as: :show_module
       patch 'documents/:id/availability-to-sign', to: 'documents#toggle_available_to_sign',
                                                   as: :document_availability_to_sign
+
+      patch 'documents/:id/sign-document', to: 'document_users#sign_document',
+                                           as: :document_users_sign_document
     end
 
     namespace :admins do
