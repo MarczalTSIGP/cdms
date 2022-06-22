@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_04_033201) do
+ActiveRecord::Schema.define(version: 2022_06_13_214859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2022_05_04_033201) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "department_module_users_count", default: 0, null: false
     t.index ["department_id"], name: "index_department_modules_on_department_id"
     t.index ["name"], name: "index_department_modules_on_name", unique: true
   end
@@ -84,8 +85,20 @@ ActiveRecord::Schema.define(version: 2022_05_04_033201) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "department_users_count", default: 0, null: false
     t.index ["email"], name: "index_departments_on_email", unique: true
     t.index ["initials"], name: "index_departments_on_initials", unique: true
+  end
+
+  create_table "document_recipients", force: :cascade do |t|
+    t.bigint "document_id", null: false
+    t.string "cpf", null: false
+    t.string "profile_type", null: false
+    t.bigint "profile_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["document_id"], name: "index_document_recipients_on_document_id"
+    t.index ["profile_type", "profile_id"], name: "index_document_recipients_on_profile_type_and_profile_id"
   end
 
   create_table "document_roles", force: :cascade do |t|
@@ -165,6 +178,7 @@ ActiveRecord::Schema.define(version: 2022_05_04_033201) do
   add_foreign_key "department_modules", "departments"
   add_foreign_key "department_users", "departments"
   add_foreign_key "department_users", "users"
+  add_foreign_key "document_recipients", "documents"
   add_foreign_key "document_users", "document_roles"
   add_foreign_key "document_users", "documents"
   add_foreign_key "document_users", "users"

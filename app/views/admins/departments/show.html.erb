@@ -49,12 +49,13 @@
         <thead>
           <tr>
             <th><%= t('activerecord.attributes.department_module.name') %></th>
-            <th><%= t('activerecord.attributes.department_module.description') %></th>
+            <th><%= t('enums.roles.responsible') %></th>
+            <th><%= t('activerecord.attributes.department.number_of_collaborators') %></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <%= render @department.modules %>
+          <%= render partial: "department_module" %>
         </tbody>
       </table>
     </div>

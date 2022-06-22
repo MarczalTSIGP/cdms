@@ -70,6 +70,7 @@ pt-BR:
         local: Local
         phone: Telefone
         email: Email
+        number_of_collaborators: Número de Colaboradores
         <<: *commons
       document:
         title: Título

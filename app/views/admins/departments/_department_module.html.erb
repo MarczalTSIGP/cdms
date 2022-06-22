@@ -1,0 +1,26 @@
+<% @department.modules.each_with_index do |department_module, index| %>
+<tr>
+  <td><%= department_module.name %></td>
+  
+  <% if @responsibles[index].class.name == 'DepartmentModuleUser' %>
+    <td><%= @responsibles[index].user.name %></td>
+  <%else%>
+    <td></td>
+  <%end%>
+
+  <td><%= department_module.department_module_users.size %></td>
+
+  <td>
+    <%= link_to admins_department_module_members_path(@department, department_module) do %>
+          <%= icon('fas', 'users', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.user.name.plural')) %>
+      <% end %>
+    <%= link_to edit_admins_department_module_path(@department, department_module) do %>
+      <%= icon('fas', 'edit', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.edit')) %>
+    <% end %>
+    <%= link_to admins_department_module_path(@department, department_module), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
+      <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
+    <% end %>
+  </td>
+</tr>
+<%end%>
+  

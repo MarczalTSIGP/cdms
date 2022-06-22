@@ -3,7 +3,7 @@ class DepartmentModuleUser < ApplicationRecord
 
   before_save :link_user_in_department
 
-  belongs_to :department_module
+  belongs_to :department_module, counter_cache: true
   belongs_to :user
 
   validates :role, inclusion: { in: DepartmentModuleUser.roles.values }

@@ -5,10 +5,17 @@ class Admins::DepartmentsController < Admins::BaseController
 
   def index
     @departments = Department.search(params[:term]).page(params[:page])
+    @responsibles = []
+    departments_users(@departments)
+    department_responsibles
   end
 
   def show
     @module = DepartmentModule.new(department_id: @department.id)
+    @responsibles = []
+    department_modules = @department.modules
+    department_module_users(department_modules)
+    module_responsibles(department_modules)
   end
 
   def new
@@ -87,5 +94,44 @@ class Admins::DepartmentsController < Admins::BaseController
   def users_params
     { user_id: params[:department_user][:user_id],
       role: params[:department_user][:role] }
+  end
+
+  def departments_users(departments)
+    @departments_users = DepartmentUser.where(role: :responsible, department_id: departments).includes(:user)
+  end
+
+  def department_module_users(department_modules)
+    @department_module_users = DepartmentModuleUser.where(role: :responsible,
+                                                          department_module_id: department_modules).includes(:user)
+  end
+
+  def department_responsibles
+    @departments.each do |dep|
+      added = false
+
+      @departments_users.each do |dep_user|
+        if dep.id == dep_user.department_id
+          @responsibles.push(dep_user)
+          added = true
+        end
+      end
+
+      @responsibles.push(dep) if added.eql? false
+    end
+  end
+
+  def module_responsibles(department_modules)
+    department_modules.each do |modulo|
+      added = false
+
+      @department_module_users.each do |module_user|
+        if modulo.id.eql? module_user.department_module_id
+          @responsibles.push(module_user)
+          added = true
+        end
+      end
+
+      @responsibles.push(modulo) if added.eql? false
+    end
   end
 end
