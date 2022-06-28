@@ -107,17 +107,17 @@ ActiveRecord::Schema.define(version: 2022_05_29_161645) do
     t.index ["name"], name: "index_document_roles_on_name", unique: true
   end
 
-  create_table "document_users", force: :cascade do |t|
+  create_table "document_signers", force: :cascade do |t|
     t.bigint "document_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "signed", default: false
     t.bigint "document_role_id"
-    t.index ["document_id", "user_id"], name: "index_document_users_on_document_id_and_user_id", unique: true
-    t.index ["document_id"], name: "index_document_users_on_document_id"
-    t.index ["document_role_id"], name: "index_document_users_on_document_role_id"
-    t.index ["user_id"], name: "index_document_users_on_user_id"
+    t.index ["document_id", "user_id"], name: "index_document_signers_on_document_id_and_user_id", unique: true
+    t.index ["document_id"], name: "index_document_signers_on_document_id"
+    t.index ["document_role_id"], name: "index_document_signers_on_document_role_id"
+    t.index ["user_id"], name: "index_document_signers_on_user_id"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -177,9 +177,9 @@ ActiveRecord::Schema.define(version: 2022_05_29_161645) do
   add_foreign_key "department_users", "departments"
   add_foreign_key "department_users", "users"
   add_foreign_key "document_recipients", "documents"
-  add_foreign_key "document_users", "document_roles"
-  add_foreign_key "document_users", "documents"
-  add_foreign_key "document_users", "users"
+  add_foreign_key "document_signers", "document_roles"
+  add_foreign_key "document_signers", "documents"
+  add_foreign_key "document_signers", "users"
   add_foreign_key "documents", "departments"
   add_foreign_key "users", "roles"
 end

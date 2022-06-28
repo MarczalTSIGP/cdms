@@ -127,6 +127,9 @@ pt-BR:
         name: 'Destinatário'
         plural: 'Destinatários'
         nwdp: 'Destinatários do %{name}'
+      signers:
+        name: Assinantes
+        nwdc: 'Assinantes do %{name}'
     document_role:
       name:
         singular: Função
@@ -177,6 +180,10 @@ pt-BR:
       links:
         new: Novo membro de audiência
         sign_out: Sair
+    signer:
+      name:
+        singular: Assinante
+        plural: Assinantes
     team:
       name:
         singular: Equipe
