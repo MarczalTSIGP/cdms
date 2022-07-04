@@ -48,6 +48,24 @@ Rails.application.routes.draw do
       get 'show-module/:id', to: 'team_departments_modules#show_module', action: :show_module, as: :show_module
       patch 'documents/:id/availability-to-sign', to: 'documents#toggle_available_to_sign',
                                                   as: :document_availability_to_sign
+
+      get 'documents/:id/recipients', to: 'document_recipients#index',
+                                      as: :document_recipients
+
+      get 'documents/:id/recipients/new', to: 'document_recipients#new',
+                                          as: :new_recipient_document
+
+      get 'documents/:id/non-recipient/search(/:cpf)', to: 'document_recipients#new',
+                                                       as: :search_non_recipient,
+                                                       constraints: { cpf: %r{[^/]+} }
+
+      post 'documents/:id/recipients/:cpf', to: 'document_recipients#add_recipient',
+                                            as: :document_add_recipient,
+                                            constraints: { cpf: %r{[^/]+} }
+
+      delete 'documents/:id/recipients/:cpf', to: 'document_recipients#remove_recipient',
+                                              as: :document_remove_recipient,
+                                              constraints: { cpf: %r{[^/]+} }
     end
 
     namespace :admins do

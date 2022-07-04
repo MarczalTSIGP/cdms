@@ -9,6 +9,8 @@ class Document < ApplicationRecord
   has_many :document_signers, dependent: :destroy
   has_many :signers, through: :document_signers, source: :user
 
+  has_many :document_recipients, dependent: :destroy
+
   enum category: { declaration: 'declaration', certification: 'certification' }, _suffix: :category
 
   validates :category, inclusion: { in: Document.categories.values }
@@ -32,5 +34,9 @@ class Document < ApplicationRecord
     variables.map do |variable|
       { name: User.human_attribute_name(variable), identifier: variable }
     end
+  end
+
+  def recipients
+    @recipients ||= Logics::Document::Recipient.new(document_recipients)
   end
 end

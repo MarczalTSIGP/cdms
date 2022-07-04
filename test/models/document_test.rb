@@ -12,6 +12,7 @@ class DocumentTest < ActiveSupport::TestCase
       assert_includes document.errors.messages[:category], I18n.t('errors.messages.inclusion')
     end
   end
+
   context 'category' do
     should define_enum_for(:category)
       .with_values(declaration: 'declaration', certification: 'certification')
@@ -142,6 +143,15 @@ class DocumentTest < ActiveSupport::TestCase
       assert_equal(1, Document.search(first_title.downcase).count)
       assert_equal(1, Document.search(second_title.downcase).count)
       assert_equal(2, Document.search('').count)
+    end
+  end
+
+  context 'recipients' do
+    should 'return recipients by Logics::Document::Recipient' do
+      document_recipient = create(:document_recipient, :user)
+      document = document_recipient.document
+
+      assert document.recipients.is_a?(Logics::Document::Recipient)
     end
   end
 end

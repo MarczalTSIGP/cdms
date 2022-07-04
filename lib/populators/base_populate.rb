@@ -21,8 +21,8 @@ module Populators
     private
 
     def model
-      m = self.class.to_s.demodulize.gsub('Populate', '')
-      m.classify.constantize
+      class_name = self.class.to_s.demodulize.gsub('Populate', '')
+      class_name.classify.constantize
     end
 
     def model_name
