@@ -2,10 +2,9 @@
     <div class="input-group mb-3 col-12 col-md-8 col-lg-6 col-xl-4">
         <div class="input-group">
             <%= text_field_tag :search, params[:cpf],
-                                data: { url: users_search_non_recipient_path },
+                                data: { url: users_search_non_recipient_path, mask: '000.000.000-00' },
                                 class: 'form-control enter-to-submit-search',
-                                placeholder: "Insira um CPF",
-                                maxlength: 11 %>
+                                placeholder: "Insira um CPF" %>
             <span class="input-group-append">
                 <button class="btn btn-outline-info submit-search" type="button"><i class="fe fe-search"></i></button>
             </span>

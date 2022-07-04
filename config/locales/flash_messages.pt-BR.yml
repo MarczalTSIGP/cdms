@@ -15,7 +15,9 @@ pt-BR:
         m: '%{resource_name} adicionado com sucesso!'
         f: '%{resource_name} adicionada com sucesso!'
         errors:
-          existes: '%{resource_name} já cadastrado!'
+          exists: '%{resource_name} já cadastrado!'
+          not: 'Dados inválidos! Registro não adicionado!'
+            
       remove:
         m: '%{resource_name} removido com sucesso!'
         f: '%{resource_name} removida com sucesso!'

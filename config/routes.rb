@@ -56,13 +56,16 @@ Rails.application.routes.draw do
                                           as: :new_recipient_document
 
       get 'documents/:id/non-recipient/search(/:cpf)', to: 'document_recipients#new',
-                                                       as: :search_non_recipient
+                                                       as: :search_non_recipient,
+                                                       constraints: { cpf: %r{[^/]+} }
 
       post 'documents/:id/recipients/:cpf', to: 'document_recipients#add_recipient',
-                                            as: :document_add_recipient
+                                            as: :document_add_recipient,
+                                            constraints: { cpf: %r{[^/]+} }
 
       delete 'documents/:id/recipients/:cpf', to: 'document_recipients#remove_recipient',
-                                              as: :document_remove_recipient
+                                              as: :document_remove_recipient,
+                                              constraints: { cpf: %r{[^/]+} }
     end
 
     namespace :admins do

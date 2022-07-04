@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 2022_05_29_161645) do
     t.bigint "profile_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["cpf", "document_id"], name: "index_document_recipients_on_cpf_and_document_id", unique: true
     t.index ["document_id"], name: "index_document_recipients_on_document_id"
     t.index ["profile_type", "profile_id"], name: "index_document_recipients_on_profile_type_and_profile_id"
   end

@@ -70,7 +70,7 @@ class NewTest < ApplicationSystemTestCase
         find('.card-body .submit-search').click
 
         assert_selector('div.alert.alert-warning',
-                        text: I18n.t('flash.actions.add.errors.existes',
+                        text: I18n.t('flash.actions.add.errors.exists',
                                      resource_name: I18n.t('views.document.recipients.name')))
       end
     end

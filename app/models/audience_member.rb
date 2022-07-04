@@ -2,7 +2,8 @@ class AudienceMember < ApplicationRecord
   include Searchable
   search_by :name
 
-  has_many :document_recipient, as: :profile, dependent: :destroy
+  has_many :document_recipients, as: :profile, dependent: :destroy
+  has_many :participation_documents, through: :document_recipients, source: :document
 
   validates :name, presence: true, length: { minimum: 2 }
   validates :cpf, :email, uniqueness: { case_sensitive: false }

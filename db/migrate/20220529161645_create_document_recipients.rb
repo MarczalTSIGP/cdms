@@ -7,5 +7,7 @@ class CreateDocumentRecipients < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+
+    add_index :document_recipients, [:cpf, :document_id], unique: true
   end
 end

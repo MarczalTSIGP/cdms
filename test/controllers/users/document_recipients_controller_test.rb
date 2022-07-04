@@ -41,7 +41,7 @@ class Users::DocumentRecipientsControllerTest < ActionDispatch::IntegrationTest
 
     context 'add recipient' do
       should 'add' do
-        assert_difference('DocumentRecipient.count', 1) do
+        assert_difference('DocumentRecipient.all.count', 1) do
           post users_document_add_recipient_path(@document.id, @user.cpf)
         end
 
@@ -54,10 +54,10 @@ class Users::DocumentRecipientsControllerTest < ActionDispatch::IntegrationTest
         post users_document_add_recipient_path(@document.id, @user.cpf)
         post users_document_add_recipient_path(@document.id, @user.cpf)
 
-        assert_equal I18n.t('flash.actions.errors'),
+        assert_equal I18n.t('flash.actions.add.errors.not'),
                      flash[:error]
 
-        assert_equal 1, @document.recipients.count
+        assert_equal 1, @document.recipients.all.count
       end
     end
 
@@ -81,7 +81,7 @@ class Users::DocumentRecipientsControllerTest < ActionDispatch::IntegrationTest
 
         delete users_document_remove_recipient_path(@document.id, @non_existent_cpf)
 
-        assert 1, @document.recipients.count
+        assert 1, @document.recipients.all.count
       end
     end
   end

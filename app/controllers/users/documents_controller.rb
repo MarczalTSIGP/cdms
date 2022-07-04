@@ -2,18 +2,16 @@ class Users::DocumentsController < Users::BaseController
   before_action :can_manager?, only: [:edit, :new, :update, :create, :destroy]
   before_action :set_document, except: [:index, :new, :create]
   before_action :set_departments, only: [:edit, :new, :update, :create]
+
   include Breadcrumbs
-  include BreadcrumbsMembers
+  include Users::Breadcrumbs::Documents
 
   def signers
-    breadcrumbs_members(@document)
     @document_signer = DocumentSigner.new
     @document_signers = @document.signing_members.includes(:document_role)
   end
 
   def add_signer
-    breadcrumbs_members(@document)
-
     if @document.add_signing_member(users_params)
       flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
       redirect_to users_document_signers_path(@document)

@@ -147,101 +147,11 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   context 'recipients' do
-    setup do
-      department = create(:department)
-      other_department = create(:department)
-      @document = create(:document, :certification, department: department)
-      @other_document = create(:document, :declaration, department: other_department)
-      @user = create(:user)
-      @audience_member = create(:audience_member)
-      @non_existent_cpf = '01234567890'
-    end
+    should 'return recipients by Logics::Document::Recipient' do
+      document_recipient = create(:document_recipient, :user)
+      document = document_recipient.document
 
-    should 'return recipients' do
-      assert_equal 0, @document.recipients.count
-
-      @document.add_recipient(@user.cpf)
-      @document.add_recipient(@audience_member.cpf)
-
-      recipients = @document.recipients
-      assert_equal 2, recipients.count
-
-      assert_equal @user.name, recipients[0].profile.name
-      assert_equal @audience_member.name, recipients[1].profile.name
-    end
-
-    should 'do not return recipients of another document' do
-      @document.add_recipient(@user.cpf)
-      @other_document.add_recipient(@audience_member.cpf)
-
-      recipients_document = @document.recipients
-
-      assert_equal 1, recipients_document.count
-      assert_equal @user.cpf, recipients_document[0].profile.cpf
-    end
-
-    should 'search non recipient' do
-      profile = @document.search_non_recipient(@user.cpf)
-      assert_equal profile.cpf, @user.cpf
-
-      @document.add_recipient(profile.cpf)
-      assert_not @document.search_non_recipient(@user.cpf)
-
-      profile = @document.search_non_recipient(@audience_member.cpf)
-      assert_equal profile.cpf, @audience_member.cpf
-
-      @document.add_recipient(profile.cpf)
-      assert_not @document.search_non_recipient(@audience_member.cpf)
-    end
-
-    should 'invalid parameters for non recipient search' do
-      assert_nil @document.search_non_recipient('')
-      assert_nil @document.search_non_recipient(@non_existent_cpf)
-    end
-
-    should 'add recipient' do
-      @document.add_recipient(@user.cpf)
-      @document.add_recipient(@audience_member.cpf)
-
-      assert_equal 2, @document.recipients.count
-
-      assert_not @document.add_recipient(@user.cpf)
-      assert_not @document.add_recipient(@audience_member.cpf)
-
-      recipients = @document.recipients
-
-      assert_equal 2, recipients.count
-      assert_equal @user.name, recipients[0].profile.name
-      assert_equal @audience_member.name, recipients[1].profile.name
-    end
-
-    should 'invalid parameters to add recipient' do
-      assert_not @document.add_recipient('')
-      assert_not @document.add_recipient(@non_existent_cpf)
-
-      assert_equal 0, @document.recipients.count
-    end
-
-    should 'remove recipient' do
-      @document.add_recipient(@user.cpf)
-      @document.add_recipient(@audience_member.cpf)
-
-      assert_equal 2, @document.recipients.count
-
-      @document.remove_recipient(@user.cpf)
-      assert_equal 1, @document.recipients.count
-
-      recipients = @document.recipients
-      assert_equal @audience_member.name, recipients[0].profile.name
-    end
-
-    should 'invalid parameters to remove recipient' do
-      @document.add_recipient(@user.cpf)
-
-      assert_not @document.remove_recipient('')
-      assert_not @document.remove_recipient(@non_existent_cpf)
-
-      assert_equal 1, @document.recipients.count
+      assert document.recipients.is_a?(Logics::Document::Recipient)
     end
   end
 end

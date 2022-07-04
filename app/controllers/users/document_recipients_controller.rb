@@ -6,31 +6,39 @@ class Users::DocumentRecipientsController < Users::BaseController
   before_action :set_breadcrumb_new, only: [:new]
 
   def index
-    @document_recipients = @document.recipients
+    @document_recipients = @document.recipients.all
   end
 
   def new
-    cpf = params[:cpf]
-    @profile = search_non_recipient_document(cpf) if cpf.present?
+    return unless (cpf = params[:cpf])
+
+    @document_recipient = DocumentRecipient.find_by(cpf: cpf, document_id: @document.id)
+
+    if @document_recipient
+      flash.now[:warning] = I18n.t('flash.actions.add.errors.exists',
+                                   resource_name: I18n.t('views.document.recipients.name'))
+    else
+      @recipient = Logics::Document::Recipient.find_by(cpf: cpf)
+      flash.now[:warning] = I18n.t('flash.not_found') unless @recipient
+    end
   end
 
   def add_recipient
-    cpf = params[:cpf]
-
-    if @document.add_recipient(cpf)
+    if @document.recipients.add(params[:cpf])
       flash['success'] = I18n.t('flash.actions.add.m', resource_name: I18n.t('views.document.recipients.name'))
-      return redirect_to users_document_recipients_path
+    else
+      flash['error'] = I18n.t('flash.actions.add.errors.not')
     end
 
-    flash.now['error'] = I18n.t('flash.actions.errors')
-    render :new
+    redirect_to users_document_recipients_path
   end
 
   def remove_recipient
-    cpf = params[:cpf]
-
-    if @document.remove_recipient(cpf)
-      flash['success'] = I18n.t('flash.actions.destroy.m', resource_name: I18n.t('views.document.recipients.name'))
+    if @document.recipients.remove(params[:cpf])
+      flash['success'] = I18n.t('flash.actions.destroy.m',
+                                resource_name: I18n.t('views.document.recipients.name'))
+    else
+      flash['error'] = I18n.t('flash.not_found')
     end
 
     redirect_to users_document_recipients_path
@@ -38,30 +46,8 @@ class Users::DocumentRecipientsController < Users::BaseController
 
   private
 
-  def search_non_recipient_document(cpf)
-    non_recipient = @document.search_non_recipient(cpf)
-
-    return registered_recipient if non_recipient == false
-
-    return register_not_found if non_recipient.blank?
-
-    @profile = non_recipient
-  end
-
-  def registered_recipient
-    flash.now['warning'] = I18n.t('flash.actions.add.errors.existes',
-                                  resource_name: I18n.t('views.document.recipients.name'))
-    render :new
-  end
-
-  def register_not_found
-    flash.now[:warning] = I18n.t('flash.not_found')
-    render :new
-  end
-
   def set_document
     @document = Document.find_by(id: params[:id])
-
     redirect_to users_documents_path if @document.blank?
   end
 

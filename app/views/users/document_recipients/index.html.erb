@@ -7,4 +7,6 @@
     <% end %>
 </div>
 
-<%= render partial: 'table_recipients' unless @document_recipients.blank? %>
+<%= render layout: 'table_recipients' do %>
+  <%= render partial: 'recipient', collection: @document_recipients %>
+<% end unless @document_recipients.blank? %>
