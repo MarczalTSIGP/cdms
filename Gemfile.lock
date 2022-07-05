@@ -108,7 +108,7 @@ GEM
       debug_inspector (>= 0.0.1)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
-    brakeman (4.10.0)
+    brakeman (5.2.3)
     breadcrumbs_on_rails (4.0.0)
       rails (>= 5.0)
     builder (3.2.4)
@@ -411,7 +411,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootsnap (>= 1.4.2)
-  brakeman
+  brakeman (~> 5.2.3)
   breadcrumbs_on_rails
   bullet (~> 7.0.2)
   byebug
