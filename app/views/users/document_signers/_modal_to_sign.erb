@@ -1,0 +1,32 @@
+<div class="modal fade" id="sign_document_modal" tabindex="-1" role="dialog" aria-labelledby="SignModalCentere" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confira seus dados para assinar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-6">
+                        <p>
+                            <strong><%= t('activerecord.attributes.user.name') %>: </strong>
+                            <%= current_user.name %>
+                        </p>
+                        <p>
+                            <strong><%= t('activerecord.attributes.user.cpf') %>:</strong>
+                            <%= current_user.cpf %>
+                        </p>
+                    </div>
+                </div>
+                
+                <div id="form-to-sign-documet-<%= document_id %>">
+                  <%= render partial: "users/document_signers/sign_form", locals: { document_id: document_id } %>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

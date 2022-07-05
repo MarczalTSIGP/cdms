@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
 
       get 'documents/:id/signers', to: 'documents#signers', as: :document_signers
+      patch 'documents/:id/sign', to: 'document_signers#sign', as: :sign_document
 
       get 'departments/:id/members', to: 'departments#members', as: :department_members
 
