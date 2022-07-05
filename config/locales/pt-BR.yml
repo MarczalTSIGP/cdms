@@ -125,3 +125,5 @@ pt-BR:
         user: Usuário
       page:
         content: Conteúdo
+      document_recipient:
+        profile_type: Tipo

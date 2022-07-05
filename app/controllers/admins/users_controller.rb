@@ -16,6 +16,7 @@ class Admins::UsersController < Admins::BaseController
 
   def create
     @user = User.new(user_params)
+
     if @user.save
       success_create_message
       redirect_to admins_users_path

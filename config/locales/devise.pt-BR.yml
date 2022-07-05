@@ -50,7 +50,7 @@ pt-BR:
         message: "Sua conta foi bloqueada devido ao excessivo número de tentativas acesso inválidas."
         subject: "Instruções de desbloqueio"
     omniauth_callbacks:
-      failure: "Não foi possível autenticá-lo em %{kind} porque \"%{reason}\"."
+      failure: 'Não foi possível autenticá-lo em %{kind} porque "%{reason}".'
       success: "Autenticado com sucesso em %{kind}."
     passwords:
       no_token: "Você não pode acessar esta página para redefinição, por favor tenha certeza de que usou a URL completa recebida."
@@ -89,4 +89,3 @@ pt-BR:
       not_saved:
         one: "1 erro impediu que %{resource} fosse salvo(a):"
         other: "%{count} erros impediram que %{resource} fosse salvo(a):"
-

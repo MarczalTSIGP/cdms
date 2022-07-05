@@ -1,7 +1,8 @@
 class Admins::DepartmentsController < Admins::BaseController
   before_action :set_department, except: [:index, :new, :create]
+
   include Breadcrumbs
-  include BreadcrumbsMembers
+  include Admins::Breadcrumbs::Departments
 
   def index
     @departments = Department.search(params[:term]).page(params[:page])
@@ -53,7 +54,6 @@ class Admins::DepartmentsController < Admins::BaseController
   end
 
   def members
-    breadcrumbs_members(@department)
     @department_user = DepartmentUser.new
     set_department_members
   end
@@ -63,7 +63,6 @@ class Admins::DepartmentsController < Admins::BaseController
       flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
       redirect_to admins_department_members_path(@department)
     else
-      breadcrumbs_members(@department)
       @department_user = @department.department_users.last
       set_department_members
       render :members

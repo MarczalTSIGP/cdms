@@ -14,8 +14,11 @@
         </label>
     </td>
     <td>
-      <%= link_to users_document_members_path(document) do %>
-          <%= icon('fas', 'users', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.user.name.plural')) %>
+      <%= link_to users_document_signers_path(document) do %>
+          <%= icon('fas', 'users', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.signer.name.plural')) %>
+      <% end %>
+      <%= link_to users_document_recipients_path(document) do %>
+	        <%= icon('fas', 'address-book', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.document.recipients.name')) %>
       <% end %>
       <%= link_to users_preview_document_path(document) do %>
           <%= icon('fas', 'print', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.document.name.singular')) %>

@@ -12,6 +12,7 @@ class DocumentTest < ActiveSupport::TestCase
       assert_includes document.errors.messages[:category], I18n.t('errors.messages.inclusion')
     end
   end
+
   context 'category' do
     should define_enum_for(:category)
       .with_values(declaration: 'declaration', certification: 'certification')
@@ -95,36 +96,36 @@ class DocumentTest < ActiveSupport::TestCase
       end
     end
 
-    context 'members' do
+    context 'signers' do
       should 'search non members' do
         department = create(:department)
 
         @document = create(:document, :declaration, department: department)
         user_a = create(:user, name: 'user_a')
         user_b = create(:user, name: 'user_b')
-        create(:document_user, user: user_a, document: @document, document_role: @document_role)
+        create(:document_signer, user: user_a, document: @document, document_role: @document_role)
 
         assert_not_equal [user_a], @document.search_non_members('a')
         assert_equal [user_b], @document.search_non_members('b')
       end
 
-      should 'add member' do
+      should 'add signer' do
         department = create(:department)
         @document = create(:document, :declaration, department: department)
         user_a = create(:user, name: 'user_a')
-        create(:document_user, user: user_a, document: @document, document_role: @document_role)
-        @document.add_member({ user: user_a })
+        create(:document_signer, user: user_a, document: @document, document_role: @document_role)
+        @document.add_signing_member({ user: user_a })
 
-        assert_equal 1, @document.members.count
+        assert_equal 1, @document.signers.count
       end
 
-      should 'remove member' do
+      should 'remove signer' do
         department = create(:department)
         @document = create(:document, :declaration, department: department)
         user_a = create(:user, name: 'user_a')
-        create(:document_user, user: user_a, document: @document, document_role: @document_role)
-        @document.remove_member(user_a.id)
-        assert_equal 0, @document.members.count
+        create(:document_signer, user: user_a, document: @document, document_role: @document_role)
+        @document.remove_signing_member(user_a.id)
+        assert_equal 0, @document.signers.count
       end
     end
   end
@@ -142,6 +143,15 @@ class DocumentTest < ActiveSupport::TestCase
       assert_equal(1, Document.search(first_title.downcase).count)
       assert_equal(1, Document.search(second_title.downcase).count)
       assert_equal(2, Document.search('').count)
+    end
+  end
+
+  context 'recipients' do
+    should 'return recipients by Logics::Document::Recipient' do
+      document_recipient = create(:document_recipient, :user)
+      document = document_recipient.document
+
+      assert document.recipients.is_a?(Logics::Document::Recipient)
     end
   end
 end

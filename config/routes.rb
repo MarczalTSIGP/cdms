@@ -27,7 +27,8 @@ Rails.application.routes.draw do
 
       root to: 'dashboard#index'
 
-      get 'documents/:id/members', to: 'documents#members', as: :document_members
+      get 'documents/:id/signers', to: 'documents#signers', as: :document_signers
+      patch 'documents/:id/sign', to: 'document_signers#sign', as: :sign_document
 
       get 'departments/:id/members', to: 'departments#members', as: :department_members
 
@@ -36,9 +37,9 @@ Rails.application.routes.draw do
                                                        as: :department_remove_member
 
       resources :documents, concerns: [:paginatable, :searchable_paginatable]
-      post 'documents/:id/members', to: 'documents#add_member', as: :document_add_member
-      delete 'documents/:document_id/members/:id', to: 'documents#remove_member',
-                                                   as: :document_remove_member
+      post 'documents/:id/signers', to: 'documents#add_signer', as: :document_add_signer
+      delete 'documents/:document_id/signers/:id', to: 'documents#remove_signer',
+                                                   as: :document_remove_signer
 
       get 'documents/:id/preview', to: 'documents#preview', as: :preview_document
       get 'team-departments-modules', to: 'team_departments_modules#index', action: :index
@@ -48,6 +49,24 @@ Rails.application.routes.draw do
       get 'show-module/:id', to: 'team_departments_modules#show_module', action: :show_module, as: :show_module
       patch 'documents/:id/availability-to-sign', to: 'documents#toggle_available_to_sign',
                                                   as: :document_availability_to_sign
+
+      get 'documents/:id/recipients', to: 'document_recipients#index',
+                                      as: :document_recipients
+
+      get 'documents/:id/recipients/new', to: 'document_recipients#new',
+                                          as: :new_recipient_document
+
+      get 'documents/:id/non-recipient/search(/:cpf)', to: 'document_recipients#new',
+                                                       as: :search_non_recipient,
+                                                       constraints: { cpf: %r{[^/]+} }
+
+      post 'documents/:id/recipients/:cpf', to: 'document_recipients#add_recipient',
+                                            as: :document_add_recipient,
+                                            constraints: { cpf: %r{[^/]+} }
+
+      delete 'documents/:id/recipients/:cpf', to: 'document_recipients#remove_recipient',
+                                              as: :document_remove_recipient,
+                                              constraints: { cpf: %r{[^/]+} }
     end
 
     namespace :admins do
