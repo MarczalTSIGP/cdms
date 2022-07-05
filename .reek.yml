@@ -10,7 +10,9 @@ detectors:
       - 'User#is?'
       - 'Populators::DepartmentUserPopulate'
       - 'AdminDashboard#self.audience_members'
-      - 'BreadcrumbsMembers#breadcrumbs_members'  
+      - 'Users::DocumentRecipientsController'
+      - 'Admins::AudienceMembersController#process_csv'
+      - 'Admins::DepartmentsController#users_params'
   Attribute:
     exclude:
       - 'Administrator'
@@ -21,22 +23,35 @@ detectors:
       - 'CreateAudienceMembersFromCsv#included?'
       - 'Users::DocumentsController#users_params'
       - 'Admins::DepartmentModulesController#users_params'
+      - 'Logics::Document::Recipient#add'
   UtilityFunction:
     exclude:
       - 'Admins::AdministratorsController#resource_name'
       - 'CreateAudienceMembersFromCsv#registered?'
+
   TooManyInstanceVariables:
     exclude:
       - 'CreateAudienceMembersFromCsv'
+
+  TooManyStatements:
+    exclude:
+      - 'Members::BuilderMethods#build'
+      - 'CreateAudienceMembersFromCsv'
+      - 'Populators::DepartmentUserPopulate#create'
 
   NilCheck:
     exclude:
       - 'Users::TeamDepartmentsModulesController#set_department'
       - 'Users::TeamDepartmentsModulesController#set_module'
+      - 'Logics::Document::Recipient#add'
 
   InstanceVariableAssumption:
     exclude:
       - 'JsonValidator'
+
+  NestedIterators:
+    exclude:
+      - 'Populators::DepartmentUserPopulate'
 
 directories:
   "app/controllers":

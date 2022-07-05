@@ -3,5 +3,6 @@ config/initializers/simple_form_bootstrap.rb
 app/inputs/checkbox_tabler_input.rb
 app/inputs/switch_single_input.rb
 app/controllers/admins/departments_controller.rb
+app/controllers/users/document_recipients_controller.rb
 lib/populators/*
 

@@ -14,9 +14,17 @@ pt-BR:
       add:
         m: '%{resource_name} adicionado com sucesso!'
         f: '%{resource_name} adicionada com sucesso!'
+        errors:
+          exists: '%{resource_name} já cadastrado!'
+          not: 'Dados inválidos! Registro não adicionado!'
       remove:
         m: '%{resource_name} removido com sucesso!'
         f: '%{resource_name} removida com sucesso!'
+      sign:
+        m: '%{resource_name} assinado com sucesso!'
+        f: '%{resource_name} assinada com sucesso!'
+        errors:
+          incorrect_password: 'A senha que você digitou está incorreta'
       least: 'Deve existir pelo menos um %{resource_name}'
       errors: Existem dados incorretos!
       import:
@@ -31,4 +39,3 @@ pt-BR:
         removeitself: 'Não é permitido auto remover-se!'
     not_authorized: Acesso não autorizado!
     not_found: Registro não encontrado!
-

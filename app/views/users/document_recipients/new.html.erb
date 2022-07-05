@@ -1,0 +1,18 @@
+<% provide(:head_title, t('views.document.recipients.new'))%>
+<% provide(:page_title, t('views.document.recipients.new')) %>
+
+<%= render 'search' %>
+
+<%= render layout: 'table_recipients' do %>
+  <tr>
+    <td><%= @recipient.cpf %></td>
+    <td><%= @recipient.name %></td>
+    <td><%= @recipient.email %></td>
+    <td><%= @recipient.model_name.human %></td>
+    <td>
+      <%= link_to users_document_add_recipient_path, class: "btn btn-primary", method: :post do %>
+        <%= icon('fas', 'plus', class: 'mr-2')%><%= I18n.t('views.links.add')%>
+      <% end %>
+    </td>
+  </tr>
+<% end unless @recipient.nil? %>

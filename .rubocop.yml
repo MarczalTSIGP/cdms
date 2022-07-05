@@ -51,6 +51,8 @@ Rails/ApplicationController:
 Rails/LexicallyScopedActionFilter:
   Exclude:
     - 'app/controllers/users/registrations_controller.rb'
+    - 'app/controllers/users/breadcrumbs/*.rb'
+    - 'app/controllers/admins/breadcrumbs/*.rb'
 
 Minitest/MultipleAssertions:
   Max: 4
