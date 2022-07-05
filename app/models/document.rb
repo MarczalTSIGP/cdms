@@ -1,12 +1,15 @@
 class Document < ApplicationRecord
   include Searchable
-  include Members
-
   search_by :title
 
+  include Members
+  build_member_methods(relationship: :signers, name: :signing_member)
+
   belongs_to :department
-  has_many :document_users, dependent: :destroy
-  has_many :users, through: :document_users
+  has_many :document_signers, dependent: :destroy
+  has_many :signers, through: :document_signers, source: :user
+
+  has_many :document_recipients, dependent: :destroy
 
   enum category: { declaration: 'declaration', certification: 'certification' }, _suffix: :category
 
@@ -26,12 +29,14 @@ class Document < ApplicationRecord
   end
 
   def default_variables
-    dv = []
-    dv <<  { name: User.human_attribute_name(:name),  identifier: :name  }
-    dv <<  { name: User.human_attribute_name(:cpf),   identifier: :cpf   }
-    dv <<  { name: User.human_attribute_name(:email), identifier: :email }
-    dv <<  { name: User.human_attribute_name(:register_number), identifier: :register_number }
+    variables = [:name, :cpf, :email, :register_number]
 
-    dv
+    variables.map do |variable|
+      { name: User.human_attribute_name(variable), identifier: variable }
+    end
+  end
+
+  def recipients
+    @recipients ||= Logics::Document::Recipient.new(document_recipients)
   end
 end

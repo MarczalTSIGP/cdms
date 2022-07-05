@@ -4,7 +4,7 @@ class Populators::AudienceMemberPopulate < Populators::BasePopulate
   def create
     AudienceMember.create!(
       name: Faker::Name.unique.name,
-      cpf: CPF.generate,
+      cpf: CPF.generate(true),
       email: Faker::Internet.unique.email
     )
   end

@@ -1,5 +1,6 @@
 class DepartmentModule < ApplicationRecord
   include Members
+  build_member_methods(relationship: :users, name: :member)
 
   belongs_to :department
 

@@ -8,8 +8,6 @@ module Searchable
   end
 
   module ClassMethods
-    attr_reader :fields
-
     private
 
     def search_by(*fields)

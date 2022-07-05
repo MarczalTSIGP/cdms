@@ -68,13 +68,13 @@ class Api::SearchMembersControllerTest < ActionDispatch::IntegrationTest
       end
 
       should 'search_department_module_not_return_member' do
-        document_user = create(:document_user, document: @document)
-        name = document_user.user.name
+        document_signer = create(:document_signer, document: @document)
+        name = document_signer.user.name
 
         get api_search_non_members_path(:document, @document, name)
 
         jresponse = JSON.parse(response.body)
-        assert_not_equal [document_user.user.as_json(only: [:id, :name])], jresponse
+        assert_not_equal [document_signer.user.as_json(only: [:id, :name])], jresponse
       end
     end
   end
