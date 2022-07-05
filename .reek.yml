@@ -12,6 +12,7 @@ detectors:
       - 'AdminDashboard#self.audience_members'
       - 'Users::DocumentRecipientsController'
       - 'Admins::AudienceMembersController#process_csv'
+      - 'Admins::DepartmentsController#users_params'
   Attribute:
     exclude:
       - 'Administrator'

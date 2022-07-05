@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
 
       get 'documents/:id/signers', to: 'documents#signers', as: :document_signers
+      patch 'documents/:id/sign', to: 'document_signers#sign', as: :sign_document
 
       get 'departments/:id/members', to: 'departments#members', as: :department_members
 
@@ -48,9 +49,6 @@ Rails.application.routes.draw do
       get 'show-module/:id', to: 'team_departments_modules#show_module', action: :show_module, as: :show_module
       patch 'documents/:id/availability-to-sign', to: 'documents#toggle_available_to_sign',
                                                   as: :document_availability_to_sign
-
-      patch 'documents/:id/sign-document', to: 'document_users#sign_document',
-                                           as: :document_users_sign_document
 
       get 'documents/:id/recipients', to: 'document_recipients#index',
                                       as: :document_recipients

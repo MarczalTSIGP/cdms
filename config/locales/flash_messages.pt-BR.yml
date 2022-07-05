@@ -2,14 +2,14 @@ pt-BR:
   flash:
     actions:
       update:
-        m: "%{resource_name} Atualizado com sucesso!"
-        f: "%{resource_name} Atualizada com sucesso!"
+        m: '%{resource_name} Atualizado com sucesso!'
+        f: '%{resource_name} Atualizada com sucesso!'
       create:
-        m: "%{resource_name} criado com sucesso!"
-        f: "%{resource_name} criada com sucesso!"
+        m: '%{resource_name} criado com sucesso!'
+        f: '%{resource_name} criada com sucesso!'
       destroy:
-        m: "%{resource_name} removido com sucesso!"
-        f: "%{resource_name} removida com sucesso!"
+        m: '%{resource_name} removido com sucesso!'
+        f: '%{resource_name} removida com sucesso!'
         bond: Não é possível remover %{resource_name} com vínculos!'
       add:
         m: '%{resource_name} adicionado com sucesso!'
@@ -18,24 +18,24 @@ pt-BR:
           exists: '%{resource_name} já cadastrado!'
           not: 'Dados inválidos! Registro não adicionado!'
       remove:
-        m: "%{resource_name} removido com sucesso!"
-        f: "%{resource_name} removida com sucesso!"
+        m: '%{resource_name} removido com sucesso!'
+        f: '%{resource_name} removida com sucesso!'
       sign:
-        m: "%{resource_name} assinado com sucesso!"
-        f: "%{resource_name} assinada com sucesso!"
+        m: '%{resource_name} assinado com sucesso!'
+        f: '%{resource_name} assinada com sucesso!'
         errors:
-          incorrect_password: "A senha que você digitou está incorreta"
-      least: "Deve existir pelo menos um %{resource_name}"
+          incorrect_password: 'A senha que você digitou está incorreta'
+      least: 'Deve existir pelo menos um %{resource_name}'
       errors: Existem dados incorretos!
       import:
-        m: "%{resource_name} importados com sucesso!"
+        m: '%{resource_name} importados com sucesso!'
         errors:
           blank: Nenhum arquivo enviado!
           invalid: Arquivo inválido
       member:
-        non: "Certificados/Declarações podem ser gerenciados somente por usuários associados a um departmento!"
+        non: 'Certificados/Declarações podem ser gerenciados somente por usuários associados a um departmento!'
       responsible:
-        non: "A funcionalidade requisitada somente pode ser gerendicada por um responsável!"
-        removeitself: "Não é permitido auto remover-se!"
+        non: 'A funcionalidade requisitada somente pode ser gerendicada por um responsável!'
+        removeitself: 'Não é permitido auto remover-se!'
     not_authorized: Acesso não autorizado!
     not_found: Registro não encontrado!
