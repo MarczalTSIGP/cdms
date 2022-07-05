@@ -30,6 +30,10 @@
       <strong><%= t('activerecord.attributes.department.email') %>:</strong>
       <%= @department.email %>
     </p>
+    <p>
+      <strong><%= t('enums.roles.responsible') %></strong>
+      <%= @department.responsible&.name %>
+    </p>
   </div>
 </div>
 

@@ -11,17 +11,17 @@
   <table class="table card-table table-striped table-vcenter table-options">
     <thead>
       <tr>
-        <th><%= t('activerecord.attributes.department.initials') %></th>
         <th><%= t('activerecord.attributes.department.name') %></th>
-        <th><%= t('activerecord.attributes.department.local') %></th>
         <th><%= t('activerecord.attributes.department.phone') %></th>
         <th><%= t('activerecord.attributes.department.email') %></th>
+        <th><%= t('enums.roles.responsible') %></th>
+        <th><%= t('activerecord.attributes.department.number_of_collaborators') %></th>
         <th></th>
       </tr>
     </thead>
 
     <tbody>
-      <%= render @departments %>
+       <%= render @departments %>
     </tbody>
   </table>
 

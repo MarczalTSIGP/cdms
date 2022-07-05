@@ -14,6 +14,10 @@
       <strong><%= t('activerecord.attributes.department_module.description') %>:</strong>
       <%= @department_module.description %>
     </p>
+    <p>
+      <strong><%= t('enums.roles.responsible') %></strong>
+      <%= @department_module.responsible&.name %>
+    </p>
   </div>
 </div>
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_29_161645) do
+ActiveRecord::Schema.define(version: 2022_06_13_214859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2022_05_29_161645) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "department_module_users_count", default: 0, null: false
     t.index ["department_id"], name: "index_department_modules_on_department_id"
     t.index ["name"], name: "index_department_modules_on_name", unique: true
   end
@@ -84,6 +85,7 @@ ActiveRecord::Schema.define(version: 2022_05_29_161645) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "department_users_count", default: 0, null: false
     t.index ["email"], name: "index_departments_on_email", unique: true
     t.index ["initials"], name: "index_departments_on_initials", unique: true
   end

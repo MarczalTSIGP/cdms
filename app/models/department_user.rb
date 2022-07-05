@@ -1,7 +1,7 @@
 class DepartmentUser < ApplicationRecord
   include Roleable
 
-  belongs_to :department
+  belongs_to :department, counter_cache: true
   belongs_to :user
 
   validates :role, inclusion: { in: DepartmentUser.roles.values }

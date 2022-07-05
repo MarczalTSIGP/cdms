@@ -16,6 +16,7 @@ class ShowDepartmentModuleTest < ApplicationSystemTestCase
       within('#main-content .card.department-module-data .card-body') do
         assert_text @dep_module.name
         assert_text @dep_module.description
+        assert_text @dep_module.responsible&.name
       end
     end
 

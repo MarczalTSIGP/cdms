@@ -1,11 +1,11 @@
 <tr>
   <td><%= department_module.name %></td>
-  <td><%= department_module.description %></td>
-
+  <td><%= department_module.responsible&.name %></td>
+  <td><%= department_module.department_module_users.size %></td>
   <td>
     <%= link_to admins_department_module_members_path(@department, department_module) do %>
-          <%= icon('fas', 'users', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.user.name.plural')) %>
-      <% end %>
+      <%= icon('fas', 'users', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.user.name.plural')) %>
+    <% end %>
     <%= link_to edit_admins_department_module_path(@department, department_module) do %>
       <%= icon('fas', 'edit', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.edit')) %>
     <% end %>

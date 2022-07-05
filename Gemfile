@@ -43,7 +43,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'brakeman'
-  gem 'bullet'
+  gem 'bullet', '~> 7.0.2'
   gem 'rubocop', require: false
   gem 'rubocop-minitest', require: false
   gem 'rubocop-rails', require: false

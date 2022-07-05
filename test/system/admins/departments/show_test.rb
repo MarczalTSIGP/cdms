@@ -42,13 +42,59 @@ class ShowTest < ApplicationSystemTestCase
           base_selector = "tr:nth-child(#{child})"
 
           assert_selector base_selector, text: dp_module.name
-          assert_selector base_selector, text: dp_module.description
+          assert_selector base_selector, text: ''
+          assert_selector base_selector, text: 0
 
           edit_path = edit_admins_department_module_path(@department, dp_module)
           destroy_path = admins_department_module_path(@department, dp_module)
 
           assert_selector "#{base_selector} a[href='#{edit_path}']"
           assert_selector "#{base_selector} a[href='#{destroy_path}'][data-method='delete']"
+        end
+      end
+    end
+
+    should 'list modules with collaboratos' do
+      modules = create_list(:department_module, 3, department: @department)
+      users = create_list(:user, 3)
+
+      users.each_with_index do |user, index|
+        create(:department_module_user, department_module_id: modules[index].id, user_id: user.id, role: :collaborator)
+      end
+
+      visit admins_department_path(@department)
+
+      within('.card.modules table.table tbody') do
+        modules.each_with_index do |dp_module, index|
+          child = index + 1
+          base_selector = "tr:nth-child(#{child})"
+
+          assert_selector base_selector, text: dp_module.name
+          assert_selector base_selector, text: ''
+          assert_selector base_selector, text: 1
+        end
+      end
+    end
+
+    should 'list modules with reponsibles and collaboratos' do
+      modules = create_list(:department_module, 1, department: @department)
+      users = create_list(:user, 2)
+
+      create(:department_module_user, department_module_id: modules[0].id, user_id: users[0].id, role: :responsible)
+      create(:department_module_user, department_module_id: modules[0].id, user_id: users[1].id, role: :collaborator)
+
+      responsibles = DepartmentModuleUser.where(role: :responsible)
+
+      visit admins_department_path(@department)
+
+      within('.card.modules table.table tbody') do
+        modules.each_with_index do |dp_module, index|
+          child = index + 1
+          base_selector = "tr:nth-child(#{child})"
+
+          assert_selector base_selector, text: dp_module.name
+          assert_selector base_selector, text: responsibles[index].user.name
+          assert_selector base_selector, text: 2
         end
       end
     end
