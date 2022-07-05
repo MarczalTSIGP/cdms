@@ -19,6 +19,7 @@ class ShowDepartmentTest < ApplicationSystemTestCase
         assert_text @department.email
         assert_text @department.local
         assert_text @department.description
+        assert_text @department.responsible&.name
       end
     end
 

@@ -10,6 +10,10 @@ class Department < ApplicationRecord
   has_many :users, through: :department_users
   has_many :documents, dependent: :destroy
 
+  has_one :department_responsible, -> { where(role: :responsible) },
+          class_name: 'DepartmentUser', inverse_of: false
+  has_one :responsible, through: :department_responsible, source: :user, inverse_of: false
+
   validates :name, presence: true
   validates :initials, presence: true, uniqueness: true
   validates :local, presence: true

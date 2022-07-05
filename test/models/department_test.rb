@@ -3,6 +3,11 @@ require 'test_helper'
 class DepartmentTest < ActiveSupport::TestCase
   subject { FactoryBot.build(:department) }
 
+  context 'relationships' do
+    should have_one(:department_responsible).conditions(role: :responsible).class_name('DepartmentUser')
+    should have_one(:responsible).through(:department_responsible).source(:user)
+  end
+
   context 'validations' do
     should validate_presence_of(:name)
     should validate_presence_of(:initials)

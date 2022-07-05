@@ -30,6 +30,10 @@
       <strong><%= t('activerecord.attributes.department.email') %>:</strong>
       <%= @department.email %>
     </p>
+    <p>
+      <strong><%= t('enums.roles.responsible') %></strong>
+      <%= @department.responsible&.name %>
+    </p>
   </div>
 </div>
 
@@ -49,12 +53,13 @@
         <thead>
           <tr>
             <th><%= t('activerecord.attributes.department_module.name') %></th>
-            <th><%= t('activerecord.attributes.department_module.description') %></th>
+            <th><%= t('enums.roles.responsible') %></th>
+            <th><%= t('activerecord.attributes.department.number_of_collaborators') %></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <%= render @department.modules %>
+          <%= render @department_modules %>
         </tbody>
       </table>
     </div>

@@ -5,11 +5,14 @@ class Admins::DepartmentsController < Admins::BaseController
   include Admins::Breadcrumbs::Departments
 
   def index
-    @departments = Department.search(params[:term]).page(params[:page])
+    @departments = Department.search(params[:term])
+                             .includes(:responsible)
+                             .page(params[:page])
   end
 
   def show
     @module = DepartmentModule.new(department_id: @department.id)
+    @department_modules = @department.modules.includes(:responsible)
   end
 
   def new
