@@ -183,7 +183,6 @@ ActiveRecord::Schema.define(version: 2022_06_13_214859) do
   add_foreign_key "document_signers", "document_roles"
   add_foreign_key "document_signers", "documents"
   add_foreign_key "document_signers", "users"
-
   add_foreign_key "documents", "departments"
   add_foreign_key "users", "roles"
 end
