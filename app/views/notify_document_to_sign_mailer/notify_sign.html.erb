@@ -1,0 +1,5 @@
+<p><%= t('devise.mailer.notify_sign.greeting', recipient: @recipient.name) %></p>
+
+<p><%= t('devise.mailer.notify_sign.message') %></p>
+
+ <p><%= link_to t('devise.mailer.notify_sign.change_document'), users_preview_document_path(@document) %></p> 

@@ -23,6 +23,7 @@ class Users::DocumentRecipientsController < Users::BaseController
 
   def add_recipient
     if @document.recipients.add(params[:cpf])
+      NotifyDocumentToSignMailer.with(cpf: params[:cpf], document: @document).notify_sign.deliver_later
       flash['success'] = I18n.t('flash.actions.add.m', resource_name: I18n.t('views.document.recipients.name'))
     else
       flash['error'] = I18n.t('flash.actions.add.errors.not')
