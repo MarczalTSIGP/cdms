@@ -48,6 +48,7 @@ pt-BR:
         greeting: "Olá %{recipient}!"
         message: "Você tem um novo documento para assinar"
         change_document: "Ir para o documento"
+        change_document_text: "Verifique seus documentos"
       unlock_instructions:
         action: "Desbloquear minha conta"
         greeting: "Olá %{recipient}!"
