@@ -13,8 +13,8 @@ class NotifyDocumentToSignMailerTest < ActionMailer::TestCase
     end
 
     assert_equal email.to, [@signer.email]
-    assert_equal email.from, ['sgcd@utfpr.edu.br']
-    assert_equal email.subject, 'Documento para assinar'
+    assert_equal ['sgcd@utfpr.edu.br'], email.from
+    assert_equal 'Documento para assinar', email.subject
     assert_match 'tem um novo documento para assinar', email.body.encoded
   end
 end
