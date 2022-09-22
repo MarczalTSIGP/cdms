@@ -5,7 +5,7 @@ class NotifyDocumentToSignMailerTest < ActionMailer::TestCase
     @signer = create(:user)
     @document = create(:document, :declaration)
   end
-  
+
   test 'notify_sign' do
     email = NotifyDocumentToSignMailer.with(user_id: @signer.id, document: @document).notify_sign
     assert_emails 1 do
