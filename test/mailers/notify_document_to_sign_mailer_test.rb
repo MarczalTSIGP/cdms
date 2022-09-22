@@ -2,9 +2,8 @@ require 'test_helper'
 
 class NotifyDocumentToSignMailerTest < ActionMailer::TestCase
   def setup 
-    department = create(:department)
     @signer = create(:user)
-    @document = create(:document, :declaration, department: department)
+    @document = create(:document, :declaration)
   end
   
   test "notify_sign" do
