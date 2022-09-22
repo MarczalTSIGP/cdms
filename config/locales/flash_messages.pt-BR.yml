@@ -25,6 +25,7 @@ pt-BR:
         f: '%{resource_name} assinada com sucesso!'
         errors:
           incorrect_password: 'A senha que você digitou está incorreta'
+          document_already_signed: 'O documento já foi assinado'
       least: 'Deve existir pelo menos um %{resource_name}'
       errors: Existem dados incorretos!
       import:
