@@ -13,7 +13,8 @@ class Users::DocumentsController < Users::BaseController
 
   def add_signer
     if @document.add_signing_member(users_params)
-      NotifyDocumentToSignMailer.with(user_id: users_params[:user_id], document: @document).notify_sign.deliver_later
+      mail = NotifyDocumentToSignMailer.with(user_id: users_params[:user_id], document: @document).notify_sign
+      mail.deliver_later
       flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
       redirect_to users_document_signers_path(@document)
     else
