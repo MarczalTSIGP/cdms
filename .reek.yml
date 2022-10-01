@@ -4,6 +4,7 @@ detectors:
   # You can disable smells completely
   IrresponsibleModule:
     enabled: false
+
   DuplicateMethodCall:
     exclude:
       - 'Admins::DepartmentsController#department_users_params'
@@ -13,9 +14,11 @@ detectors:
       - 'Users::DocumentRecipientsController'
       - 'Admins::AudienceMembersController#process_csv'
       - 'Admins::DepartmentsController#users_params'
+      - 'Populators::DepartmentModuleUserPopulate#create'
   Attribute:
     exclude:
       - 'Administrator'
+
   FeatureEnvy:
     exclude:
       - 'Admins::UsersController#remove_empty_password'
@@ -24,10 +27,15 @@ detectors:
       - 'Users::DocumentsController#users_params'
       - 'Admins::DepartmentModulesController#users_params'
       - 'Logics::Document::Recipient#add'
+      - 'Users::DocumentSignersController#users_params'
+
+
   UtilityFunction:
     exclude:
       - 'Admins::AdministratorsController#resource_name'
       - 'CreateAudienceMembersFromCsv#registered?'
+      - 'Document#default_variables'
+      - 'Searchable::Condition'
 
   TooManyInstanceVariables:
     exclude:
@@ -38,6 +46,7 @@ detectors:
       - 'Members::BuilderMethods#build'
       - 'CreateAudienceMembersFromCsv'
       - 'Populators::DepartmentUserPopulate#create'
+      - 'Populators::DepartmentModuleUserPopulate#create'
 
   NilCheck:
     exclude:
@@ -52,6 +61,7 @@ detectors:
   NestedIterators:
     exclude:
       - 'Populators::DepartmentUserPopulate'
+      - 'Populators::DepartmentModuleUserPopulate'
 
 directories:
   "app/controllers":

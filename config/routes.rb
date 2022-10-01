@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
       root to: 'dashboard#index'
 
-      get 'documents/:id/signers', to: 'documents#signers', as: :document_signers
+      get 'documents/:id/signers', to: 'document_signers#signers', as: :document_signers
       patch 'documents/:id/sign', to: 'document_signers#sign', as: :sign_document
 
       get 'departments/:id/members', to: 'departments#members', as: :department_members
@@ -37,8 +37,8 @@ Rails.application.routes.draw do
                                                        as: :department_remove_member
 
       resources :documents, concerns: [:paginatable, :searchable_paginatable]
-      post 'documents/:id/signers', to: 'documents#add_signer', as: :document_add_signer
-      delete 'documents/:document_id/signers/:id', to: 'documents#remove_signer',
+      post 'documents/:id/signers', to: 'document_signers#add_signer', as: :document_add_signer
+      delete 'documents/:document_id/signers/:id', to: 'document_signers#remove_signer',
                                                    as: :document_remove_signer
 
       get 'documents/:id/preview', to: 'documents#preview', as: :preview_document
