@@ -7,10 +7,13 @@ class DocumentSignerTest < ActiveSupport::TestCase
       @document_signer = create(:document_signer)
     end
 
-    should 'return document signed' do
-      role_signer = @document_signer.document_role.name
-      @document_signer.sign(role_signer)
-      assert_equal 1, @document_signer.signed_documents.size
+    should 'sign the document and copy data' do
+      @document_signer.sign
+      assert_equal 1, DocumentSigner.where(signed: true).count
+
+      @document_signer.reload
+      assert_equal @document_signer.signer_role, @document_signer.document_role.name
+      assert_not_nil @document_signer.signed_datetime
     end
   end
 end

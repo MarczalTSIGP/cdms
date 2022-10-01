@@ -115,10 +115,10 @@ ActiveRecord::Schema.define(version: 2022_09_21_012233) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "document_role_id"
     t.boolean "signed", default: false
-    t.datetime "date_hour"
-    t.string "role_user_signed"
+    t.bigint "document_role_id"
+    t.datetime "signed_datetime"
+    t.string "signer_role"
     t.index ["document_id", "user_id"], name: "index_document_signers_on_document_id_and_user_id", unique: true
     t.index ["document_id"], name: "index_document_signers_on_document_id"
     t.index ["document_role_id"], name: "index_document_signers_on_document_role_id"
