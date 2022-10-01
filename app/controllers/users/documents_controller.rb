@@ -8,7 +8,7 @@ class Users::DocumentsController < Users::BaseController
 
   def signers
     @document_signer = DocumentSigner.new
-    @document_signers = @document.signing_members.includes(:document_role)
+    set_document_signers
   end
 
   def add_signer
@@ -95,7 +95,7 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def set_document_signers
-    @document_signers = @document.signers.includes(:document_role)
+    @document_signers = @document.signing_members.includes(:document_role)
   end
 
   def create_document
