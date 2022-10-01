@@ -10,6 +10,7 @@ class Users::DocumentSignersController < Users::BaseController
 
   def add_signer
     if @document.add_signing_member(users_params)
+      notify_signer
       flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
       redirect_to users_document_signers_path(@document)
     else
@@ -61,5 +62,9 @@ class Users::DocumentSignersController < Users::BaseController
   def users_params
     document_signer = params[:document_signer]
     { user_id: document_signer[:user_id], document_role_id: document_signer[:document_role] }
+  end
+
+  def notify_signer
+    NotifyDocumentToSignMailer.with(user_id: users_params[:user_id], document: @document).notify_sign.deliver_later
   end
 end

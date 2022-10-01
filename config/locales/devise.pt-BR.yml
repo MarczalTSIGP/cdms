@@ -43,6 +43,12 @@ pt-BR:
         instruction_3: "Sua senha não será alterada até que você acesse o link acima e crie uma nova."
         subject: "Instruções de redefinição de senha"
         change_my_password: "Alterar minha senha"
+      notify_sign:
+        action: "Documento para assinar"
+        greeting: "Olá %{signer}!"
+        message: "Você tem um novo documento para assinar"
+        change_document: "Ir para o documento"
+        change_document_text: "Verifique seus documentos"
       unlock_instructions:
         action: "Desbloquear minha conta"
         greeting: "Olá %{recipient}!"
