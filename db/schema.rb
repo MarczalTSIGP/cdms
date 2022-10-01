@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_13_214859) do
+ActiveRecord::Schema.define(version: 2022_09_21_012233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,8 @@ ActiveRecord::Schema.define(version: 2022_06_13_214859) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "signed", default: false
     t.bigint "document_role_id"
+    t.datetime "signed_datetime"
+    t.string "signer_role"
     t.index ["document_id", "user_id"], name: "index_document_signers_on_document_id_and_user_id", unique: true
     t.index ["document_id"], name: "index_document_signers_on_document_id"
     t.index ["document_role_id"], name: "index_document_signers_on_document_role_id"

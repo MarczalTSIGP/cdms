@@ -30,7 +30,7 @@ class Users::DocumentSignersController < Users::BaseController
     set_document_signer
 
     if valid_password
-      @document_signer.update(signed: true)
+      @document_signer.sign
       flash[:success] = I18n.t('flash.actions.sign.m', resource_name: I18n.t('views.document.name.singular'))
       redirect_to users_root_path
     else
