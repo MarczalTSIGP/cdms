@@ -1,6 +1,6 @@
 module Users
   module Breadcrumbs
-    module Documents
+    module DocumentSigners
       def self.included(base)
         base.class_eval do
           before_action :set_signers_breadcrumbs, only: [:signers, :add_signer]
