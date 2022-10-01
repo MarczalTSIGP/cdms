@@ -106,11 +106,23 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
           assert_active_link(href: users_documents_path)
         end
 
-        should 'unsuccessfully' do
-          post users_document_add_signer_path(@document), params: { document_signer: { user_id: '' } }
+        should 'unsuccessfully with no signers' do
+          params = { document_signer: { user_id: '', document_role: '' } }
+          post users_document_add_signer_path(@document), params: params
+
           assert_response :success
           @document.reload
           assert_equal 0, @document.signers.count
+        end
+
+        should 'unsuccessfully with signers' do
+          create(:document_signer, user: @user, document: @document, document_role: @document_role)
+          params = { document_signer: { user_id: '', document_role: '' } }
+          post users_document_add_signer_path(@document), params: params
+
+          assert_response :success
+          @document.reload
+          assert_equal 1, @document.signers.count
         end
       end
 
