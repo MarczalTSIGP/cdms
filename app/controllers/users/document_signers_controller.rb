@@ -1,4 +1,30 @@
 class Users::DocumentSignersController < Users::BaseController
+  before_action :set_document, except: :sign
+
+  include Users::Breadcrumbs::DocumentSigners
+
+  def signers
+    @document_signer = DocumentSigner.new
+    set_document_signers
+  end
+
+  def add_signer
+    if @document.add_signing_member(users_params)
+      flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
+      redirect_to users_document_signers_path(@document)
+    else
+      @document_signer = @document.document_signers.last
+      set_document_signers
+      render :signers
+    end
+  end
+
+  def remove_signer
+    @document.remove_signing_member(params[:id])
+    flash[:success] = I18n.t('flash.actions.remove.m', resource_name: User.model_name.human)
+    redirect_to users_document_signers_path(@document)
+  end
+
   def sign
     set_document_signer
 
@@ -13,6 +39,15 @@ class Users::DocumentSignersController < Users::BaseController
 
   private
 
+  def set_document
+    id = params[:document_id] || params[:id]
+    @document = Document.find(id)
+  end
+
+  def set_document_signers
+    @document_signers = @document.signing_members.includes(:document_role)
+  end
+
   def set_document_signer
     @document_signer = current_user
                        .document_signers
@@ -21,5 +56,10 @@ class Users::DocumentSignersController < Users::BaseController
 
   def valid_password
     current_user.valid_password?(params[:user][:password])
+  end
+
+  def users_params
+    document_signer = params[:document_signer]
+    { user_id: document_signer[:user_id], document_role_id: document_signer[:document_role] }
   end
 end
