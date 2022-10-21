@@ -23,7 +23,8 @@ gem 'kaminari'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'simple_form'
 gem 'sprockets-rails', git: 'https://github.com/rails/sprockets-rails.git'
-gem 'validators'
+gem 'validators', '3.2.1'
+gem 'whenever', require: false
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -61,4 +62,3 @@ group :test do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'whenever', require: false

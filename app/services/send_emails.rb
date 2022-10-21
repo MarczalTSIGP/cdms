@@ -4,9 +4,7 @@ class SendEmails
 		for signer in @signers do
 			NotifyDocumentToSignMailer.with(signer: @signer).notify_sign.deliver_later
 		end
-	end
-
-	private 
+	end 
 
 	def search_for_recipients
 		@signers = DocumentSigner.where("signed = ?", false).group("document")

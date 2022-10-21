@@ -376,7 +376,7 @@ GEM
       thread_safe (~> 0.1)
     unicode-display_width (2.3.0)
     uniform_notifier (1.16.0)
-    validators (3.4.2)
+    validators (3.2.1)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -451,7 +451,7 @@ DEPENDENCIES
   sprockets-rails!
   turbolinks (~> 5)
   tzinfo-data
-  validators
+  validators (= 3.2.1)
   web-console (>= 3.3.0)
   webdrivers
   webpacker (~> 4.0)
