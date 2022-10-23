@@ -46,6 +46,11 @@ class Users::DocumentRecipientsController < Users::BaseController
 
   def set_document
     @document = Document.find_by(id: params[:id])
-    redirect_to users_documents_path if @document.blank?
+    if @document.document_already_signed(@document.id)
+      flash[:warning] = t('flash.actions.add_recipients.non')
+      redirect_to users_documents_path
+    else
+      @document.blank?
+    end
   end
 end

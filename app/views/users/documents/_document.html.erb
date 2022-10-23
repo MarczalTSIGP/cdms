@@ -17,17 +17,27 @@
       <%= link_to users_document_signers_path(document) do %>
           <%= icon('fas', 'users', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.signer.name.plural')) %>
       <% end %>
-      <%= link_to users_document_recipients_path(document) do %>
-	        <%= icon('fas', 'address-book', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.document.recipients.name')) %>
+
+      <%= link_to_if document.document_already_signed(document.id) == true, icon('fas', 'address-book', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.document.recipients.document_already_signed')) do %>
+            <%= link_to users_document_recipients_path(document) do %>
+	            <%= icon('fas', 'address-book', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.document.recipients.name')) %>
+            <% end %>
       <% end %>
+
       <%= link_to users_preview_document_path(document) do %>
           <%= icon('fas', 'print', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.document.name.singular')) %>
       <% end %>
-      <%= link_to edit_users_document_path(document) do %>
-        <%= icon('fas', 'edit', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.edit')) %>
+
+      <%= link_to_if document.document_already_signed(document.id) == true, icon('fas', 'edit', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.document_already_signed')) do %>
+            <%= link_to edit_users_document_path(document) do %>
+              <%= icon('fas', 'edit', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.edit')) %>
+            <% end %>
       <% end %>
+
       <%= link_to users_document_path(document), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
         <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
       <% end %>
+
+       <%= document.document_already_signed(document.id) %>
     </td>
 </tr>

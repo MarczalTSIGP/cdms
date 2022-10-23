@@ -19,7 +19,14 @@ class Users::DocumentsController < Users::BaseController
     @document = Document.new
   end
 
-  def edit; end
+  def edit
+    if @document.document_already_signed(@document.id)
+      flash[:warning] = t('flash.actions.edit.non')
+      redirect_to users_documents_path
+    else
+      render :edit
+    end
+  end
 
   def create
     @document = create_document

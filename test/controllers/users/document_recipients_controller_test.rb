@@ -7,6 +7,7 @@ class Users::DocumentRecipientsControllerTest < ActionDispatch::IntegrationTest
       @department = create(:department)
       @document = create(:document, :certification, department: @department)
       @non_existent_cpf = '01234567890'
+      @document_signer = create(:document_signer, document_id: @document.id)
 
       sign_in @user
     end
@@ -61,6 +62,25 @@ class Users::DocumentRecipientsControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
+    context 'add recipient after signed document' do
+      should 'signed document' do
+        @document_signer.sign
+        assert_equal(1, DocumentSigner.where(signed: true).where(document_id: @document.id).count) do
+          get users_document_recipients_path(@document)
+          assert_response :success
+          assert_redirect_to(non_recipients_document, users_documents_path)
+        end
+      end
+
+      should 'unsigned document' do
+        assert_equal(1, DocumentSigner.where(signed: false).where(document_id: @document.id).count) do
+          get edit_users_document_path(@document)
+          assert_response :success
+          assert_active_link(href: users_documents_path)
+        end
+      end
+    end
+
     context 'remove recipient' do
       should 'remove' do
         create(:document_recipient, document: @document, cpf: @user.cpf,
@@ -84,5 +104,14 @@ class Users::DocumentRecipientsControllerTest < ActionDispatch::IntegrationTest
         assert 1, @document.recipients.all.count
       end
     end
+  end
+
+  private
+
+  def non_recipients_document
+    flash = { type: :warning, message: I18n.t('flash.actions.add_recipients.non') }
+    {
+      get: [{ route: users_document_recipients_path(@document), flash: flash }]
+    }
   end
 end

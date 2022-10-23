@@ -43,6 +43,7 @@ pt-BR:
     links:
       back: Voltar
       edit: Editar
+      document_already_signed: Documento já foi assinado
       destroy: Deletar
       show: Visualizar
       add: Adicionar
@@ -127,6 +128,7 @@ pt-BR:
         name: 'Destinatário'
         plural: 'Destinatários'
         nwdp: 'Destinatários do %{name}'
+        document_already_signed: Documento já foi assinado
       signers:
         name: Assinantes
         nwdc: 'Assinantes do %{name}'

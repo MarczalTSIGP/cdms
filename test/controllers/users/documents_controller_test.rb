@@ -8,6 +8,7 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
       @department.department_users.create(user: @user, role: :responsible)
       @document = create(:document, :certification, department: @department)
       @document_role = create(:document_role)
+      @document_signer = create(:document_signer)
       sign_in @user
     end
 
@@ -23,15 +24,29 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
       assert_active_link(href: users_documents_path)
     end
 
-    should 'get edit' do
-      get edit_users_document_path(@document)
-      assert_response :success
-      assert_active_link(href: users_documents_path)
-    end
-
     should 'get preview' do
       get users_preview_document_path(@document)
       assert_response :success
+    end
+
+    context '#edit' do
+      should 'unsuccessfully' do
+        @document_signer.sign
+        assert_equal(1, DocumentSigner.where(signed: true).count) do
+          assert_redirect_to(non_edit_document, users_documents_path)
+        end
+        get edit_users_document_path(@document)
+        assert_response :success
+        assert_active_link(href: users_documents_path)
+      end
+
+      should 'successfully' do
+        assert_equal(1, DocumentSigner.where(signed: false).count) do
+          get edit_users_document_path(@document)
+          assert_response :success
+          assert_active_link(href: users_documents_path)
+        end
+      end
     end
 
     context '#create' do
@@ -121,6 +136,13 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
       post: [{ route: users_documents_path, flash: flash }],
       patch: [{ route: users_document_path(1), flash: flash }],
       delete: [{ route: users_document_path(1), flash: flash }]
+    }
+  end
+
+  def non_edit_document
+    flash = { type: :warning, message: I18n.t('flash.actions.edit.non') }
+    {
+      get: [{ route: edit_users_document_path(@document), flash: flash }]
     }
   end
 end

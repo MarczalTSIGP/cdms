@@ -154,4 +154,24 @@ class DocumentTest < ActiveSupport::TestCase
       assert document.recipients.is_a?(Logics::Document::Recipient)
     end
   end
+
+  context 'document already signed' do
+    setup do
+      department = create(:department)
+      @document = create(:document, :declaration, department: department)
+      @document_signer = create(:document_signer, document_id: @document.id)
+    end
+
+    should 'document signed' do
+      @document.document_already_signed(@document.id)
+
+      assert_equal 0, DocumentSigner.where(signed: true).where(document_id: @document.id).count
+    end
+
+    should 'unsigned document' do
+      @document.document_already_signed(@document.id)
+
+      assert_equal 1, DocumentSigner.where(signed: false).where(document_id: @document.id).count
+    end
+  end
 end
