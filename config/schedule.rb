@@ -1,7 +1,9 @@
 set :output, "log/cron.log"
-
-every 1.minute do
-  rake "mail:send"
+set :environment, ENV["RAILS_ENV"]
+ENV.each_key do |key|
+  env key.to_sym, ENV[key]
 end
 
-runner "SendEmails.new().perform"
+every :day, at: '9:00 am' do
+  runner "SendEmails.new().perform"
+end

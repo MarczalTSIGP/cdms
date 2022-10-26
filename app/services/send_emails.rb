@@ -13,7 +13,8 @@ class SendEmails
 
 	def send
 		@signers.each do |sign|
-			NotifyDocumentToSignMailer.with(user_id: sign.user_id, document_id: sign.document_id).notify_sign.deliver_later
+			NotifyDocumentToSignMailer.with(user_id: sign.user_id, document_id: sign.document_id).notify_sign.deliver_now
+      # @signers = DocumentSigner.where(signed: false).group_by(&:document_id)
 		end
 	end 
 
