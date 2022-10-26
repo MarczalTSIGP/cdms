@@ -1,6 +1,7 @@
-env :PATH, ENV['PATH']
-set :output, "/log/cron.log"
+set :output, "log/cron.log"
 
-every 1.day, at: '8:00 am' do
-  runner "SendEmails.send"
+every 1.minute do
+  rake "mail:send"
 end
+
+runner "SendEmails.new().perform"

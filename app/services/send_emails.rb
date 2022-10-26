@@ -1,12 +1,23 @@
 class SendEmails
+
+	def initialize (params={})
+    @signers
+	end
+	
+  def perform
+	  search_for_recipients
+    send
+  end
+
+	private
+
 	def send
-		search_for_recipients
-		for signer in @signers do
-			NotifyDocumentToSignMailer.with(signer: @signer).notify_sign.deliver_later
+		@signers.each do |sign|
+			NotifyDocumentToSignMailer.with(user_id: sign.user_id, document_id: sign.document_id).notify_sign.deliver_later
 		end
 	end 
 
 	def search_for_recipients
-		@signers = DocumentSigner.where("signed = ?", false).group("document")
+		@signers = DocumentSigner.where("signed = ?", false)
 	end 
 end
