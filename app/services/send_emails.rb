@@ -2,7 +2,6 @@ class SendEmails
 
 	def initialize(params={})
     @signers
-    
 	end
 	
   def perform
