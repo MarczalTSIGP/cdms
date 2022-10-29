@@ -1,8 +1,8 @@
 class SendEmails
 
-	def initialize (params={})
+	def initialize(params={})
     @signers
-    @sign_document = []
+    
 	end
 	
   def perform
@@ -12,17 +12,27 @@ class SendEmails
 
 	private
 
-	def send
-		@signers.each do |document_sign|
-      document_sign.each do |sign|
-        @sign_document[] = 
+  def send
+
+		@signers.each do |document_id, document_signers|
+      @emails = []
+      document_signers.each do |signer|
+        add_email(user_id: signer.user_id)
       end
-			NotifyDocumentToSignMailer.with(user_id: sign.user_id, document_id: sign.document_id).notify_sign.deliver_now
+      send_email(document_id: document_id)
 		end
-	end 
+	end
 
 	def search_for_recipients
-		# @signers = DocumentSigner.where("signed = ?", false)
     @signers = DocumentSigner.where(signed: false).group_by(&:document_id)
 	end 
+
+  def add_email(params = {})
+    user = User.find(params[:user_id])
+    @emails.unshift(user.email) 
+  end
+
+  def send_email(params = {})
+    NotifyDocumentToSignMailer.with(emails: @emails , document_id: params[:document_id]).notify_sign.deliver_now
+  end
 end
