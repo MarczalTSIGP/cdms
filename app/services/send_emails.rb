@@ -13,7 +13,6 @@ class SendEmails
 	private
 
   def send
-
 		@signers.each do |document_id, document_signers|
       @emails = []
       document_signers.each do |signer|
