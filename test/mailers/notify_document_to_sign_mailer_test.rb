@@ -7,9 +7,9 @@ class NotifyDocumentToSignMailerTest < ActionMailer::TestCase
   end
 
   test 'notify_sign' do
-    email = NotifyDocumentToSignMailer.with(user_id: @signer.id, document: @document).notify_sign
+    email = NotifyDocumentToSignMailer.with(emails: @signer.email, document: @document).notify_sign
     assert_emails 1 do
-      email.deliver_later
+      email.deliver_now
     end
 
     assert_equal email.to, [@signer.email]
