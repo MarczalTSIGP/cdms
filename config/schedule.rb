@@ -4,6 +4,6 @@ ENV.each_key do |key|
   env key.to_sym, ENV[key]
 end
 
-every 1.day, at: ['4:00 am', '11:04 pm'] do
+every :day, at: '4:00 am' do
   runner "SendEmails.new().perform"
 end
