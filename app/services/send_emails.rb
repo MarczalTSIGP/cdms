@@ -13,7 +13,7 @@ class SendEmails
 
   def send
 		@signers.each do |document_id, document_signers|
-      @emails = []
+      @emails = [1,2,3].map {|v| v*2}
       document_signers.each do |signer|
         add_email(user_id: signer.user_id)
       end

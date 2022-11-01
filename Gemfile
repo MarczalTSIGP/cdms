@@ -23,7 +23,7 @@ gem 'kaminari'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'simple_form'
 gem 'sprockets-rails', git: 'https://github.com/rails/sprockets-rails.git'
-gem 'validators', '3.2.1'
+gem 'validators'
 gem 'whenever', require: false
 
 group :development, :test do
