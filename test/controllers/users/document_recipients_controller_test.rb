@@ -62,25 +62,6 @@ class Users::DocumentRecipientsControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    context 'add recipient after signed document' do
-      should 'signed document' do
-        @document_signer.sign
-        assert_equal(1, DocumentSigner.where(signed: true).where(document_id: @document.id).count) do
-          get users_document_recipients_path(@document)
-          assert_response :success
-          assert_redirect_to(non_recipients_document, users_documents_path)
-        end
-      end
-
-      should 'unsigned document' do
-        assert_equal(1, DocumentSigner.where(signed: false).where(document_id: @document.id).count) do
-          get edit_users_document_path(@document)
-          assert_response :success
-          assert_active_link(href: users_documents_path)
-        end
-      end
-    end
-
     context 'remove recipient' do
       should 'remove' do
         create(:document_recipient, document: @document, cpf: @user.cpf,
@@ -104,14 +85,48 @@ class Users::DocumentRecipientsControllerTest < ActionDispatch::IntegrationTest
         assert 1, @document.recipients.all.count
       end
     end
-  end
 
-  private
+    context 'add or remove recipient when document is signed' do
+      setup do
+        @document_signer.sign
+        @flash = I18n.t('flash.actions.add_recipients.non')
+      end
 
-  def non_recipients_document
-    flash = { type: :warning, message: I18n.t('flash.actions.add_recipients.non') }
-    {
-      get: [{ route: users_document_recipients_path(@document), flash: flash }]
-    }
+      should 'not redirect to users_documents_path when try access list page' do
+        get users_document_recipients_path(@document)
+        assert_response 200
+      end
+
+      should 'redirect to users_documents_path when try access new page' do
+        get users_new_recipient_document_path(@document)
+
+        assert_response 302
+        assert_redirected_to users_documents_path
+        assert_equal I18n.t('flash.actions.add_recipients.non'), flash[:warning]
+      end
+
+      should 'redirect to users_documents_path when post data to add' do
+        assert_no_difference('DocumentRecipient.count') do
+          post users_document_add_recipient_path(@document.id, @user.cpf)
+        end
+
+        assert_response 302
+        assert_redirected_to users_documents_path
+        assert_equal I18n.t('flash.actions.add_recipients.non'), flash[:warning]
+      end
+
+      should 'redirect to users_documents_path when delete' do
+        create(:document_recipient, document: @document, cpf: @user.cpf,
+                                    profile_id: @user.id, profile_type: @user.class.name)
+
+        assert_no_difference('DocumentRecipient.count') do
+          delete users_document_remove_recipient_path(@document.id, @user.cpf)
+        end
+
+        assert_response 302
+        assert_redirected_to users_documents_path
+        assert_equal I18n.t('flash.actions.add_recipients.non'), flash[:warning]
+      end
+    end
   end
 end

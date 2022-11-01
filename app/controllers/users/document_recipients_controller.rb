@@ -1,10 +1,14 @@
 class Users::DocumentRecipientsController < Users::BaseController
   before_action :set_document
+  before_action :document_signed?, except: [:index]
 
   include Users::Breadcrumbs::DocumentRecipients
 
   def index
     @document_recipients = @document.recipients.all
+
+    @document_has_signature = @document.someone_signed?
+    flash.now[:info] = I18n.t('views.document.recipients.document_has_signature') if @document_has_signature
   end
 
   def new
@@ -46,11 +50,13 @@ class Users::DocumentRecipientsController < Users::BaseController
 
   def set_document
     @document = Document.find_by(id: params[:id])
-    if @document.document_already_signed(@document.id)
-      flash[:warning] = t('flash.actions.add_recipients.non')
-      redirect_to users_documents_path
-    else
-      @document.blank?
-    end
+    redirect_to users_documents_path if @document.blank?
+  end
+
+  def document_signed?
+    return unless @document.someone_signed?
+
+    flash[:warning] = t('flash.actions.add_recipients.non')
+    redirect_to users_documents_path
   end
 end

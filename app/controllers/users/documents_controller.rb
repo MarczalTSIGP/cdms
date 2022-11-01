@@ -20,7 +20,7 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def edit
-    if @document.document_already_signed(@document.id)
+    if @document.someone_signed?
       flash[:warning] = t('flash.actions.edit.non')
       redirect_to users_documents_path
     else

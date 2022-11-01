@@ -155,23 +155,17 @@ class DocumentTest < ActiveSupport::TestCase
     end
   end
 
-  context 'document already signed' do
+  context 'documentd signed' do
     setup do
       department = create(:department)
       @document = create(:document, :declaration, department: department)
       @document_signer = create(:document_signer, document_id: @document.id)
     end
 
-    should 'document signed' do
-      @document.document_already_signed(@document.id)
-
-      assert_equal 0, DocumentSigner.where(signed: true).where(document_id: @document.id).count
-    end
-
-    should 'unsigned document' do
-      @document.document_already_signed(@document.id)
-
-      assert_equal 1, DocumentSigner.where(signed: false).where(document_id: @document.id).count
+    should '#someone_signed' do
+      assert_not @document.someone_signed?
+      @document_signer.sign
+      assert @document.someone_signed?
     end
   end
 end
