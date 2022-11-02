@@ -154,4 +154,18 @@ class DocumentTest < ActiveSupport::TestCase
       assert document.recipients.is_a?(Logics::Document::Recipient)
     end
   end
+
+  context 'documentd signed' do
+    setup do
+      department = create(:department)
+      @document = create(:document, :declaration, department: department)
+      @document_signer = create(:document_signer, document_id: @document.id)
+    end
+
+    should '#someone_signed' do
+      assert_not @document.someone_signed?
+      @document_signer.sign
+      assert @document.someone_signed?
+    end
+  end
 end

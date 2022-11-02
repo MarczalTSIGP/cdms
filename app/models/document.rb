@@ -39,4 +39,8 @@ class Document < ApplicationRecord
   def recipients
     @recipients ||= Logics::Document::Recipient.new(document_recipients)
   end
+
+  def someone_signed?
+    document_signers.where(signed: true).any?
+  end
 end

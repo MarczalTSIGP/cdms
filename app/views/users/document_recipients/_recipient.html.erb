@@ -6,6 +6,6 @@
     <td>
         <%= link_to users_document_remove_recipient_path(@document, recipient.profile.cpf), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
             <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
-        <% end %>
+        <% end unless @document_has_signature %>
     </td>   
 </tr>

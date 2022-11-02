@@ -23,15 +23,28 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
       assert_active_link(href: users_documents_path)
     end
 
-    should 'get edit' do
-      get edit_users_document_path(@document)
-      assert_response :success
-      assert_active_link(href: users_documents_path)
-    end
-
     should 'get preview' do
       get users_preview_document_path(@document)
       assert_response :success
+    end
+
+    context '#edit' do
+      should 'unsuccessfully' do
+        create(:document_signer, document: @document, signed: true)
+
+        get edit_users_document_path(@document)
+
+        assert_redirected_to(users_documents_path)
+        assert_equal I18n.t('flash.actions.edit.non'), flash[:warning]
+        follow_redirect!
+        assert_active_link(href: users_documents_path)
+      end
+
+      should 'successfully' do
+        get edit_users_document_path(@document)
+        assert_response :success
+        assert_active_link(href: users_documents_path)
+      end
     end
 
     context '#create' do
