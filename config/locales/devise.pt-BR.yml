@@ -45,7 +45,7 @@ pt-BR:
         change_my_password: "Alterar minha senha"
       notify_sign:
         action: "Documento para assinar"
-        greeting: "Olá %{signer}!"
+        greeting: "Olá"
         message: "Você tem um novo documento para assinar"
         change_document: "Ir para o documento"
         change_document_text: "Verifique seus documentos"

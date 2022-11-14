@@ -94,15 +94,6 @@ class Users::DocumentSignersControllerTest < ActionDispatch::IntegrationTest
 
         assert_redirected_to users_document_signers_path(@document)
       end
-
-      should 'notify' do
-        params = { user_id: @user.id, document_id: @document.id, document_role: @document_role.id }
-
-        assert_difference('ActiveJob::Base.queue_adapter.enqueued_jobs.count', 1) do
-          post users_document_add_signer_path(@document), params: { document_signer: params }
-          puts ActionMailer::Base.deliveries.count
-        end
-      end
     end
   end
 
