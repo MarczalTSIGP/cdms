@@ -5,9 +5,12 @@ class DocumentSigner < ApplicationRecord
 
   validates :user, uniqueness: { scope: :document_id }
 
+  scope :unsigned, -> { includes(:user).where(signed: false) }
+  scope :signed, -> { includes(:user).where(signed: true) }
+
   def sign
     role = document_role.name
     date = Time.current
-    DocumentSigner.update(signed: true, signed_datetime: date, signer_role: role)
+    update(signed: true, signed_datetime: date, signer_role: role)
   end
 end

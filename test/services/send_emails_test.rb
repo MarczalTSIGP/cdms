@@ -2,12 +2,13 @@ require 'test_helper'
 
 class SendEmailsTest < ActionMailer::TestCase
   def setup
-    @signers = DocumentSigner.where(signed: false).group_by(&:document_id)
-  end 
-  
-  test 'check if email was sent' do 
-    assert_emails @signers.length do
-      SendEmails.new().perform
+    ds = create_list(:document_signer, 4)
+    ds.first.sign
+  end
+
+  test 'check if email was sent' do
+    assert_emails 3 do
+      SendEmails.perform
     end
   end
 end
