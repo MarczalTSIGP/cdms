@@ -21,7 +21,9 @@ class Users::DocumentsController < Users::BaseController
 
   def edit
     if @document.someone_signed?
+      enable_for_editing = "Caso deseja editar o documento #{@document.title} #{view_context.link_to 'clique aqui', '#', "data-toggle" => "modal", "data-target" => "#modal_document_justification_#{@document.id}"}"
       flash[:warning] = t('flash.actions.edit.non')
+      flash[:info] = enable_for_editing
       redirect_to users_documents_path
     else
       render :edit
@@ -60,7 +62,20 @@ class Users::DocumentsController < Users::BaseController
     @document.toggle(:available_to_sign).save!
   end
 
+  def update_edited_document
+    if @document.update(edit_params)
+      success_update_message
+      redirect_to users_documents_path
+    else
+      error_message
+      render :edit
+    end
+  end
   private
+
+  def user_params
+    params.require(:document).permit(:justification)
+  end
 
   def can_manager?
     return true if current_user.member_of_any?
@@ -88,6 +103,13 @@ class Users::DocumentsController < Users::BaseController
 
   def document_params
     params.require(:document).permit(:title, :front_text, :back_text, :category,
-                                     :department_id, :variables, :available_to_sign)
+                                     :department_id, :variables, :available_to_sign, :justification, :created_by)
+  end
+
+  def edit_params
+    { justification: document_params[:justification],
+      edited_by: current_user.id,
+      reopened: true,
+      date_edition: Time.current }
   end
 end

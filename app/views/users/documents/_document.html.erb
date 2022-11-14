@@ -36,5 +36,12 @@
         <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
       <% end %>
 
+
+      <%= link_to "#", 'data-toggle'=>'modal', 'data-target'=>"#modal_document_justification_#{document.id}" do %>
+        <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
+      <% end %>
+
     </td>
 </tr>
+
+<%= render partial: "users/documents/modal_document_justification", locals: { document_id: document } %>
