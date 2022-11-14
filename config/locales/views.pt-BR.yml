@@ -43,6 +43,7 @@ pt-BR:
     links:
       back: Voltar
       edit: Editar
+      document_already_signed: Documento já foi assinado
       destroy: Deletar
       show: Visualizar
       add: Adicionar
@@ -107,7 +108,6 @@ pt-BR:
         access: Área do usuário
     document:
       links:
-        edit: Editar
         new: Novo certificado/declaração
         show: Visualizar certificado/declaração
         edit: Editar certificado/declaração
@@ -127,6 +127,7 @@ pt-BR:
         name: 'Destinatário'
         plural: 'Destinatários'
         nwdp: 'Destinatários do %{name}'
+        document_has_signature: Este documento possui pelo menos uma assinatura. Não é possível adicionar ou remover destinatários!
       signers:
         name: Assinantes
         nwdc: 'Assinantes do %{name}'
@@ -135,7 +136,6 @@ pt-BR:
         singular: Função
         plural:  Funções
       links:
-        edit: Editar
         new: Nova Função
         show: Visualizar função
         edit: Editar função

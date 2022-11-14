@@ -1,11 +1,13 @@
 <% provide(:head_title, t('views.document.recipients.nwdp', name: @document.title)) %>
 <% provide(:page_title, t('views.document.recipients.nwdp', name: @document.title)) %>
 
-<div class="col-sm-12 col-lg-4 col-xl-3">
+<% unless @document_has_signature %>
+  <div class="col-sm-12 col-lg-4 col-xl-3">
     <%= link_to users_new_recipient_document_path, class: "btn btn-outline-primary btn-block" do %>
-        <%= icon('fas', 'plus', class: 'mr-2') %> <%= I18n.t('views.document.recipients.new')%>
+      <%= icon('fas', 'plus', class: 'mr-2') %> <%= I18n.t('views.document.recipients.new')%>
     <% end %>
-</div>
+  </div>
+<% end %>
 
 <%= render layout: 'table_recipients' do %>
   <%= render partial: 'recipient', collection: @document_recipients %>
