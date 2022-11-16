@@ -39,16 +39,21 @@ class Admins::DepartmentModulesController < Admins::BaseController
     redirect_to [:admins, @department]
   end
 
-  def add_module_member
-    if @module.add_member(users_params)
-      flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
-      redirect_to admins_department_module_members_path(@department, @module)
-    else
-      set_module_members
-      @department_module_user = @module.department_module_users.last
-      render :members
-    end
-  end
+  # def members
+  #   @user = DepartmentModuleUser.new
+  #   set_department_module_members
+  # end
+
+  # def add_module_member
+  #   if @module.add_member(users_params)
+  #     flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
+  #     redirect_to admins_department_module_members_path(@department, @module)
+  #   else
+  #     set_module_members
+  #     @department_module_user = @module.department_module_users.last
+  #     render :members
+  #   end
+  # end
 
   def remove_module_member
     @module = @department.modules.find(params[:module_id])
