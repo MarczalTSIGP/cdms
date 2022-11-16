@@ -2,7 +2,9 @@ class Admins::DepartmentsController < Admins::BaseController
   before_action :set_department, except: [:index, :new, :create]
 
   include Breadcrumbs
+  include DepartmentsMembers
   include Admins::Breadcrumbs::Departments
+
 
   def index
     @departments = Department.search(params[:term])
@@ -49,10 +51,10 @@ class Admins::DepartmentsController < Admins::BaseController
     redirect_to admins_departments_path
   end
 
-  def members
-    @department_user = DepartmentUser.new
-    set_department_members
-  end
+  # def members
+  #   @department_user = DepartmentUser.new
+  #   set_department_members
+  # end
 
   def add_member
     if @department.add_member(users_params)

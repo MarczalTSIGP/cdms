@@ -1,7 +1,9 @@
 class Admins::DepartmentModulesController < Admins::BaseController
   before_action :set_department
   before_action :set_module, except: [:new, :create, :remove_module_member]
+  include DepartmentsMembers
   include Admins::Breadcrumbs::DepartmentModules
+
 
   def new
     @module = @department.modules.new
@@ -37,10 +39,11 @@ class Admins::DepartmentModulesController < Admins::BaseController
     redirect_to [:admins, @department]
   end
 
-  def members
-    @department_module_user = DepartmentModuleUser.new
-    set_module_members
-  end
+  # def members
+  #   console
+  #   @user = DepartmentModuleUser.new
+  #   set_department_module_members
+  # end
 
   def add_module_member
     if @module.add_member(users_params)
@@ -68,7 +71,7 @@ class Admins::DepartmentModulesController < Admins::BaseController
     @department = Department.find(params[:department_id])
   end
 
-  def set_module_members
+  def set_department_module_members
     @department_module_users = @module.members
   end
 
