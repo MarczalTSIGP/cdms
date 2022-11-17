@@ -51,28 +51,6 @@ class Admins::DepartmentsController < Admins::BaseController
     redirect_to admins_departments_path
   end
 
-  # def members
-  #   @department_user = DepartmentUser.new
-  #   set_department_members
-  # end
-
-  # def add_member
-  #   if @department.add_member(users_params)
-  #     flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
-  #     redirect_to admins_department_members_path(@department)
-  #   else
-  #     @department_user = @department.department_users.last
-  #     set_department_members
-  #     render :members
-  #   end
-  # end
-
-  def remove_member
-    @department.remove_member(params[:id])
-    flash[:success] = I18n.t('flash.actions.remove.m', resource_name: User.model_name.human)
-    redirect_to admins_department_members_path(@department)
-  end
-
   private
 
   def set_department
