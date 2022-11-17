@@ -2,7 +2,6 @@ module DepartmentsMembers
   extend ActiveSupport::Concern
 
   def members
-    console
     @user = (controller_name.camelize.singularize + "User").constantize.new
     send("set_#{controller_name.singularize}_members")
   end
