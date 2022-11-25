@@ -1,7 +1,7 @@
 class Admins::DepartmentModulesController < Admins::BaseController
   before_action :set_department
   before_action :set_module, except: [:new, :create, :remove_member]
-  include DepartmentsMembers
+  include DepartmentMembers
   include Admins::Breadcrumbs::DepartmentModules
 
 

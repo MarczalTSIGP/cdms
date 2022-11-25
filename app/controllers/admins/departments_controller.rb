@@ -2,7 +2,7 @@ class Admins::DepartmentsController < Admins::BaseController
   before_action :set_department, except: [:index, :new, :create]
 
   include Breadcrumbs
-  include DepartmentsMembers
+  include DepartmentMembers
   include Admins::Breadcrumbs::Departments
 
 
