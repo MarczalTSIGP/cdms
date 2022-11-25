@@ -69,8 +69,7 @@ Rails.application.routes.draw do
                                               constraints: { cpf: %r{[^/]+} }
 
       patch 'documents/:id/justification_edit', to: 'documents#update_edited_document',
-      as: :update_edited_document
-
+                                                as: :update_edited_document
     end
 
     namespace :admins do

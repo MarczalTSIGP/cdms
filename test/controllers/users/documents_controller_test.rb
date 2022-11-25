@@ -49,24 +49,23 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
 
     context '#update edited document' do
       should 'successfully' do
-        create(:document_signer, document: @document, signed: true)
-  
-        patch users_update_edited_document_path(@document.id), params: { document: { justification: 'newusername' } }
-        assert_redirected_to users_documents_path
-  
-        # patch users_update_edited_document_path(document), params: { document: { justification: 'tatata' } } 
-        # assert_equal I18n.t('flash.actions.update.m', resource_name: Document.model_name.human),
-        #              flash[:success]
-        assert_equal @document.id, @document
+        patch users_update_edited_document_path(@document), params: { document: { justification: 'justification abc' } }
+        assert_active_link(href: users_documents_path)
 
-
+        assert_equal I18n.t('flash.actions.edit.success'), flash[:success]
+        @document.reload
+        assert_equal 'justification abc', @document.justification
       end
-      
-      # should 'successfully' do
-      #   get edit_users_document_path(document)
-      #   assert_response :success
-      #   assert_active_link(href: users_documents_path)
-      # end
+
+      should 'unsuccessfully' do
+        patch users_update_edited_document_path(@document), params: { document: { justification: '' } }
+        assert_redirected_to users_documents_path
+
+        assert_equal I18n.t('flash.actions.edit.error'), flash[:error]
+
+        @document.reload
+        assert_nil @document.justification
+      end
     end
 
     context '#create' do

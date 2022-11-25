@@ -37,6 +37,8 @@ pt-BR:
         non: 'Certificados/Declarações podem ser gerenciados somente por usuários associados a um departmento!'
       edit:
         non: 'Certificado/Declaração não pode ser editado, pois já foi assinado!'
+        error: 'Preencha a justificativa para editar o documento!'
+        success: 'Justificativa salva com sucesso!'
       add_recipients:
         non: 'Não é possível adicionar outro destinatário no Certificado/Declaração, pois já foi assinado!'
 

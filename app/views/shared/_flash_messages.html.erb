@@ -1,6 +1,11 @@
 <% flash.each do |type, message| %>
   <div class="alert <%= bootstrap_class_for(type) %> alert-dismissible fade show" role="alert">
     <button class="close" data-dismiss="alert" aria-label="Close"></button>
-    <%= message.html_safe %>
+      <% if type == 'edit' %>
+        <%= message[1].html_safe %>
+        <%= render partial: "users/documents/modal_document_justification", locals: { document_id: message[0] } %>
+      <% else %>
+        <%= message.html_safe %>
+      <% end %>
   </div>
 <% end %>

@@ -21,9 +21,11 @@ class Users::DocumentsController < Users::BaseController
 
   def edit
     if @document.someone_signed?
-      enable_for_editing = "Caso deseja editar o documento #{@document.title} #{view_context.link_to 'clique aqui', '#', "data-toggle" => "modal", "data-target" => "#modal_document_justification_#{@document.id}"}"
+      modal = "#modal_document_justification_#{@document.id}"
+      enable_for_editing = "Caso deseja editar o documento #{@document.title}
+      #{view_context.link_to 'clique aqui', '#', 'data-toggle' => 'modal', 'data-target' => modal}"
       flash[:warning] = t('flash.actions.edit.non')
-      flash[:info] = enable_for_editing
+      flash[:edit] = [@document.id, enable_for_editing]
       redirect_to users_documents_path
     else
       render :edit
@@ -63,14 +65,18 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def update_edited_document
-    if @document.update(edit_params)
-      success_update_message
+    if edit_params[:justification] == ''
+      flash[:error] = t('flash.actions.edit.error')
       redirect_to users_documents_path
+    elsif @document.update(edit_params)
+      flash[:success] = t('flash.actions.edit.success')
+      render :edit
     else
       error_message
-      render :edit
+      redirect_to users_documents_path
     end
   end
+
   private
 
   def user_params

@@ -1,0 +1,15 @@
+<div class="modal fade" id="modal_document_justification_<%= document_id %>" tabindex="-1" role="dialog" aria-labelledby="SignModalCentere" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Justificativa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <%= render partial: "users/documents/add_justification", locals: { document_id: document_id } %>
+            </div>
+        </div>
+    </div>
+</div>
