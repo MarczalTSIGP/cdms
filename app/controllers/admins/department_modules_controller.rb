@@ -1,9 +1,9 @@
 class Admins::DepartmentModulesController < Admins::BaseController
   before_action :set_department
-  before_action :set_module, except: [:new, :create, :remove_member]
+  before_action :set_module, except: [:new, :create]
+
   include DepartmentMembers
   include Admins::Breadcrumbs::DepartmentModules
-
 
   def new
     @module = @department.modules.new
@@ -45,21 +45,15 @@ class Admins::DepartmentModulesController < Admins::BaseController
     @department = Department.find(params[:department_id])
   end
 
-  def set_department_module_members
-    @department_module_users = @module.members
-  end
-
   def set_module
-    @module = @department.modules.find(params[:id])
+    # necessary for Members Controller Concern
+    id = params[:module_id] || params[:id]
+    @department_module = @department.modules.find(id)
+
+    @module = @department_module # just an abreviation
   end
 
   def module_params
     params.require(:department_module).permit(:name, :description)
-  end
-
-  def users_params
-    department_module_user = params[:department_module_user]
-    { user_id: department_module_user[:user_id],
-      role: department_module_user[:role] }
   end
 end

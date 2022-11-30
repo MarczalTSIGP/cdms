@@ -2,9 +2,8 @@ class Admins::DepartmentsController < Admins::BaseController
   before_action :set_department, except: [:index, :new, :create]
 
   include Breadcrumbs
-  include DepartmentMembers
   include Admins::Breadcrumbs::Departments
-
+  include DepartmentMembers
 
   def index
     @departments = Department.search(params[:term])
@@ -58,16 +57,7 @@ class Admins::DepartmentsController < Admins::BaseController
     @department = Department.find(id)
   end
 
-  def set_department_members
-    @department_users = @department.members
-  end
-
   def department_params
     params.require(:department).permit(:name, :description, :initials, :local, :phone, :email)
-  end
-
-  def users_params
-    { user_id: params[:department_user][:user_id],
-      role: params[:department_user][:role] }
   end
 end

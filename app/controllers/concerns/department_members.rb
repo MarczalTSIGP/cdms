@@ -2,39 +2,47 @@ module DepartmentMembers
   extend ActiveSupport::Concern
 
   def members
-    @user = (controller_name.camelize.singularize + "User").constantize.new
-    send("set_#{controller_name.singularize}_members")
+    model_class = "#{controller_name.camelize.singularize.constantize}User".constantize
+    @member = model_class.new
+
+    set_members
   end
 
   def add_member
-    if variable_model.add_member(users_params)
+    if model_instance.add_member(member_params)
       flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
-      redirect_to send("admins_#{controller_name.singularize}_members_path", @department, @module)
+      redirect_back fallback_location: admins_root_path
     else
-      @user = variable_model.send("#{controller_name.singularize}_users").last
-      send("set_#{controller_name.singularize}_members")
+      set_members
+
+      # get last user added unsuccessfully, this is necessary to display the erros
+      method_name = "#{controller_name.singularize}_users"
+      @member = model_instance.send(method_name).last
+
       render :members
     end
   end
 
   def remove_member
-    remove
+    model_instance.remove_member(params[:id])
+
     flash[:success] = I18n.t('flash.actions.remove.m', resource_name: User.model_name.human)
-    redirect_to send("admins_#{controller_name.singularize}_members_path", @department, @module)
+
+    redirect_back fallback_location: admins_root_path
   end
 
-  private 
+  private
 
-  def variable_model
-    return controller_name.eql?("departments") ? @department : @module
-  end 
+  def set_members
+    model_instance = instance_variable_get("@#{controller_name.singularize}")
+    @members = model_instance.members
+  end
 
-  def remove 
-    if controller_name.eql?("departments")
-      @department.remove_member(params[:id])
-    else
-      @module = @department.modules.find(params[:module_id])
-      @module_user = @module.remove_member(params[:id])
-    end
+  def member_params
+    params.require(:member).permit(:user_id, :role)
+  end
+
+  def model_instance
+    instance_variable_get("@#{controller_name.singularize}")
   end
 end
