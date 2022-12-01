@@ -119,8 +119,9 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
         params = { user_id: user.id, department_module: @module.id, role: :collaborator }
 
         assert_difference('DepartmentModuleUser.count', 1) do
-          post admins_department_module_add_member_path(@department, @module), params:
-           { department_module_user: params }
+          post admins_department_module_add_member_path(@department, @module),
+               params: { member: params },
+               headers: { 'HTTP_REFERER' => admins_department_module_members_path(@department, @module) }
         end
 
         assert_redirected_to admins_department_module_members_path(@department, @module)
@@ -135,7 +136,7 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
 
         assert_difference('DepartmentModuleUser.count', 0) do
           post admins_department_module_add_member_path(@department, @module), params:
-           { department_module_user: params }
+           { member: params }
         end
 
         assert_response :success
@@ -149,7 +150,7 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
 
         assert_no_difference('DepartmentModuleUser.count') do
           post admins_department_module_add_member_path(@department, @module), params:
-          { department_module_user: params }
+          { member: params }
         end
 
         @module.reload
@@ -162,7 +163,7 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
 
         assert_no_difference('DepartmentModuleUser.count') do
           post admins_department_module_add_member_path(@department, @module), params:
-           { department_module_user: params }
+           { member: params }
         end
 
         @module.reload
@@ -176,7 +177,7 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
 
         assert_no_difference('DepartmentModuleUser.count') do
           post admins_department_module_add_member_path(@department, @module), params:
-           { department_module_user: params }
+           { member: params }
         end
 
         @module.reload
@@ -187,7 +188,9 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
         module_user = create(:department_module_user, department_module: @module, role: :collaborator)
 
         assert_difference('DepartmentModuleUser.count', -1) do
-          delete admins_department_module_remove_member_path(@department, @module, module_user.user)
+          headers = { 'HTTP_REFERER' => admins_department_module_members_path(@department, @module) }
+          delete admins_department_module_remove_member_path(@department, @module, module_user.user),
+                 headers: headers
         end
 
         assert_redirected_to admins_department_module_members_path(@department, @module)
