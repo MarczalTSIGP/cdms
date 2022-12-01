@@ -39,7 +39,7 @@ module DepartmentMembers
   end
 
   def member_params
-    params.require(:member).permit(:user_id, :role)
+    { user_id: params[:member][:user_id], role: params[:member][:role] }
   end
 
   def model_instance
