@@ -1,9 +1,9 @@
 <% provide(:head_title, t('views.department.members.nwdp', name: @department.name)) %>
 <% provide(:page_title, t('views.department.members.nwdp', name: @department.name)) %>
 
-<%= simple_form_for(@department_user, url: admins_department_add_member_path, method: :post) do |f| %>
+<%= simple_form_for(@member, url: admins_department_add_member_path, method: :post) do |f| %>
   <div class="row">
-    <%= f.hidden_field :user_id %>
+    <%= f.hidden_field :user_id, name: "member[user_id]" %>
     <%= f.input :user, label: false,
                 wrapper_html: { class: 'col-sm-6' },
                 placeholder: 'Pesquise por um usuário',
@@ -11,7 +11,7 @@
                               value: f.object.user&.name  } %>
 
     <%= f.input :role, label: false, wrapper_html: { class: 'col-sm-5' },
-                input_html: {class: 'apply-selectize'},
+                input_html: {class: 'apply-selectize', name: "member[role]"},
                 collection: DepartmentUser.human_roles,
                 prompt: t('views.prompt.select.m', name: User.human_attribute_name(:role)) %>
 
@@ -36,7 +36,7 @@
     </thead>
 
     <tbody>
-      <% @department_users.each do |department_user| %>
+      <% @members.each do |department_user| %>
         <tr>
           <td><%= department_user.user.name %></td>
           <td><%= department_user.user.email %></td>

@@ -42,11 +42,15 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Max: 200
 
+Metrics/AbcSize:
+  Max: 18
+
 Rails/ApplicationController:
   Exclude:
     - 'app/controllers/admins/base_controller.rb'
     - 'app/controllers/users/base_controller.rb'
     - 'test/controllers/concerns/breadcrumbs_test.rb'
+    - 'test/controllers/concerns/department_members_test.rb'  
 
 Rails/LexicallyScopedActionFilter:
   Exclude:

@@ -100,7 +100,10 @@ class Admins::DepartmentsControllerTest < ActionDispatch::IntegrationTest
           params = { user_id: user.id, department_id: @department.id, role: :collaborator }
 
           assert_difference('DepartmentUser.count', 1) do
-            post admins_department_add_member_path(@department), params: { department_user: params }
+            headers = { 'HTTP_REFERER' => admins_department_members_path(@department) }
+            post admins_department_add_member_path(@department),
+                 params: { member: params },
+                 headers: headers
           end
 
           assert_redirected_to admins_department_members_path(@department)
@@ -112,7 +115,7 @@ class Admins::DepartmentsControllerTest < ActionDispatch::IntegrationTest
         end
 
         should 'unsuccessfully' do
-          post admins_department_add_member_path(@department), params: { department_user: { user_id: '' } }
+          post admins_department_add_member_path(@department), params: { member: { user_id: '' } }
           assert_response :success
           @department.reload
           assert_equal 0, @department.users.count
@@ -123,7 +126,8 @@ class Admins::DepartmentsControllerTest < ActionDispatch::IntegrationTest
         du = create(:department_user, :collaborator, department: @department)
 
         assert_difference('DepartmentUser.count', -1) do
-          delete admins_department_remove_member_path(@department, du.user)
+          delete admins_department_remove_member_path(@department, du.user),
+                 headers: { 'HTTP_REFERER' => admins_department_members_path(@department) }
         end
 
         assert_redirected_to admins_department_members_path(@department)
