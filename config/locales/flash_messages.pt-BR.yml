@@ -35,10 +35,11 @@ pt-BR:
           invalid: Arquivo inválido
       member:
         non: 'Certificados/Declarações podem ser gerenciados somente por usuários associados a um departmento!'
-      edit:
+      reopen_document:
+        info: 'Certificado/Declaração não pode ser editado, pois já foi assinado! Caso deseja rebrir para edição %{link}'
         non: 'Certificado/Declaração não pode ser editado, pois já foi assinado!'
         error: 'Preencha a justificativa para editar o documento!'
-        success: 'Justificativa salva com sucesso!'
+        success: 'Documento reaberto com sucesso!'
       add_recipients:
         non: 'Não é possível adicionar outro destinatário no Certificado/Declaração, pois já foi assinado!'
 

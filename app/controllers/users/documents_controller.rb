@@ -21,11 +21,7 @@ class Users::DocumentsController < Users::BaseController
 
   def edit
     if @document.someone_signed?
-      modal = "#modal_document_justification_#{@document.id}"
-      enable_for_editing = "Caso deseja editar o documento #{@document.title}
-      #{view_context.link_to 'clique aqui', '#', 'data-toggle' => 'modal', 'data-target' => modal}"
-      flash[:warning] = t('flash.actions.edit.non')
-      flash[:edit] = [@document.id, enable_for_editing]
+      set_flash_message_with_link_to_reopen
       redirect_to users_documents_path
     else
       render :edit
@@ -34,6 +30,7 @@ class Users::DocumentsController < Users::BaseController
 
   def create
     @document = create_document
+    @document.creator_user = current_user
 
     if @document.save
       success_create_message
@@ -64,16 +61,14 @@ class Users::DocumentsController < Users::BaseController
     @document.toggle(:available_to_sign).save!
   end
 
-  def update_edited_document
-    if edit_params[:justification] == ''
-      flash[:error] = t('flash.actions.edit.error')
+  def reopen_to_edit
+    if params[:document][:justification].strip.empty?
+      flash[:error] = t('flash.actions.reopen_document.error')
       redirect_to users_documents_path
-    elsif @document.update(edit_params)
-      flash[:success] = t('flash.actions.edit.success')
-      render :edit
     else
-      error_message
-      redirect_to users_documents_path
+      @document.reopen_to_edit(reopen_params)
+      flash[:success] = t('flash.actions.reopen_document.success')
+      redirect_to edit_users_document_path(@document)
     end
   end
 
@@ -109,13 +104,20 @@ class Users::DocumentsController < Users::BaseController
 
   def document_params
     params.require(:document).permit(:title, :front_text, :back_text, :category,
-                                     :department_id, :variables, :available_to_sign, :justification, :created_by)
+                                     :department_id, :variables, :available_to_sign)
   end
 
-  def edit_params
-    { justification: document_params[:justification],
-      edited_by: current_user.id,
-      reopened: true,
-      date_edition: Time.current }
+  def set_flash_message_with_link_to_reopen
+    modal_id = "#modal_document_justification_#{@document.id}"
+    link = view_context.link_to I18n.t('views.links.click_here'),
+                                '#',
+                                'data-toggle' => 'modal',
+                                'data-target' => modal_id
+
+    flash[:warning] = t('flash.actions.reopen_document.info', link: link)
+  end
+
+  def reopen_params
+    { user_id: current_user.id, justification: params[:document][:justification] }
   end
 end

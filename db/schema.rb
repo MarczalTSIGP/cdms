@@ -115,8 +115,8 @@ ActiveRecord::Schema.define(version: 2022_11_02_015720) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "document_role_id"
     t.boolean "signed", default: false
+    t.bigint "document_role_id"
     t.datetime "signed_datetime"
     t.string "signer_role"
     t.index ["document_id", "user_id"], name: "index_document_signers_on_document_id_and_user_id", unique: true
@@ -135,13 +135,15 @@ ActiveRecord::Schema.define(version: 2022_11_02_015720) do
     t.datetime "updated_at", precision: 6, null: false
     t.json "variables", default: []
     t.boolean "available_to_sign", default: false
-    t.boolean "reopened", default: false
     t.string "justification"
-    t.string "created_by"
-    t.string "edited_by"
-    t.datetime "date_edition"
+    t.bigint "creator_user_id"
+    t.bigint "last_reopened_by_user_id"
+    t.datetime "last_reopened_at"
+    t.boolean "reopened", default: false
     t.index ["category"], name: "index_documents_on_category"
+    t.index ["creator_user_id"], name: "index_documents_on_creator_user_id"
     t.index ["department_id"], name: "index_documents_on_department_id"
+    t.index ["last_reopened_by_user_id"], name: "index_documents_on_last_reopened_by_user_id"
   end
 
   create_table "pages", force: :cascade do |t|
@@ -191,5 +193,7 @@ ActiveRecord::Schema.define(version: 2022_11_02_015720) do
   add_foreign_key "document_signers", "documents"
   add_foreign_key "document_signers", "users"
   add_foreign_key "documents", "departments"
+  add_foreign_key "documents", "users", column: "creator_user_id"
+  add_foreign_key "documents", "users", column: "last_reopened_by_user_id"
   add_foreign_key "users", "roles"
 end

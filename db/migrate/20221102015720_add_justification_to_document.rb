@@ -1,11 +1,11 @@
 class AddJustificationToDocument < ActiveRecord::Migration[6.0]
   def change
     change_table :documents, bulk: true do |t|
-      t.column :reopened, :boolean, default: false
       t.column :justification, :string, null: true
-      t.column :created_by, :string, null: true
-      t.column :edited_by, :string, null: true
-      t.column :date_edition, :datetime, null: true
+      t.references :creator_user, index: true, foreign_key: { to_table: :users }
+      t.references :last_reopened_by_user, index: true, foreign_key: { to_table: :users }
+      t.column :last_reopened_at, :datetime, null: true
+      t.column :reopened, :boolean, default: false
     end
   end
 end
