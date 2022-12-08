@@ -5,6 +5,13 @@ class UserTest < ActiveSupport::TestCase
     should validate_presence_of(:name)
     should validate_presence_of(:register_number)
 
+    context 'relationships' do
+      should have_many(:documents_created).class_name(:Document)
+                                          .with_foreign_key(:creator_user_id)
+                                          .dependent(:destroy)
+                                          .inverse_of(:creator_user)
+    end
+
     context '#username' do
       subject { FactoryBot.build(:user) }
 

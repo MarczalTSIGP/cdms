@@ -21,7 +21,7 @@ class Users::DocumentsController < Users::BaseController
 
   def edit
     if @document.someone_signed?
-      flash[:warning] = t('flash.actions.edit.non')
+      set_flash_message_with_link_to_reopen
       redirect_to users_documents_path
     else
       render :edit
@@ -30,6 +30,7 @@ class Users::DocumentsController < Users::BaseController
 
   def create
     @document = create_document
+    @document.creator_user = current_user
 
     if @document.save
       success_create_message
@@ -60,7 +61,22 @@ class Users::DocumentsController < Users::BaseController
     @document.toggle(:available_to_sign).save!
   end
 
+  def reopen_to_edit
+    if params[:document][:justification].strip.empty?
+      flash[:error] = t('flash.actions.reopen_document.error')
+      redirect_to users_documents_path
+    else
+      @document.reopen_to_edit(reopen_params)
+      flash[:success] = t('flash.actions.reopen_document.success')
+      redirect_to edit_users_document_path(@document)
+    end
+  end
+
   private
+
+  def user_params
+    params.require(:document).permit(:justification)
+  end
 
   def can_manager?
     return true if current_user.member_of_any?
@@ -89,5 +105,19 @@ class Users::DocumentsController < Users::BaseController
   def document_params
     params.require(:document).permit(:title, :front_text, :back_text, :category,
                                      :department_id, :variables, :available_to_sign)
+  end
+
+  def set_flash_message_with_link_to_reopen
+    modal_id = "#modal_document_justification_#{@document.id}"
+    link = view_context.link_to I18n.t('views.links.click_here'),
+                                '#',
+                                'data-toggle' => 'modal',
+                                'data-target' => modal_id
+
+    flash[:warning] = t('flash.actions.reopen_document.info', link: link)
+  end
+
+  def reopen_params
+    { user_id: current_user.id, justification: params[:document][:justification] }
   end
 end

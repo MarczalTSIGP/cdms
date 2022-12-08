@@ -5,6 +5,8 @@ class Document < ApplicationRecord
   include Members
   build_member_methods(relationship: :signers, name: :signing_member)
 
+  belongs_to :creator_user, class_name: :User
+
   belongs_to :department
   has_many :document_signers, dependent: :destroy
   has_many :signers, through: :document_signers, source: :user
@@ -42,5 +44,15 @@ class Document < ApplicationRecord
 
   def someone_signed?
     document_signers.where(signed: true).any?
+  end
+
+  def reopen_to_edit(params = {})
+    update(
+      justification: params[:justification],
+      last_reopened_by_user_id: params[:user_id],
+      last_reopened_at: Time.current,
+      reopened: true
+    )
+    document_signers.update(signed: false)
   end
 end

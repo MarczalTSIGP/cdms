@@ -85,6 +85,7 @@ pt-BR:
           false: Desativado
           true: Ativo
         default_variables: Variáveis Padrão
+        justification: Justificativa para Reabertura
       document_role:
         name: Nome da Função
         description: Descrição da Função

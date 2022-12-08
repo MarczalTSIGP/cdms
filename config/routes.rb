@@ -67,6 +67,9 @@ Rails.application.routes.draw do
       delete 'documents/:id/recipients/:cpf', to: 'document_recipients#remove_recipient',
                                               as: :document_remove_recipient,
                                               constraints: { cpf: %r{[^/]+} }
+
+      patch 'documents/:id/reopen-to-edit', to: 'documents#reopen_to_edit',
+                                            as: :reopen_document
     end
 
     namespace :admins do
