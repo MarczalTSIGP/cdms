@@ -33,10 +33,16 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
         create(:document_signer, document: @document, signed: true)
 
         get edit_users_document_path(@document)
-
         assert_redirected_to(users_documents_path)
-        assert_equal I18n.t('flash.actions.edit.non'), flash[:warning]
         follow_redirect!
+
+        modal_id = "#modal_document_justification_#{@document.id}"
+        link = @controller.view_context.link_to I18n.t('views.links.click_here'),
+                                                '#', 'data-toggle' => 'modal',
+                                                     'data-target' => modal_id
+
+        assert_equal I18n.t('flash.actions.reopen_document.info', link: link), flash[:warning]
+
         assert_active_link(href: users_documents_path)
       end
 
@@ -44,6 +50,28 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
         get edit_users_document_path(@document)
         assert_response :success
         assert_active_link(href: users_documents_path)
+      end
+    end
+
+    context '#reopen document to edit' do
+      should 'successfully' do
+        patch users_reopen_document_path(@document), params: { document: { justification: 'justification abc' } }
+        follow_redirect!
+        assert_active_link(href: users_documents_path)
+
+        assert_equal I18n.t('flash.actions.reopen_document.success'), flash[:success]
+        @document.reload
+        assert_equal 'justification abc', @document.justification
+      end
+
+      should 'unsuccessfully' do
+        patch users_reopen_document_path(@document), params: { document: { justification: '' } }
+        assert_redirected_to users_documents_path
+
+        assert_equal I18n.t('flash.actions.reopen_document.error'), flash[:error]
+
+        @document.reload
+        assert_nil @document.justification
       end
     end
 
