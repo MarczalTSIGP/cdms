@@ -1,6 +1,6 @@
 require 'application_system_test_case'
 
-class DocumentRecipientTest < ApplicationSystemTestCase
+class DocumentRecipientsTest < ApplicationSystemTestCase
   context 'document_recipients' do
     setup do
       user = create(:user, :manager)
