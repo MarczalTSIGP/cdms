@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class DocumentTest < ActiveSupport::TestCase
+  context 'relationships' do
+    should belong_to(:creator_user).class_name(:User)
+  end
+
   context 'validations' do
     should validate_presence_of(:title)
     should validate_presence_of(:front_text)
@@ -166,6 +170,33 @@ class DocumentTest < ActiveSupport::TestCase
       assert_not @document.someone_signed?
       @document_signer.sign
       assert @document.someone_signed?
+    end
+  end
+
+  context 'reopen documento to edit' do
+    setup do
+      department = create(:department)
+      @document = create(:document, :declaration, department: department)
+      @document_signer = create(:document_signer, document_id: @document.id, signed: true)
+      @user = create(:user)
+    end
+
+    should '#reopen_to_edit' do
+      justification = 'Reopen to edit because there is an error!'
+
+      freeze_time
+      current_time = Time.current
+
+      assert @document.someone_signed?
+      @document.reopen_to_edit(user_id: @user.id, justification: justification)
+
+      assert_not @document.someone_signed?
+      assert @document.reopened
+      assert_equal @user.id, @document.last_reopened_by_user_id
+      assert_equal justification, justification
+      assert_equal current_time, @document.last_reopened_at
+
+      unfreeze_time
     end
   end
 end

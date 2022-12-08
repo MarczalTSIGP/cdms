@@ -26,10 +26,8 @@
           <%= icon('fas', 'print', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.document.name.singular')) %>
       <% end %>
 
-      <%= link_to_if @document_has_signature, icon('fas', 'edit', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.document_already_signed')) do %>
-            <%= link_to edit_users_document_path(document) do %>
-              <%= icon('fas', 'edit', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.edit')) %>
-            <% end %>
+      <%= link_to edit_users_document_path(document), "data-turbolinks" => false do %>
+        <%= icon('fas', 'edit', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.edit')) %>
       <% end %>
 
       <%= link_to users_document_path(document), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
@@ -37,4 +35,7 @@
       <% end %>
 
     </td>
+    
+    <%= render partial: "users/documents/modal_form_to_reopen", locals: { document_id: document.id } %>
 </tr>
+

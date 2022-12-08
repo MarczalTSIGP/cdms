@@ -41,6 +41,7 @@ pt-BR:
         m: 'Selecione um %{name}'
         f: 'Selecione uma %{name}'
     links:
+      click_here: 'Clique aqui'
       back: Voltar
       edit: Editar
       document_already_signed: Documento já foi assinado

@@ -67,6 +67,9 @@ Rails.application.routes.draw do
       delete 'documents/:id/recipients/:cpf', to: 'document_recipients#remove_recipient',
                                               as: :document_remove_recipient,
                                               constraints: { cpf: %r{[^/]+} }
+
+      patch 'documents/:id/reopen-to-edit', to: 'documents#reopen_to_edit',
+                                            as: :reopen_document
     end
 
     namespace :admins do
@@ -102,8 +105,8 @@ Rails.application.routes.draw do
 
         get '/modules/:id/members', to: 'department_modules#members', as: :module_members
 
-        post '/modules/:id/members', to: 'department_modules#add_module_member', as: :module_add_member
-        delete '/modules/:module_id/members/:id', to: 'department_modules#remove_module_member',
+        post '/modules/:id/members', to: 'department_modules#add_member', as: :module_add_member
+        delete '/modules/:module_id/members/:id', to: 'department_modules#remove_member',
                                                   as: 'module_remove_member'
       end
     end
