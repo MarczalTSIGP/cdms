@@ -1,5 +1,5 @@
 # Base Image
-FROM ruby:2.7.1
+FROM ruby:3.2
 
 # Encoding
 # C.UTF8 locale supports Computer English language
@@ -137,5 +137,5 @@ USER ${_USER}:${_USER}
 WORKDIR $APP
 
 # Install bundler and rails
-RUN gem install bundler -v 2.1.4 \
+RUN gem install bundler -v 2.4.8 \
  && gem install rails -v 6.0.3.2

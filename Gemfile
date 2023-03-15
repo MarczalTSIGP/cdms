@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '~> 2.7'
+ruby '~> 3.2'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
@@ -25,11 +25,13 @@ gem 'simple_form'
 gem 'sprockets-rails', git: 'https://github.com/rails/sprockets-rails.git'
 gem 'validators'
 gem 'whenever', require: false
+gem 'root_domain'
+gem 'psych', '< 4'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails'
-  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
+  gem 'faker'
 
   gem 'guard'
   gem 'guard-minitest'
