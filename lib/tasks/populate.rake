@@ -9,7 +9,6 @@ namespace :db do
     puts 'Running seeds'
     Rake::Task['db:seed'].invoke
 
-    DocumentRolesPopulate.populate    # .populate for pre-defined data | .populate(x) for x random data.
     UserPopulate.populate(30)
     AudienceMemberPopulate.populate
     DepartmentPopulate.populate

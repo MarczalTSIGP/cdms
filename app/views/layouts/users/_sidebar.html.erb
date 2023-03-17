@@ -1,22 +1,20 @@
 <div class="d-lg-block collapse d-md-flex" id="sidebarMenuCollapse">
-	<div class="list-group list-group-transparent mb-2 sidebar">
+  <div class="list-group list-group-transparent mb-2 sidebar">
 
-		<span class="sidebar-heading pl-0 pt-2 pb-2">
-			<%= icon('fas', 'book-open', class: 'mr-1') %>
-			Usuário
-		</span>
+    <span class="sidebar-heading pl-0 pt-2 pb-2">
+      <%= icon('fas', 'book-open', class: 'mr-1') %>
+      Usuário
+    </span>
 
-		<%= active_link_to users_root_path, class: 'list-group-item list-group-item-action', data: { turbolinks: false}, active: :exclusive do %>
-			<span class="icon mr-3"><i class="fas fa-home"></i></span> <%= t("views.app.sidebar.home_page") %>
-		<% end %>
+    <%= active_link_to users_root_path, class: 'list-group-item list-group-item-action', data: { turbolinks: false}, active: :exclusive do %>
+      <span class="icon mr-3"><i class="fas fa-home"></i></span> <%= t("views.app.sidebar.home_page") %>
+    <% end %>
+    <%= active_link_to users_team_departments_modules_path, class: 'list-group-item list-group-item-action' do %>
+      <span class="icon mr-3"><i class="fas fa-people-arrows"></i></span> <%= t("views.app.sidebar.team") %>
+    <% end %>
+    <%= active_link_to users_documents_path, class: 'list-group-item list-group-item-action' do %>
+      <span class="icon mr-3"><i class="fas fa-file-alt"></i></span> <%= t("views.app.sidebar.documents") %>
+    <% end %>
 
-		<%= active_link_to users_team_departments_modules_path, class: 'list-group-item list-group-item-action' do %>
-			<span class="icon mr-3"><i class="fas fa-people-arrows"></i></span> <%= t("views.app.sidebar.team") %>
-		<% end %>
-
-		<%= active_link_to users_documents_path, class: 'list-group-item list-group-item-action' do %>
-			<span class="icon mr-3"><i class="fas fa-file-alt"></i></span> <%= t("views.app.sidebar.documents") %>
-		<% end %>
-
-	</div>
+  </div>
 </div>
