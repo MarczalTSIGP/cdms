@@ -2,8 +2,8 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2022_11_02_015720) do
   create_table "department_module_users", force: :cascade do |t|
     t.bigint "department_module_id", null: false
     t.bigint "user_id", null: false
-    t.enum "role", enum_name: "department_module_users_roles"
+    t.enum "role", enum_type: "department_module_users_roles"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["department_module_id", "user_id"], name: "module_users", unique: true
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2022_11_02_015720) do
   create_table "department_users", force: :cascade do |t|
     t.bigint "department_id", null: false
     t.bigint "user_id", null: false
-    t.enum "role", enum_name: "department_users_roles"
+    t.enum "role", enum_type: "department_users_roles"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["department_id", "user_id"], name: "index_department_users_on_department_id_and_user_id", unique: true
@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 2022_11_02_015720) do
 
   create_table "documents", force: :cascade do |t|
     t.bigint "department_id", null: false
-    t.enum "category", enum_name: "document_categories"
+    t.enum "category", enum_type: "document_categories"
     t.string "title", null: false
     t.text "front_text"
     t.text "back_text"
