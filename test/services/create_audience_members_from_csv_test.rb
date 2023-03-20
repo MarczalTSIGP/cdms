@@ -58,6 +58,7 @@ class CreateAudienceMembersFromCsvTest < ActiveSupport::TestCase
   end
 
   def attribute_names
-    AudienceMember.attribute_names.delete_if { |a| a =~ /id|created_at|updated_at/i }
+    attribute_names = AudienceMember.attribute_names.dup
+    attribute_names.delete_if { |a| a =~ /id|created_at|updated_at/i }
   end
 end

@@ -63,10 +63,11 @@ class AudienceMemberTest < ActiveSupport::TestCase
 
   context '.from_csv' do
     should 'call new with args' do
+      tmp_file = Tempfile.new
       mock = Minitest::Mock.new
-      mock.expect :call, OpenStruct.new(perform: true), [Hash]
+      mock.expect :call, OpenStruct.new(perform: true), [file: tmp_file]
       CreateAudienceMembersFromCsv.stub :new, mock do
-        AudienceMember.from_csv(Tempfile.new)
+        AudienceMember.from_csv(tmp_file)
       end
 
       assert_mock mock
