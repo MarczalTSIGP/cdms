@@ -9,20 +9,30 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     args << '--disable-dev-shm-usage'
     args << 'headless' unless ENV['LAUNCH_BROWSER']
     args
+
+    # options = Selenium::WebDriver::Options.chrome(args: ['--headless=new'])
+    # options = Selenium::WebDriver::Chrome::Options.new(args: ['headless'])
+    # options
+    # options = Selenium::WebDriver::Options.chrome(args: ['--headless=new'])
+    options = Selenium::WebDriver::Chrome::Options.new
+    options.headless!
+    options
   end
 
   driven_by :selenium, using: :chrome, screen_size: [1280, 720], options: {
+    browser: :remote,    
     url: "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub",
-    desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(
-      chromeOptions: { args: args }
-    )
+    # desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(
+      # chromeOptions: { args: args }
+    # )
+    options: args 
   }
 
   def setup
     Capybara.disable_animation = true
     Capybara.server_host = '0.0.0.0'
     Capybara.app_host = app_host
-    host! app_host
+    # host! app_host
     super
   end
 
