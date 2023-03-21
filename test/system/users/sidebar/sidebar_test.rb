@@ -10,7 +10,7 @@ class SidebarTest < ApplicationSystemTestCase
     should 'display sidebar' do
       visit users_root_path
       assert_selector '.list-group-item', text: I18n.t('views.app.sidebar.home_page')
-      find('a#dashboard-sidebar-btn')['data-turbolinks="false"']
+      assert_selector '#dashboard-sidebar-btn', text: I18n.t('views.app.sidebar.home_page')
       assert_selector '.list-group-item', text: I18n.t('views.app.sidebar.team')
       assert_selector '.list-group-item', text: I18n.t('views.app.sidebar.documents')
     end
