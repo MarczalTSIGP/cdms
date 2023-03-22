@@ -431,7 +431,7 @@ DEPENDENCIES
   breadcrumbs_on_rails
   bullet (~> 7.0.2)
   byebug
-  capybara (>= 2.15)
+  capybara (>= 3.38.0)
   carrierwave (~> 2.1)
   cpf_cnpj
   devise

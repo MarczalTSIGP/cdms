@@ -9,8 +9,7 @@ class DashboardTest < ApplicationSystemTestCase
 
     should 'display breadcrumbs' do
       visit admins_root_path
-
-      assert_selector '.breadcrumb-item', text: I18n.t('views.breadcrumbs.home')
+      assert_selector 'ol.breadcrumb li:first-child', text: I18n.t('views.breadcrumbs.home')
     end
 
     should 'display sidebar' do
