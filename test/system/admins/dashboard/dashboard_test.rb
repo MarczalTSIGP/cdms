@@ -10,7 +10,7 @@ class DashboardTest < ApplicationSystemTestCase
     should 'display breadcrumbs' do
       visit admins_root_path
 
-      assert_selector '.breadcrumb-item', text: I18n.t('views.breadcrumbs.home')
+      assert_selector 'ol.breadcrumb li:first-child', text: I18n.t('views.breadcrumbs.home')
     end
 
     should 'display sidebar' do
@@ -38,6 +38,7 @@ class DashboardTest < ApplicationSystemTestCase
       visit admins_root_path
 
       selector = 'div.row.row-cards div.card:first-child .card-body'
+
       assert_selector selector, text: 3
       assert_selector selector, text: Department.model_name.human(count: 3)
     end
@@ -46,6 +47,7 @@ class DashboardTest < ApplicationSystemTestCase
       visit admins_root_path
 
       selector = 'div.row.row-cards div.col-sm-3:nth-child(2)'
+
       assert_selector selector, text: 1
       assert_selector selector, text: User.model_name.human(count: 1)
     end
@@ -55,6 +57,7 @@ class DashboardTest < ApplicationSystemTestCase
       visit admins_root_path
 
       selector = 'div.row.row-cards div.col-sm-3:nth-child(2)'
+
       assert_selector selector, text: 3
       assert_selector selector, text: User.model_name.human(count: 3)
     end
@@ -64,6 +67,7 @@ class DashboardTest < ApplicationSystemTestCase
       visit admins_root_path
 
       selector = 'div.row.row-cards div.col-sm-3:nth-child(3)'
+
       assert_selector selector, text: 1
       assert_selector selector, text: User.model_name.human(count: 1)
     end
@@ -73,6 +77,7 @@ class DashboardTest < ApplicationSystemTestCase
       visit admins_root_path
 
       selector = 'div.row.row-cards div.col-sm-3:nth-child(3)'
+
       assert_selector selector, text: 3
       assert_selector selector, text: User.model_name.human(count: 3)
     end
@@ -82,6 +87,7 @@ class DashboardTest < ApplicationSystemTestCase
       visit admins_root_path
 
       selector = 'div.row.row-cards div.col-sm-3:nth-child(4)'
+
       assert_selector selector, text: 1
       assert_selector selector, text: AudienceMember.model_name.human(count: 1)
     end
@@ -91,6 +97,7 @@ class DashboardTest < ApplicationSystemTestCase
       visit admins_root_path
 
       selector = 'div.row.row-cards div.col-sm-3:nth-child(4)'
+
       assert_selector selector, text: 3
       assert_selector selector, text: AudienceMember.model_name.human(count: 3)
     end

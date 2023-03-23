@@ -4,7 +4,7 @@ class AdminDashboard
     model_count = Department.count
 
     key = "#{model_name.human}-#{model_count}"
-    OpenStruct.new count: model_count, human: model_name.human(count: model_count), cache_key: key
+    cache_struct.new amount: model_count, human: model_name.human(count: model_count), cache_key: key
   end
 
   def self.active_users
@@ -12,7 +12,7 @@ class AdminDashboard
 
     human = User.model_name.human(count: users)
     human += " #{User.human_attribute_name(:active, count: users)}"
-    OpenStruct.new count: users, human: human, cache_key: "#{human}-#{User.count}"
+    cache_struct.new amount: users, human: human, cache_key: "#{human}-#{User.count}"
   end
 
   def self.inactive_users
@@ -20,14 +20,14 @@ class AdminDashboard
 
     human = User.model_name.human(count: users)
     human += " #{User.human_attribute_name(:inactive, count: users)}"
-    OpenStruct.new count: users, human: human, cache_key: "#{human}-#{User.count}"
+    cache_struct.new amount: users, human: human, cache_key: "#{human}-#{User.count}"
   end
 
   def self.audience_members
     members = AudienceMember.count
 
     key = "#{AudienceMember.model_name.human}-#{members}"
-    OpenStruct.new count: members, human: AudienceMember.model_name.human(count: members), cache_key: key
+    cache_struct.new amount: members, human: AudienceMember.model_name.human(count: members), cache_key: key
   end
 
   def self.counters
@@ -35,5 +35,9 @@ class AdminDashboard
       departments,    active_users,
       inactive_users, audience_members
     ]
+  end
+
+  def self.cache_struct
+    Struct.new(:amount, :human, :cache_key)
   end
 end

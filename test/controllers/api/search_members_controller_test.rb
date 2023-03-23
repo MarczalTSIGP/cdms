@@ -15,7 +15,8 @@ class Api::SearchMembersControllerTest < ActionDispatch::IntegrationTest
         user = create(:user)
         get api_search_non_members_path(:department, @department, user.name)
 
-        jresponse = JSON.parse(response.body)
+        jresponse = response.parsed_body
+
         assert_equal [user.as_json(only: [:id, :name])], jresponse
       end
 
@@ -25,7 +26,8 @@ class Api::SearchMembersControllerTest < ActionDispatch::IntegrationTest
 
         get api_search_non_members_path(:department, @department, name)
 
-        jresponse = JSON.parse(response.body)
+        jresponse = response.parsed_body
+
         assert_not_equal [department_user.user.as_json(only: [:id, :name])], jresponse
       end
     end
@@ -39,7 +41,8 @@ class Api::SearchMembersControllerTest < ActionDispatch::IntegrationTest
         user = create(:user)
         get api_search_non_members_path(:department_module, @module, user.name)
 
-        jresponse = JSON.parse(response.body)
+        jresponse = response.parsed_body
+
         assert_equal [user.as_json(only: [:id, :name])], jresponse
       end
 
@@ -49,7 +52,8 @@ class Api::SearchMembersControllerTest < ActionDispatch::IntegrationTest
 
         get api_search_non_members_path(:department_module, @module, name)
 
-        jresponse = JSON.parse(response.body)
+        jresponse = response.parsed_body
+
         assert_not_equal [module_user.user.as_json(only: [:id, :name])], jresponse
       end
     end
@@ -63,7 +67,8 @@ class Api::SearchMembersControllerTest < ActionDispatch::IntegrationTest
         user = create(:user)
         get api_search_non_members_path(:document, @document, user.name)
 
-        jresponse = JSON.parse(response.body)
+        jresponse = response.parsed_body
+
         assert_equal [user.as_json(only: [:id, :name])], jresponse
       end
 
@@ -73,7 +78,8 @@ class Api::SearchMembersControllerTest < ActionDispatch::IntegrationTest
 
         get api_search_non_members_path(:document, @document, name)
 
-        jresponse = JSON.parse(response.body)
+        jresponse = response.parsed_body
+
         assert_not_equal [document_signer.user.as_json(only: [:id, :name])], jresponse
       end
     end

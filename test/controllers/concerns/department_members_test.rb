@@ -24,6 +24,7 @@ class DepartmentMembersTest < ActionController::TestCase
     end
 
     get :members
+
     assert_response :success
   end
 
@@ -32,6 +33,7 @@ class DepartmentMembersTest < ActionController::TestCase
     @request.headers['HTTP_REFERER'] = 'http://test.host/members'
 
     post :add_member, params: { member: params }
+
     assert_redirected_to add_member_test_path
   end
 
@@ -43,6 +45,7 @@ class DepartmentMembersTest < ActionController::TestCase
     params = { user_id: 2, role: :collaborator }
 
     post :add_member, params: { member: params }
+
     assert_response :success
   end
 
@@ -50,6 +53,7 @@ class DepartmentMembersTest < ActionController::TestCase
     @request.headers['HTTP_REFERER'] = 'http://test.host/members'
 
     post :remove_member, params: { id: 1 }
+
     assert_redirected_to add_member_test_path
   end
 
@@ -93,7 +97,7 @@ class DepartmentMember
   end
 
   def add_member(params)
-    params[:user_id].eql?('1') ? true : false
+    params[:user_id].eql?('1')
   end
 
   def remove_member(_params)

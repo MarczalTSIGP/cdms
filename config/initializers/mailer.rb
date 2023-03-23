@@ -1,12 +1,12 @@
-Rails.application.config.action_mailer.default_url_options = { host: ENV['mailer.host'],
-                                                               port: ENV['mailer.port'] }
+Rails.application.config.action_mailer.default_url_options = { host: ENV.fetch('mailer.host', nil),
+                                                               port: ENV.fetch('mailer.port', nil) }
 
 Rails.application.config.action_mailer.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
-  address: ENV['mailer.smtp'],
-  port: ENV['mailer.smtp.port'],
-  domain: ENV['mailer.smtp.domain'],
-  user_name: ENV['mailer.smtp.username'],
-  password: ENV['mailer.smtp.password'],
-  authentication: ENV['mailer.smtp.authentication']
+  address: ENV.fetch('mailer.smtp', nil),
+  port: ENV.fetch('mailer.smtp.port', nil),
+  domain: ENV.fetch('mailer.smtp.domain', nil),
+  user_name: ENV.fetch('mailer.smtp.username', nil),
+  password: ENV.fetch('mailer.smtp.password', nil),
+  authentication: ENV.fetch('mailer.smtp.authentication', nil)
 }

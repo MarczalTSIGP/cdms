@@ -11,7 +11,7 @@ module Admins
 
       def set_members_breadcrumbs
         add_breadcrumb I18n.t('views.department.members.nwdp',
-                              name: "\##{@department.id}"),
+                              name: "##{@department.id}"),
                        admins_department_members_path(@department)
       end
     end

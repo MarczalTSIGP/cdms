@@ -10,24 +10,28 @@ class Admins::DepartmentsControllerTest < ActionDispatch::IntegrationTest
 
     should 'get index' do
       get admins_departments_path
+
       assert_response :success
       assert_active_link(href: admins_departments_path)
     end
 
     should 'get new' do
       get new_admins_department_path
+
       assert_response :success
       assert_active_link(href: admins_departments_path)
     end
 
     should 'get show' do
       get admins_department_path(@department)
+
       assert_response :success
       assert_active_link(href: admins_departments_path)
     end
 
     should 'get edit' do
       get edit_admins_department_path(@department)
+
       assert_response :success
       assert_active_link(href: admins_departments_path)
     end
@@ -41,6 +45,7 @@ class Admins::DepartmentsControllerTest < ActionDispatch::IntegrationTest
         assert_equal I18n.t('flash.actions.create.m', resource_name: Department.model_name.human),
                      flash[:success]
         follow_redirect!
+
         assert_active_link(href: admins_departments_path)
       end
 
@@ -58,22 +63,27 @@ class Admins::DepartmentsControllerTest < ActionDispatch::IntegrationTest
     context '#update' do
       should 'successfully' do
         patch admins_department_path(@department), params: { department: { name: 'updated' } }
+
         assert_redirected_to admins_departments_path
         assert_equal I18n.t('flash.actions.update.m', resource_name: Department.model_name.human),
                      flash[:success]
         @department.reload
+
         assert_equal 'updated', @department.name
         follow_redirect!
+
         assert_active_link(href: admins_departments_path)
       end
 
       should 'unsuccessfully' do
         patch admins_department_path(@department), params: { department: { name: '' } }
+
         assert_response :success
         assert_equal I18n.t('flash.actions.errors'), flash[:error]
 
         name = @department.name
         @department.reload
+
         assert_equal name, @department.name
         assert_active_link(href: admins_departments_path)
       end
@@ -90,6 +100,7 @@ class Admins::DepartmentsControllerTest < ActionDispatch::IntegrationTest
     context 'members' do
       should 'get members' do
         get admins_department_members_path(@department)
+
         assert_response :success
         assert_active_link(href: admins_departments_path)
       end
@@ -109,15 +120,19 @@ class Admins::DepartmentsControllerTest < ActionDispatch::IntegrationTest
           assert_redirected_to admins_department_members_path(@department)
           assert_equal I18n.t('flash.actions.add.m', resource_name: User.model_name.human), flash[:success]
           @department.reload
+
           assert_equal 1, @department.users.count
           follow_redirect!
+
           assert_active_link(href: admins_departments_path)
         end
 
         should 'unsuccessfully' do
           post admins_department_add_member_path(@department), params: { member: { user_id: '' } }
+
           assert_response :success
           @department.reload
+
           assert_equal 0, @department.users.count
         end
       end
@@ -142,6 +157,7 @@ class Admins::DepartmentsControllerTest < ActionDispatch::IntegrationTest
 
     should 'redirect to login when logged as non administrator user' do
       sign_in create(:user)
+
       assert_redirect_to(users_root_path)
     end
   end
@@ -152,6 +168,7 @@ class Admins::DepartmentsControllerTest < ActionDispatch::IntegrationTest
     requests.each do |method, routes|
       routes.each do |route|
         send(method, route)
+
         assert_redirected_to redirect_to
       end
     end

@@ -18,12 +18,13 @@ class MembersTest < ApplicationSystemTestCase
         fill_in 'department_user_user', with: @user.name
         find("#department_user_user-dropdown .dropdown-item[data-value='#{@user.id}']").click
 
-        find('#department_user_role-selectized').click
+        find_by_id('department_user_role-selectized').click
         find('.selectize-dropdown-content .option[data-value="responsible"]').click
 
         submit_form("button[type='submit']")
 
         base_selector = 'table tbody tr:nth-child(1)'
+
         assert_current_path admins_department_members_path(@department)
         assert_selector base_selector, text: @user.name
         assert_selector base_selector, text: @user.email
@@ -58,6 +59,7 @@ class MembersTest < ApplicationSystemTestCase
 
       assert_current_path admins_department_members_path(department)
       flash_message = User.model_name.human
+
       assert_selector('div.alert.alert-success',
                       text: I18n.t('flash.actions.remove.m', resource_name: flash_message))
 

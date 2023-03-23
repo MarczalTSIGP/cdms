@@ -48,6 +48,7 @@ class IndexTest < ApplicationSystemTestCase
             assert_selector base_selector, text: recipient.profile.email
 
             href = users_document_remove_recipient_path(@document.id, recipient.cpf)
+
             assert_selector "#{base_selector} a[href='#{href}']"
           end
         end

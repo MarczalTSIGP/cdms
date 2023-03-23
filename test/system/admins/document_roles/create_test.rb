@@ -16,6 +16,7 @@ class CreateTest < ApplicationSystemTestCase
 
       submit_form
       flash_message = I18n.t('flash.actions.add.f', resource_name: t('views.document_role.name.singular'))
+
       assert_selector('div.alert.alert-success', text: flash_message)
 
       document_role = DocumentRole.last

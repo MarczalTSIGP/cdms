@@ -17,6 +17,7 @@ class BreadcrumbsTest < ActionController::TestCase
       get :index
 
       crumb = breadcrumbs.first
+
       assert_equal breadcrumbs_path, crumb.path
       assert_equal Breadcrumb.model_name.human(count: 2), crumb.name
     end
@@ -54,6 +55,7 @@ class BreadcrumbsTest < ActionController::TestCase
       assert_equal Breadcrumb.model_name.human(count: 2), crumb_one.name
 
       breadcrumb = Breadcrumb.new
+
       assert_equal breadcrumb_path(breadcrumb), crumb_two.path
       assert_equal I18n.t('views.breadcrumbs.show', model: breadcrumb.model_name.human,
                                                     id: breadcrumb.id), crumb_two.name
@@ -68,6 +70,7 @@ class BreadcrumbsTest < ActionController::TestCase
       assert_equal Breadcrumb.model_name.human(count: 2), crumb_one.name
 
       breadcrumb = Breadcrumb.new
+
       assert_equal breadcrumb_path(breadcrumb), crumb_two.path
       assert_equal I18n.t('views.breadcrumbs.show', model: breadcrumb.model_name.human,
                                                     id: breadcrumb.id), crumb_two.name
@@ -85,6 +88,7 @@ class BreadcrumbsTest < ActionController::TestCase
       assert_equal Breadcrumb.model_name.human(count: 2), crumb_one.name
 
       breadcrumb = Breadcrumb.new
+
       assert_equal breadcrumb_path(breadcrumb), crumb_two.path
       assert_equal I18n.t('views.breadcrumbs.show', model: breadcrumb.model_name.human,
                                                     id: breadcrumb.id), crumb_two.name

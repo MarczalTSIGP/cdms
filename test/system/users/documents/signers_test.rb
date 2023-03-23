@@ -19,12 +19,13 @@ class SignersTest < ApplicationSystemTestCase
         fill_in 'document_signer_user', with: @user.name
         find("#document_signer_user-dropdown .dropdown-item[data-value='#{@user.id}']").click
 
-        find('#document_signer_document_role-selectized').click
+        find_by_id('document_signer_document_role-selectized').click
         find(".selectize-dropdown-content .option[data-value='#{@document_role.id}']").click
 
         submit_form("button[type='submit']")
 
         base_selector = 'table tbody tr:nth-child(1)'
+
         assert_current_path users_document_signers_path(@document)
         assert_selector base_selector, text: @user.name
         assert_selector base_selector, text: @user.email
@@ -59,6 +60,7 @@ class SignersTest < ApplicationSystemTestCase
 
       assert_current_path users_document_signers_path(document)
       flash_message = User.model_name.human
+
       assert_selector('div.alert.alert-success',
                       text: I18n.t('flash.actions.remove.m', resource_name: flash_message))
 

@@ -11,6 +11,6 @@ class AudienceMember < ApplicationRecord
   validates_cpf_format_of :cpf, message: I18n.t('errors.messages.invalid')
 
   def self.from_csv(file)
-    CreateAudienceMembersFromCsv.new(file: file).perform
+    CreateAudienceMembersFromCsv.new({ file: file }).perform
   end
 end

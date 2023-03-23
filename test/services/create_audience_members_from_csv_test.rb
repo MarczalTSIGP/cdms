@@ -18,6 +18,7 @@ class CreateAudienceMembersFromCsvTest < ActiveSupport::TestCase
   should 'valid file extension' do
     file = Tempfile.new(['ads', '.pdf'])
     result = CreateAudienceMembersFromCsv.new(file: file).perform
+
     assert_not result.valid_file?, 'Invalid file'
   end
 
@@ -58,6 +59,7 @@ class CreateAudienceMembersFromCsvTest < ActiveSupport::TestCase
   end
 
   def attribute_names
-    AudienceMember.attribute_names.delete_if { |a| a =~ /id|created_at|updated_at/i }
+    attribute_names = AudienceMember.attribute_names.dup
+    attribute_names.delete_if { |a| a =~ /id|created_at|updated_at/i }
   end
 end

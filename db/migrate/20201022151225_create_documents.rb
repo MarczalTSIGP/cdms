@@ -4,7 +4,7 @@ class CreateDocuments < ActiveRecord::Migration[6.0]
 
     create_table :documents do |t|
       t.references :department, null: false, foreign_key: true
-      t.enum :category, enum_name: :document_categories
+      t.enum :category, enum_type: :document_categories
       t.string :title, null: false
       t.text :front_text
       t.text :back_text

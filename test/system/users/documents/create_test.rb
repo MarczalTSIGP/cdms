@@ -16,10 +16,10 @@ class CreateTest < ApplicationSystemTestCase
 
       fill_in 'document_title', with: document.title
 
-      find('#document_category-selectized').click
+      find_by_id('document_category-selectized').click
       find('.selectize-dropdown-content .option[data-value="declaration"]').click
 
-      find('#document_department_id-selectized').click
+      find_by_id('document_department_id-selectized').click
       find(".selectize-dropdown-content .option[data-value='#{@department.id}']").click
 
       page.execute_script("document.getElementById('document_front_text').innerText = '#{document.front_text}'")
@@ -28,6 +28,7 @@ class CreateTest < ApplicationSystemTestCase
       submit_form
 
       flash_message = I18n.t('flash.actions.create.m', resource_name: Document.model_name.human)
+
       assert_selector('div.alert.alert-success', text: flash_message)
 
       document = Document.last
@@ -52,8 +53,8 @@ class CreateTest < ApplicationSystemTestCase
         assert_text(I18n.t('errors.messages.inclusion'))
       end
 
-      within('div.document_department_id') do
-        assert_text(I18n.t('errors.messages.blank'))
+      within('div.document_department') do
+        assert_text(I18n.t('errors.messages.required'))
       end
 
       within('div.document_front_text') do

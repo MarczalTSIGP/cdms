@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 x-app: &app
   build:
     context: .
@@ -49,7 +49,7 @@ services:
       SELENIUM_HOST: selenium
       SELENIUM_PORT: 4444
       TEST_APP_HOST: tests
-    shm_size: '2gb' #set shared memory
+    shm_size: "2gb" #set shared memory
     depends_on:
       - db
 

@@ -1,6 +1,6 @@
 class JsonValidator < ActiveModel::EachValidator
-  REGEX_NAME = /[{}@!#%^&*()$]/.freeze
-  REGEX_IDENTIFIER = /[{}@!#%^&*_()$\s]/.freeze
+  REGEX_NAME = /[{}@!#%^&*()$]/
+  REGEX_IDENTIFIER = /[{}@!#%^&*_()$\s]/
 
   def validate_each(record, attribute, value)
     @record = record
