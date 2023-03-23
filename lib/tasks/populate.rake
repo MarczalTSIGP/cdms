@@ -1,4 +1,4 @@
-Dir[Rails.root.join('lib/populators/*.rb')].sort.each { |file| require file }
+Dir[Rails.root.join('lib/populators/*.rb')].each { |file| require file }
 
 namespace :db do
   desc 'Erase and fill database'

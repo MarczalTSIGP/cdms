@@ -18,7 +18,6 @@ class Document < ApplicationRecord
   validates :category, inclusion: { in: Document.categories.values }
   validates :title, :front_text, :back_text, presence: true
   validates :variables, json: true
-  validates :department_id, presence: true
 
   def variables=(variables)
     variables = JSON.parse(variables) if variables.is_a?(String)

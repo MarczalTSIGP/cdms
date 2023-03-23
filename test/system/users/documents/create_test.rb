@@ -53,8 +53,8 @@ class CreateTest < ApplicationSystemTestCase
         assert_text(I18n.t('errors.messages.inclusion'))
       end
 
-      within('div.document_department_id') do
-        assert_text(I18n.t('errors.messages.blank'))
+      within('div.document_department') do
+        assert_text(I18n.t('errors.messages.required'))
       end
 
       within('div.document_front_text') do
