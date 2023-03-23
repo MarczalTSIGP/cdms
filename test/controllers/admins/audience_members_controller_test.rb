@@ -14,6 +14,7 @@ class Admins::AudienceMembersControllerTest < ActionDispatch::IntegrationTest
 
       should 'get new' do
         get new_admins_audience_member_path
+
         assert_response :success
       end
 
@@ -41,21 +42,25 @@ class Admins::AudienceMembersControllerTest < ActionDispatch::IntegrationTest
       context '#update' do
         should 'successfully' do
           patch admins_audience_member_path(@audience_member), params: { audience_member: { name: 'updated' } }
+
           assert_redirected_to admins_audience_members_path
           assert_equal I18n.t('flash.actions.update.m', resource_name: AudienceMember.model_name.human),
                        flash[:success]
           @audience_member.reload
+
           assert_equal 'updated', @audience_member.name
           follow_redirect!
         end
 
         should 'unsuccessfully' do
           patch admins_audience_member_path(@audience_member), params: { audience_member: { name: '' } }
+
           assert_response :success
           assert_equal I18n.t('flash.actions.errors'), flash[:error]
 
           name = @audience_member.name
           @audience_member.reload
+
           assert_equal name, @audience_member.name
         end
       end
@@ -73,6 +78,7 @@ class Admins::AudienceMembersControllerTest < ActionDispatch::IntegrationTest
       requests.each do |method, routes|
         routes.each do |route|
           send(method, route)
+
           assert_redirected_to admins_audience_members_path
           assert_equal I18n.t('flash.not_found'), flash[:error]
         end
@@ -87,6 +93,7 @@ class Admins::AudienceMembersControllerTest < ActionDispatch::IntegrationTest
 
     should 'redirect to login when logged as non administrator user' do
       sign_in create(:user)
+
       assert_redirect_to(users_root_path)
     end
   end
@@ -97,6 +104,7 @@ class Admins::AudienceMembersControllerTest < ActionDispatch::IntegrationTest
     requests.each do |method, routes|
       routes.each do |route|
         send(method, route)
+
         assert_redirected_to redirect_to
       end
     end

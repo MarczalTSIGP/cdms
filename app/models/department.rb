@@ -11,7 +11,7 @@ class Department < ApplicationRecord
   has_many :documents, dependent: :destroy
 
   has_one :department_responsible, -> { where(role: :responsible) },
-          class_name: 'DepartmentUser', inverse_of: false
+          class_name: 'DepartmentUser', inverse_of: false, dependent: :restrict_with_error
   has_one :responsible, through: :department_responsible, source: :user, inverse_of: false
 
   validates :name, presence: true

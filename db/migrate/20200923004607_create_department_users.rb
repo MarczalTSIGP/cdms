@@ -5,7 +5,7 @@ class CreateDepartmentUsers < ActiveRecord::Migration[6.0]
     create_table :department_users do |t|
       t.references :department, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
-      t.enum :role, enum_name: :department_users_roles
+      t.enum :role, enum_type: :department_users_roles
 
       t.timestamps
     end

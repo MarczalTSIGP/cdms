@@ -13,10 +13,10 @@ class VarablesTest < ApplicationSystemTestCase
 
     context 'new' do
       should 'add' do
-        find('#add_variable_button').click
+        find_by_id('add_variable_button').click
         fill_in 'variable_name', with: 'Student name'
         fill_in 'variable_identifier', with: 'student-name'
-        find('#add_variable').click
+        find_by_id('add_variable').click
 
         within('table#variables-table tbody') do
           assert_selector 'tr:nth-child(1) td:nth-child(1)', text: 'Student name'
@@ -29,19 +29,19 @@ class VarablesTest < ApplicationSystemTestCase
 
         fill_in 'document_title', with: document.title
 
-        find('#document_category-selectized').click
+        find_by_id('document_category-selectized').click
         find('.selectize-dropdown-content .option[data-value="declaration"]').click
 
-        find('#document_department_id-selectized').click
+        find_by_id('document_department_id-selectized').click
         find(".selectize-dropdown-content .option[data-value='#{@department.id}']").click
 
         page.execute_script("document.getElementById('document_front_text').innerText = '#{document.front_text}'")
         page.execute_script("document.getElementById('document_back_text').innerText = '#{document.back_text}'")
 
-        find('#add_variable_button').click
+        find_by_id('add_variable_button').click
         fill_in 'variable_name', with: 'Student name'
         fill_in 'variable_identifier', with: 'student-name'
-        find('#add_variable').click
+        find_by_id('add_variable').click
 
         submit_form
 

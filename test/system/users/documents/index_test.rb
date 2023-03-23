@@ -37,6 +37,7 @@ class IndexTest < ApplicationSystemTestCase
 
             assert_selector "#{base_selector} a[href='#{edit_users_document_path(document)}']"
             href = users_document_path(document)
+
             assert_selector "#{base_selector} a[href='#{href}'][data-method='delete']"
           end
         end

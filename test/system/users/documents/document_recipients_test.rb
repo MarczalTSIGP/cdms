@@ -25,6 +25,7 @@ class DocumentRecipientsTest < ApplicationSystemTestCase
         create(:document_signer, document: @document, signed: true)
 
         visit users_document_recipients_path(@document)
+
         assert_selector('div.alert.alert-info',
                         text: I18n.t('views.document.recipients.document_has_signature'))
         assert_selector "a[href='#{users_new_recipient_document_path(@document)}']",

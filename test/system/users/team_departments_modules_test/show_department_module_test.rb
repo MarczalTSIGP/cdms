@@ -22,6 +22,7 @@ class ShowDepartmentModuleTest < ApplicationSystemTestCase
 
     should 'display text and options' do
       visit users_show_module_path(@dep_module)
+
       within('#main-content .card-body .footer') do
         assert_link(I18n.t('views.links.back'), href: users_team_departments_modules_path)
       end
@@ -37,6 +38,7 @@ class ShowDepartmentModuleTest < ApplicationSystemTestCase
 
       within('.card.team table.table tbody') do
         base_selector = 'tr:nth-child(1)'
+
         assert_selector base_selector, text: @user.name
         assert_selector base_selector, text: @user.email
         assert_selector base_selector, text: I18n.t('enums.roles.responsible')

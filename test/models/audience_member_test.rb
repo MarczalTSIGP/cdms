@@ -13,7 +13,8 @@ class AudienceMemberTest < ActiveSupport::TestCase
         valid_emails = ['pedro@utfpr.edu.br', 'pedro@gmail.com', 'teste@utfpr.edu.br']
         valid_emails.each do |valid_email|
           audience_member = FactoryBot.build(:audience_member, email: valid_email)
-          assert audience_member.valid?
+
+          assert_predicate audience_member, :valid?
         end
       end
 
@@ -21,6 +22,7 @@ class AudienceMemberTest < ActiveSupport::TestCase
         invalid_emails = ['not a email', 'pedrogonzaga.com', 'pedro@gonzagacom', 'pedro']
         invalid_emails.each do |invalid_email|
           audience_member = FactoryBot.build(:audience_member, email: invalid_email)
+
           assert_not audience_member.valid?
         end
       end
@@ -31,7 +33,8 @@ class AudienceMemberTest < ActiveSupport::TestCase
         valid_cpf = ['047.593.909.36', '424.987.978-07']
         valid_cpf.each do |element|
           audience_member = FactoryBot.build(:audience_member, cpf: element)
-          assert audience_member.valid?
+
+          assert_predicate audience_member, :valid?
         end
       end
 
@@ -39,6 +42,7 @@ class AudienceMemberTest < ActiveSupport::TestCase
         invalid_cpf = ['111.111.111-11', 'aaa.aaa.aaa-aa', '047.593.909.37', '123.123.123-44']
         invalid_cpf.each do |element|
           audience_member = FactoryBot.build(:audience_member, cpf: element)
+
           assert_not audience_member.valid?
         end
       end
@@ -63,10 +67,12 @@ class AudienceMemberTest < ActiveSupport::TestCase
 
   context '.from_csv' do
     should 'call new with args' do
+      double_service = Struct.new(:perform)
+      tmp_file = Tempfile.new
       mock = Minitest::Mock.new
-      mock.expect :call, OpenStruct.new(perform: true), [Hash]
+      mock.expect :call, double_service.new(perform: true), [file: tmp_file]
       CreateAudienceMembersFromCsv.stub :new, mock do
-        AudienceMember.from_csv(Tempfile.new)
+        AudienceMember.from_csv(tmp_file)
       end
 
       assert_mock mock

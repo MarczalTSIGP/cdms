@@ -9,6 +9,7 @@ class Users::DepartmentsControllerTest < ActionDispatch::IntegrationTest
 
     should 'get members' do
       get users_department_members_path(@department_user.department)
+
       assert_response :success
     end
 
@@ -30,7 +31,7 @@ class Users::DepartmentsControllerTest < ActionDispatch::IntegrationTest
                                         department_id: @department_user.department.id,
                                         role: :responsible } }
 
-      assert :collaborator, DepartmentUser.last.role
+      assert_equal :collaborator, DepartmentUser.last.role.to_sym
     end
 
     context 'remove' do
@@ -73,6 +74,7 @@ class Users::DepartmentsControllerTest < ActionDispatch::IntegrationTest
     should 'redirect when is collaborator of department' do
       sign_in @user
       @department.department_users.create(user: @user, role: :collaborator)
+
       assert_redirect_to(non_responsible_requests(@department), users_show_department_path(@department))
     end
   end

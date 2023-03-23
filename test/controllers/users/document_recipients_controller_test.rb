@@ -14,6 +14,7 @@ class Users::DocumentRecipientsControllerTest < ActionDispatch::IntegrationTest
 
     should 'get index' do
       get users_document_recipients_path(@document.id)
+
       assert_response :success
 
       assert_active_link(href: users_documents_path)
@@ -28,6 +29,7 @@ class Users::DocumentRecipientsControllerTest < ActionDispatch::IntegrationTest
 
     should 'get new' do
       get users_new_recipient_document_path(@document.id)
+
       assert_response :success
 
       assert_active_link(href: users_documents_path)
@@ -82,7 +84,7 @@ class Users::DocumentRecipientsControllerTest < ActionDispatch::IntegrationTest
 
         delete users_document_remove_recipient_path(@document.id, @non_existent_cpf)
 
-        assert 1, @document.recipients.all.count
+        assert_equal 1, @document.recipients.all.count
       end
     end
 
@@ -94,6 +96,7 @@ class Users::DocumentRecipientsControllerTest < ActionDispatch::IntegrationTest
 
       should 'not redirect to users_documents_path when try access list page' do
         get users_document_recipients_path(@document)
+
         assert_response 200
       end
 

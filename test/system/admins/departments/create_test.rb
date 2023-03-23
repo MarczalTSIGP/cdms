@@ -20,23 +20,27 @@ class CreateTest < ApplicationSystemTestCase
       submit_form
 
       flash_message = I18n.t('flash.actions.create.m', resource_name: Department.model_name.human)
+
       assert_selector('div.alert.alert-success', text: flash_message)
 
       department = Department.last
-      within('table.table tbody') do
-        assert_selector "a[href='#{admins_department_path(department)}']", text: department.initials
-        assert_text department.name
-        assert_text department.phone
-        assert_text department.local
-        assert_text department.email
 
+      within('table.table tbody') do
+        assert_selector "a[href='#{admins_department_path(department)}']", text: department.name
+        assert_text department.phone
+        assert_text department.email
+        assert_text department.responsible&.name
+        assert_text department.department_users.size
+
+        assert_selector "a[href='#{admins_department_members_path(department)}']"
         assert_selector "a[href='#{edit_admins_department_path(department)}']"
         assert_selector "a[href='#{admins_department_path(department)}'][data-method='delete']"
       end
     end
 
     should 'mask phone' do
-      fill_in 'department_phone', with: '42998300990'.split('').join(' ')
+      fill_in 'department_phone', with: '42998300990'.chars.join(' ')
+
       assert_field 'department_phone', with: '(42) 99830-0990'
     end
 

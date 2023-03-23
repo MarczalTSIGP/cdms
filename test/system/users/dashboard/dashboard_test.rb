@@ -11,7 +11,7 @@ class DashboardTest < ApplicationSystemTestCase
     should 'display breadcrumbs' do
       visit users_root_path
 
-      assert_selector '.breadcrumb-item', text: I18n.t('views.breadcrumbs.home')
+      assert_selector 'ol.breadcrumb li:first-child', text: I18n.t('views.breadcrumbs.home')
     end
 
     should 'no documents available to sign' do
@@ -68,6 +68,7 @@ class DashboardTest < ApplicationSystemTestCase
       visit users_root_path
 
       find('i.fa-file-signature').click
+      
       assert_selector "#sign_document_modal-#{document.id}", text: @user.name
       assert_selector "#sign_document_modal-#{document.id}", text: @user.cpf
 
