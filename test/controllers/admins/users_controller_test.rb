@@ -9,24 +9,28 @@ class Admins::UsersControllerTest < ActionDispatch::IntegrationTest
 
     should 'get index' do
       get admins_users_path
+
       assert_response :success
       assert_active_link(href: admins_users_path)
     end
 
     should 'get new' do
       get new_admins_user_path
+
       assert_response :success
       assert_active_link(href: admins_users_path)
     end
 
     should 'get show' do
       get admins_user_path(@user)
+
       assert_response :success
       assert_active_link(href: admins_users_path)
     end
 
     should 'get edit' do
       get edit_admins_user_path(@user)
+
       assert_response :success
       assert_active_link(href: admins_users_path)
     end
@@ -54,20 +58,24 @@ class Admins::UsersControllerTest < ActionDispatch::IntegrationTest
     context '#update' do
       should 'successfully' do
         patch admins_user_path(@user), params: { user: { name: 'updated' } }
+
         assert_redirected_to admins_users_path
         assert_equal I18n.t('flash.actions.update.m', resource_name: User.model_name.human),
                      flash[:success]
         @user.reload
+
         assert_equal 'updated', @user.name
       end
 
       should 'unsuccessfully' do
         patch admins_user_path(@user), params: { user: { name: '' } }
+
         assert_response :success
         assert_equal I18n.t('flash.actions.errors'), flash[:error]
 
         name = @user.name
         @user.reload
+
         assert_equal name, @user.name
       end
     end
@@ -87,6 +95,7 @@ class Admins::UsersControllerTest < ActionDispatch::IntegrationTest
 
     should 'redirect to login when logged as non administrator user' do
       sign_in create(:user)
+
       assert_redirect_to(users_root_path)
     end
   end
@@ -97,6 +106,7 @@ class Admins::UsersControllerTest < ActionDispatch::IntegrationTest
     requests.each do |method, routes|
       routes.each do |route|
         send(method, route)
+
         assert_redirected_to redirect_to
       end
     end

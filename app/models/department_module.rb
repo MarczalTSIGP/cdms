@@ -8,7 +8,7 @@ class DepartmentModule < ApplicationRecord
   has_many :users, through: :department_module_users
 
   has_one :department_module_responsible, -> { where(role: :responsible) },
-          class_name: 'DepartmentModuleUser', inverse_of: false
+          class_name: 'DepartmentModuleUser', inverse_of: false, dependent: :restrict_with_error
   has_one :responsible, through: :department_module_responsible, source: :user, inverse_of: false
 
   validates :name, presence: true, uniqueness: true

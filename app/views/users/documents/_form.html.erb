@@ -12,7 +12,7 @@
         collection: Document.human_categories,
         prompt: t('views.prompt.select.m', name: Document.human_attribute_name(:category)) %>
 
-      <%= f.input :department_id,
+      <%= f.association :department,
         input_html: {class: 'apply-selectize'},
         collection: @departments,
         prompt: t('views.prompt.select.m', name: t('activerecord.attributes.document.department').downcase) %>

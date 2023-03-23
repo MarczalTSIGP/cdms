@@ -12,6 +12,7 @@ class DocumentTest < ActiveSupport::TestCase
 
     should 'inclusion of category' do
       document = Document.new
+
       assert_not document.valid?
       assert_includes document.errors.messages[:category], I18n.t('errors.messages.inclusion')
     end
@@ -55,7 +56,7 @@ class DocumentTest < ActiveSupport::TestCase
     end
 
     should 'be an empty array by default' do
-      assert @document.valid?
+      assert_predicate @document, :valid?
     end
 
     should 'only accept array of json' do
@@ -66,7 +67,8 @@ class DocumentTest < ActiveSupport::TestCase
       assert_contains @document.errors.messages[:variables], I18n.t('activerecord.errors.messages.not_an_array')
 
       @document.variables = [{ name: 'Nome', identifier: 'name' }]
-      assert @document.valid?
+
+      assert_predicate @document, :valid?
     end
 
     should 'accept only with name and identifier keys' do
@@ -129,6 +131,7 @@ class DocumentTest < ActiveSupport::TestCase
         user_a = create(:user, name: 'user_a')
         create(:document_signer, user: user_a, document: @document, document_role: @document_role)
         @document.remove_signing_member(user_a.id)
+
         assert_equal 0, @document.signers.count
       end
     end
@@ -169,7 +172,8 @@ class DocumentTest < ActiveSupport::TestCase
     should '#someone_signed' do
       assert_not @document.someone_signed?
       @document_signer.sign
-      assert @document.someone_signed?
+
+      assert_predicate @document, :someone_signed?
     end
   end
 
@@ -187,13 +191,13 @@ class DocumentTest < ActiveSupport::TestCase
       freeze_time
       current_time = Time.current
 
-      assert @document.someone_signed?
+      assert_predicate @document, :someone_signed?
       @document.reopen_to_edit(user_id: @user.id, justification: justification)
 
       assert_not @document.someone_signed?
       assert @document.reopened
       assert_equal @user.id, @document.last_reopened_by_user_id
-      assert_equal justification, justification
+      assert_equal @document.justification, justification
       assert_equal current_time, @document.last_reopened_at
 
       unfreeze_time

@@ -26,7 +26,8 @@ class UserTest < ActiveSupport::TestCase
 
         usernames.each do |username|
           @user.username = username
-          assert @user.valid?, "'#{username}' should be valid"
+
+          assert_predicate @user, :valid?, "'#{username}' should be valid"
         end
       end
 
@@ -35,6 +36,7 @@ class UserTest < ActiveSupport::TestCase
 
         usernames.each do |username|
           @user.username = username
+
           assert_not @user.valid?, "'#{username}' should be invalid"
         end
       end
@@ -50,7 +52,8 @@ class UserTest < ActiveSupport::TestCase
 
         cpfs.each do |cpf|
           @user.cpf = cpf
-          assert @user.valid?, "'#{cpf}' should be valid"
+
+          assert_predicate @user, :valid?, "'#{cpf}' should be valid"
         end
       end
 
@@ -59,6 +62,7 @@ class UserTest < ActiveSupport::TestCase
 
         cpfs.each do |cpf|
           @user.cpf = cpf
+
           assert_not @user.valid?, "'#{cpf}' should be invalid"
         end
       end
@@ -72,6 +76,7 @@ class UserTest < ActiveSupport::TestCase
 
     should 'build email' do
       @user.username = 'guest'
+
       assert_equal('guest@utfpr.edu.br', @user.email)
     end
   end
@@ -108,16 +113,20 @@ class UserTest < ActiveSupport::TestCase
 
       should '#last_manager' do
         user = create(:user, :manager)
-        assert user.last_manager?
+
+        assert_predicate user, :last_manager?
 
         create(:user, :manager)
+
         assert_not user.last_manager?
       end
 
       should 'not destroy if the last manager' do
         user = create(:user, :manager)
+
         assert_not user.destroy
         message = I18n.t('flash.actions.least', resource_name: Administrator.model_name.human)
+
         assert_includes user.errors[:base], message
       end
     end
@@ -175,6 +184,7 @@ class UserTest < ActiveSupport::TestCase
   context '.department' do
     should '.responsible_of?' do
       user = create(:user)
+
       assert_not user.responsible_of?(nil)
 
       department = create(:department)
@@ -182,16 +192,19 @@ class UserTest < ActiveSupport::TestCase
       assert_not user.responsible_of?(department)
 
       department.department_users.create(user: user, role: :responsible)
+
       assert user.responsible_of?(department)
     end
 
     should '.is_member_of_any?' do
       user = create(:user)
+
       assert_not user.member_of_any?
 
       department = create(:department)
       department.department_users.create(user: user, role: :responsible)
-      assert user.member_of_any?
+
+      assert_predicate user, :member_of_any?
     end
 
     should 'list all documentos of member department' do
@@ -222,7 +235,7 @@ class UserTest < ActiveSupport::TestCase
     end
 
     should 'return all documents available to signer' do
-      assert 4, @user.unsigned_documents.size
+      assert_equal 4, @user.unsigned_documents.size
       assert_same_elements @documents, @user.unsigned_documents
     end
 
@@ -230,14 +243,14 @@ class UserTest < ActiveSupport::TestCase
       documents = @documents.pop(2)
       documents.each { |document| document.update(available_to_sign: false) }
 
-      assert 2, @user.unsigned_documents.size
+      assert_equal 2, @user.unsigned_documents.size
       assert_same_elements @documents, @user.unsigned_documents
     end
 
     should 'not return documents signed' do
       create_list(:document_signer, 2, user: @user, signed: true)
 
-      assert 4, @user.unsigned_documents.size
+      assert_equal 4, @user.unsigned_documents.size
       assert_same_elements @documents, @user.unsigned_documents
     end
 
@@ -245,7 +258,7 @@ class UserTest < ActiveSupport::TestCase
       other_user = create(:user)
       create_list(:document_signer, 2, user: other_user)
 
-      assert 4, @user.unsigned_documents.size
+      assert_equal 4, @user.unsigned_documents.size
       assert_same_elements @documents, @user.unsigned_documents
     end
   end

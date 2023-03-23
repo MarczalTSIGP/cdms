@@ -21,7 +21,8 @@ class DepartmentTest < ActiveSupport::TestCase
         valid_emails = ['teste@utfpr.edu.br', 'teste@gmail.com']
         valid_emails.each do |valid_email|
           subject.email = valid_email
-          assert subject.valid?
+
+          assert_predicate subject, :valid?
         end
       end
 
@@ -29,7 +30,8 @@ class DepartmentTest < ActiveSupport::TestCase
         valid_emails = ['teste@', 'teste@gmail']
         valid_emails.each do |valid_email|
           subject.email = valid_email
-          assert subject.invalid?
+
+          assert_predicate subject, :invalid?
         end
       end
     end
@@ -39,7 +41,8 @@ class DepartmentTest < ActiveSupport::TestCase
         valid_phones = ['(42) 99903-4056', '(42) 9903-4213']
         valid_phones.each do |valid_phone|
           subject.phone = valid_phone
-          assert subject.valid?, "#{valid_phone} is invalid"
+
+          assert_predicate subject, :valid?, "#{valid_phone} is invalid"
         end
       end
 
@@ -47,7 +50,8 @@ class DepartmentTest < ActiveSupport::TestCase
         valid_phones = %w[123123asdsa asdasdasds]
         valid_phones.each do |valid_phone|
           subject.phone = valid_phone
-          assert subject.invalid?
+
+          assert_predicate subject, :invalid?
         end
       end
     end
@@ -135,11 +139,13 @@ class DepartmentTest < ActiveSupport::TestCase
   context 'verify user role' do
     should 'return false' do
       department_user = create(:department_user, :responsible)
+
       assert_not department_user.department.user_is_collaborator?(department_user.user)
     end
 
     should 'return true' do
       department_user = create(:department_user, :collaborator)
+
       assert department_user.department.user_is_collaborator?(department_user.user)
     end
   end

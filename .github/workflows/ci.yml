@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - update-to-ruby-3.2
 jobs:
   tests:
     runs-on: ubuntu-latest

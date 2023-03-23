@@ -47,6 +47,7 @@ class NewTest < ApplicationSystemTestCase
         assert_selector base_selector, text: @user.email
 
         href = users_document_add_recipient_path(@document.id, @user.cpf)
+
         assert_selector "#{base_selector} a[href='#{href}']"
       end
 

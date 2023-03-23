@@ -103,3 +103,7 @@ table.table-small {
 .form-check-label {
     display: block;
 }
+
+ol.breadcrumb li {
+  @extend .breadcrumb-item;
+}

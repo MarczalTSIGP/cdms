@@ -33,6 +33,7 @@ class LoginTest < ApplicationSystemTestCase
       assert_current_path(new_user_session_path)
 
       attribute_name = User.human_attribute_name(:email)
+
       assert_selector 'div.alert.alert-warning',
                       text: I18n.t('devise.failure.invalid', authentication_keys: attribute_name)
     end
@@ -60,6 +61,7 @@ class LoginTest < ApplicationSystemTestCase
       assert_selector 'div.alert.alert-warning', text: I18n.t('devise.failure.inactive')
 
       visit users_root_path
+
       assert_selector 'div.alert.alert-warning', text: I18n.t('devise.failure.unauthenticated')
     end
   end

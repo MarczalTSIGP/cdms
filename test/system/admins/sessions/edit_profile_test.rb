@@ -50,6 +50,7 @@ class EditProfileTest < ApplicationSystemTestCase
     end
     within('div.user_current_password') do
       key = 'devise.registrations.edit.current_password_to_confirm'
+
       assert_text(I18n.t(key))
     end
   end

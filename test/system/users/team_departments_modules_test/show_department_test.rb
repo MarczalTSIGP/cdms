@@ -41,6 +41,7 @@ class ShowDepartmentTest < ApplicationSystemTestCase
 
       within('.card.team table.table tbody') do
         base_selector = 'tr:nth-child(1)'
+
         assert_selector base_selector, text: @user.name
         assert_selector base_selector, text: @user.email
         assert_selector base_selector, text: I18n.t('enums.roles.responsible')

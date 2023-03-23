@@ -23,6 +23,7 @@ class IndexTest < ApplicationSystemTestCase
 
           assert_selector "#{base_selector} a[href='#{edit_admins_audience_member_path(audience_member)}']"
           href = admins_audience_member_path(audience_member)
+
           assert_selector "#{base_selector} a[href='#{href}'][data-method='delete']"
         end
       end

@@ -24,6 +24,7 @@ class UpdateTest < ApplicationSystemTestCase
       submit_form
 
       flash_message = I18n.t('flash.actions.update.f', resource_name: t('views.document_role.name.singular'))
+
       assert_selector('div.alert.alert-success', text: flash_message)
 
       within('table.table tbody') do

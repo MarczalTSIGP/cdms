@@ -9,6 +9,7 @@ class Admins::AdministratorsControllerTest < ActionDispatch::IntegrationTest
 
     should 'get index' do
       get admins_administrators_path
+
       assert_response :success
       assert_active_link(href: admins_administrators_path)
     end
@@ -22,6 +23,7 @@ class Admins::AdministratorsControllerTest < ActionDispatch::IntegrationTest
         post admins_administrators_path, params: { administrator: params }
 
         user.reload
+
         assert user.is?(:admin)
         assert user.is?(:manager)
         assert_redirected_to admins_administrators_path
@@ -42,6 +44,7 @@ class Admins::AdministratorsControllerTest < ActionDispatch::IntegrationTest
         user = FactoryBot.create(:user, :assistant)
         delete admins_administrator_path(user)
         user.reload
+
         assert_not user.is?(:admin)
         assert_not user.is?(:assistant)
         assert_redirected_to admins_administrators_path
@@ -60,10 +63,12 @@ class Admins::AdministratorsControllerTest < ActionDispatch::IntegrationTest
         delete admins_administrator_path(user)
 
         user.reload
+
         assert user.is?(:admin)
         assert user.is?(:manager)
         assert_redirected_to admins_administrators_path
         message = I18n.t('flash.actions.least', resource_name: Administrator.model_name.human)
+
         assert_equal message, flash[:warning]
       end
     end
@@ -76,6 +81,7 @@ class Admins::AdministratorsControllerTest < ActionDispatch::IntegrationTest
 
     should 'redirect to login when logged as non administrator user' do
       sign_in create(:user)
+
       assert_redirect_to(users_root_path)
     end
   end
@@ -86,6 +92,7 @@ class Admins::AdministratorsControllerTest < ActionDispatch::IntegrationTest
     requests.each do |method, routes|
       routes.each do |route|
         send(method, route)
+
         assert_redirected_to redirect_to
       end
     end

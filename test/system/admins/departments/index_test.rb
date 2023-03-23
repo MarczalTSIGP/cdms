@@ -71,6 +71,7 @@ class IndexTest < ApplicationSystemTestCase
         departments.each_with_index do |department, index|
           child = index + 1
           base_selector = "tr:nth-child(#{child})"
+
           assert_selector "#{base_selector} a[href='#{admins_department_path(department)}']",
                           text: department.name
           assert_selector base_selector, text: department.phone
