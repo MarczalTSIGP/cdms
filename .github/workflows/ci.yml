@@ -35,7 +35,7 @@ jobs:
         volumes:
           - /var/www/cdms/test/samples:/var/www/cdms/test/samples
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
@@ -47,7 +47,7 @@ jobs:
         run: apt-get -yqq install libpq-dev
 
       - name: Cache bundle gems
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
@@ -60,11 +60,11 @@ jobs:
           bundle install --jobs 4 --retry 3
 
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 18.15.0
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
@@ -101,7 +101,7 @@ jobs:
   code_quality:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
@@ -114,7 +114,7 @@ jobs:
         run: cp config/application.ci.yml config/application.yml
 
       - name: Cache bundle gems
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
@@ -127,11 +127,11 @@ jobs:
           bundle install --jobs 4 --retry 3
 
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 18.15.0
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
