@@ -18,6 +18,7 @@ class CreateTest < ApplicationSystemTestCase
       submit_form
 
       flash_message = I18n.t('flash.actions.create.m', resource_name: audience_member.model_name.human)
+
       assert_selector('div.alert.alert-success', text: flash_message)
 
       audience_member = AudienceMember.last

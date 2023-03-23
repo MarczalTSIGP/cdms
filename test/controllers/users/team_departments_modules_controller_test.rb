@@ -15,6 +15,7 @@ class Users::TeamDepartmentsModulesControllerTest < ActionDispatch::IntegrationT
 
     should 'get index' do
       get users_team_departments_modules_path
+
       assert_response :success
       assert_active_link(href: users_team_departments_modules_path)
       assert_breadcrumbs({ text: I18n.t('views.breadcrumbs.home') })
@@ -23,6 +24,7 @@ class Users::TeamDepartmentsModulesControllerTest < ActionDispatch::IntegrationT
     context 'get show department' do
       should 'successfully' do
         get users_show_department_path(@department)
+
         assert_response :success
 
         assert_breadcrumbs({ link: users_root_path, text: I18n.t('views.breadcrumbs.home') },
@@ -33,6 +35,7 @@ class Users::TeamDepartmentsModulesControllerTest < ActionDispatch::IntegrationT
       should 'unsuccessfully' do
         department = create(:department)
         get users_show_department_path(department)
+
         assert_redirected_to users_team_departments_modules_path
       end
     end
@@ -40,6 +43,7 @@ class Users::TeamDepartmentsModulesControllerTest < ActionDispatch::IntegrationT
     context 'get show module' do
       should 'successfully' do
         get users_show_module_path(@module)
+
         assert_response :success
 
         assert_breadcrumbs({ link: users_root_path, text: I18n.t('views.breadcrumbs.home') },

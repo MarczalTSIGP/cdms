@@ -21,6 +21,7 @@ module Asserts
 
     def assert_only_redirect_to(method, route, redirect_to)
       send(method, route)
+
       assert_redirected_to redirect_to, "should redirect_to #{route}"
     end
   end

@@ -22,6 +22,7 @@ class CreateTest < ApplicationSystemTestCase
         submit_form
 
         flash_message = I18n.t('flash.actions.create.m', resource_name: User.model_name.human)
+
         assert_selector('div.alert.alert-success', text: flash_message)
 
         user = User.last
@@ -52,6 +53,7 @@ class CreateTest < ApplicationSystemTestCase
 
         user = User.last
         visit admins_user_path(user)
+
         assert_selector "img[src='#{user.avatar.url}']"
       end
     end

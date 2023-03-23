@@ -13,18 +13,21 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
 
     should 'get index' do
       get users_documents_path
+
       assert_response :success
       assert_active_link(href: users_documents_path)
     end
 
     should 'get new' do
       get new_users_document_path
+
       assert_response :success
       assert_active_link(href: users_documents_path)
     end
 
     should 'get preview' do
       get users_preview_document_path(@document)
+
       assert_response :success
     end
 
@@ -33,6 +36,7 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
         create(:document_signer, document: @document, signed: true)
 
         get edit_users_document_path(@document)
+
         assert_redirected_to(users_documents_path)
         follow_redirect!
 
@@ -48,6 +52,7 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
 
       should 'successfully' do
         get edit_users_document_path(@document)
+
         assert_response :success
         assert_active_link(href: users_documents_path)
       end
@@ -57,20 +62,24 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
       should 'successfully' do
         patch users_reopen_document_path(@document), params: { document: { justification: 'justification abc' } }
         follow_redirect!
+
         assert_active_link(href: users_documents_path)
 
         assert_equal I18n.t('flash.actions.reopen_document.success'), flash[:success]
         @document.reload
+
         assert_equal 'justification abc', @document.justification
       end
 
       should 'unsuccessfully' do
         patch users_reopen_document_path(@document), params: { document: { justification: '' } }
+
         assert_redirected_to users_documents_path
 
         assert_equal I18n.t('flash.actions.reopen_document.error'), flash[:error]
 
         @document.reload
+
         assert_nil @document.justification
       end
     end
@@ -98,20 +107,24 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
     context '#update' do
       should 'successfully' do
         patch users_document_path(@document), params: { document: { title: 'updated' } }
+
         assert_redirected_to users_documents_path
         assert_equal I18n.t('flash.actions.update.m', resource_name: Document.model_name.human),
                      flash[:success]
         @document.reload
+
         assert_equal 'updated', @document.title
       end
 
       should 'unsuccessfully' do
         patch users_document_path(@document), params: { document: { title: '' } }
+
         assert_response :success
         assert_equal I18n.t('flash.actions.errors'), flash[:error]
 
         title = @document.title
         @document.reload
+
         assert_equal title, @document.title
       end
     end

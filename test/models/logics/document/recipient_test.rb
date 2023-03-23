@@ -11,7 +11,7 @@ class Logics::Document::RecipientTest < ActiveSupport::TestCase
 
   context 'recipients' do
     should 'return all documents' do
-      assert 1, @recipient.all.size
+      assert_equal 1, @recipient.all.size
       assert_includes @recipient.all, @document_recipient
     end
 
@@ -19,7 +19,7 @@ class Logics::Document::RecipientTest < ActiveSupport::TestCase
       other_document = create(:document)
       other_document.recipients.add(create(:audience_member))
 
-      assert 1, @recipient.all.size
+      assert_equal 1, @recipient.all.size
       assert_includes @recipient.all, @document_recipient
     end
 
@@ -27,18 +27,19 @@ class Logics::Document::RecipientTest < ActiveSupport::TestCase
       user = create(:user)
       user_profile = Logics::Document::Recipient.find_by(cpf: user.cpf)
 
-      assert user, user_profile
+      assert_equal user, user_profile
     end
 
     should 'find audience_member by cpf' do
       am = create(:audience_member)
       am_profile = Logics::Document::Recipient.find_by(cpf: am.cpf)
 
-      assert am, am_profile
+      assert_equal am, am_profile
     end
 
     should 'return nil inf not found a recipient' do
       profile = Logics::Document::Recipient.find_by(cpf: '123.123.123-11')
+
       assert_nil profile
     end
 

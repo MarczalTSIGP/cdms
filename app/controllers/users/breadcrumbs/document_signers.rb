@@ -11,7 +11,7 @@ module Users
 
       def set_signers_breadcrumbs
         add_breadcrumb I18n.t('views.document.signers.nwdc',
-                              name: "#{@document.model_name.human}\##{@document.id}"),
+                              name: "#{@document.model_name.human}##{@document.id}"),
                        users_document_signers_path(@document)
       end
     end

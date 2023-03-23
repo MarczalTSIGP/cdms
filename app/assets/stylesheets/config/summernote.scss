@@ -1,1 +1,10 @@
 @import "summernote/summernote";
+
+@font-face {
+  font-family:"summernote";
+  font-src: font-url("summernote/summernote.eot");
+  src: font-url("summernote/summernote.eot?#iefix") format("embedded-opentype"),
+  font-url("summernote/summernote.woff2") format("woff2"),
+  font-url("summernote/summernote.woff") format("woff"),
+  font-url("summernote/summernote.ttf") format("truetype");
+}

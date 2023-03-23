@@ -19,7 +19,8 @@ class PageTest < ActiveSupport::TestCase
       should 'valid content' do
         @page.url = 'url'
         @page.content = 'content'
-        assert @page.valid?
+
+        assert_predicate @page, :valid?
       end
     end
   end

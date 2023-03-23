@@ -8,6 +8,7 @@ class DepartmentUserTest < ActiveSupport::TestCase
 
     should 'inclusion of role' do
       du = DepartmentUser.new
+
       assert_not du.valid?
       assert_includes du.errors.messages[:role], I18n.t('errors.messages.inclusion')
     end

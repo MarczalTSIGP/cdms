@@ -39,6 +39,7 @@ class IndexTest < ApplicationSystemTestCase
 
       within('table.table tbody') do
         base_selector = 'tr:nth-child(1)'
+
         assert_selector "#{base_selector} a[href='#{users_show_department_path(department)}']",
                         text: department.name
         assert_selector base_selector, text: I18n.t('enums.roles.responsible')
@@ -46,6 +47,7 @@ class IndexTest < ApplicationSystemTestCase
         find("#{base_selector} i[class='fas fa-chevron-right']").click
 
         base_selector = 'tr:nth-child(2)'
+
         assert_selector "#{base_selector} a[href='#{users_show_module_path(dep_module)}']",
                         text: dep_module.name
         assert_selector base_selector, text: I18n.t('enums.roles.collaborator')

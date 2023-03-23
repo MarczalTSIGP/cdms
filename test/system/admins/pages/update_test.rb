@@ -15,6 +15,7 @@ class UpdateTest < ApplicationSystemTestCase
       submit_form
 
       flash_message = I18n.t('flash.actions.update.m', resource_name: @page.model_name.human)
+
       assert_selector('div.alert.alert-success', text: flash_message)
       within('div.page_content') do
         assert_text(@page.content)

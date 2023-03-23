@@ -4,32 +4,35 @@ require 'support/helpers/form'
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include ::Helpers::Form
 
-  def self.args
-    args = ['--no-default-browser-check', '--start-maximized']
-    args << '--disable-dev-shm-usage'
-    args << 'headless' unless ENV['LAUNCH_BROWSER']
-    args
+  DRIVER = ENV['LAUNCH_BROWSER'] ? :chrome : :headless_chrome
+
+  def self.chrome_options
+    options = Selenium::WebDriver::Chrome::Options.new
+    options.add_argument('--no-default-browser-check')
+    options.add_argument('--start-maximized')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-gpu')
+    options
   end
 
-  driven_by :selenium, using: :chrome, screen_size: [1280, 720], options: {
-    url: "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub",
-    desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(
-      chromeOptions: { args: args }
-    )
+  driven_by :selenium, using: DRIVER, screen_size: [1280, 1024], options: {
+    browser: :remote,
+    url: "http://#{ENV.fetch('SELENIUM_HOST', nil)}:#{ENV.fetch('SELENIUM_PORT', nil)}/wd/hub",
+    options: chrome_options
   }
 
   def setup
     Capybara.disable_animation = true
     Capybara.server_host = '0.0.0.0'
     Capybara.app_host = app_host
-    host! app_host
     super
   end
 
   private
 
   def app_host
-    app = "http://#{ENV['TEST_APP_HOST']}"
+    app = "http://#{ENV.fetch('TEST_APP_HOST', nil)}"
     port = Capybara.current_session.server.port
     "#{app}:#{port}"
   end

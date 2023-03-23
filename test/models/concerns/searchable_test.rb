@@ -42,7 +42,9 @@ class SearchCaseInsensitive
 
   search_by :name
 
-  def self.where(*args); end
+  def self.where(*args)
+    puts args
+  end
 end
 
 class SearchCaseSensitive

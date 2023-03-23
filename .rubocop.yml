@@ -1,25 +1,26 @@
 require:
   - rubocop-rails
   - rubocop-minitest
+  - rubocop-capybara
 
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.2
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
   # to ignore them, so only the ones explicitly set in this file are enabled.
   # DisabledByDefault: true
   Exclude:
-    - 'node_modules/**/*'
-    - 'vendor/**/*'
-    - 'bin/*'
-    - 'db/schema.rb'
-    - 'config/puma.rb'
-    - 'config/initializers/simple_form.rb'
-    - 'config/initializers/simple_form_bootstrap.rb'
-    - 'config/initializers/devise.rb'
-    - 'config/initializers/backtrace_silencers.rb'
-    - 'config/initializers/content_security_policy.rb'
-    - 'config/environments/production.rb'
+    - "node_modules/**/*"
+    - "vendor/**/*"
+    - "bin/*"
+    - "db/schema.rb"
+    - "config/puma.rb"
+    - "config/initializers/simple_form.rb"
+    - "config/initializers/simple_form_bootstrap.rb"
+    - "config/initializers/devise.rb"
+    - "config/initializers/backtrace_silencers.rb"
+    - "config/initializers/content_security_policy.rb"
+    - "config/environments/production.rb"
 
 Style/Documentation:
   Enabled: false
@@ -33,11 +34,14 @@ Style/FrozenStringLiteralComment:
 Style/SymbolArray:
   EnforcedStyle: brackets
 
+Style/HashSyntax:
+  EnforcedShorthandSyntax: either
+
 Metrics/BlockLength:
-  ExcludedMethods: ['context']
+  AllowedMethods: ["context"]
   Exclude:
-    - 'config/environments/development.rb'
-    - 'config/routes.rb'
+    - "config/environments/development.rb"
+    - "config/routes.rb"
 
 Metrics/ClassLength:
   Max: 200
@@ -47,17 +51,25 @@ Metrics/AbcSize:
 
 Rails/ApplicationController:
   Exclude:
-    - 'app/controllers/admins/base_controller.rb'
-    - 'app/controllers/users/base_controller.rb'
-    - 'test/controllers/concerns/breadcrumbs_test.rb'
-    - 'test/controllers/concerns/department_members_test.rb'  
+    - "app/controllers/admins/base_controller.rb"
+    - "app/controllers/users/base_controller.rb"
+    - "test/controllers/concerns/breadcrumbs_test.rb"
+    - "test/controllers/concerns/department_members_test.rb"
 
 Rails/LexicallyScopedActionFilter:
   Exclude:
-    - 'app/controllers/users/registrations_controller.rb'
-    - 'app/controllers/users/breadcrumbs/*.rb'
-    - 'app/controllers/admins/breadcrumbs/*.rb'
+    - "app/controllers/users/registrations_controller.rb"
+    - "app/controllers/users/breadcrumbs/*.rb"
+    - "app/controllers/admins/breadcrumbs/*.rb"
+
+Rails/ActionControllerTestCase:
+  Exclude:
+    - "test/controllers/concerns/breadcrumbs_test.rb"
+    - "test/controllers/concerns/department_members_test.rb"
 
 Minitest/MultipleAssertions:
-  Max: 4
+  Max: 5
 
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+    - "test/controllers/concerns/breadcrumbs_test.rb"
