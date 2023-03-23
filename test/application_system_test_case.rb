@@ -17,9 +17,9 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   driven_by :selenium, using: DRIVER, screen_size: [1280, 1024], options: {
-    browser: :remote,    
-    url: "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub",
-    options: chrome_options 
+    browser: :remote,
+    url: "http://#{ENV.fetch('SELENIUM_HOST', nil)}:#{ENV.fetch('SELENIUM_PORT', nil)}/wd/hub",
+    options: chrome_options
   }
 
   def setup
@@ -32,7 +32,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   private
 
   def app_host
-    app = "http://#{ENV['TEST_APP_HOST']}"
+    app = "http://#{ENV.fetch('TEST_APP_HOST', nil)}"
     port = Capybara.current_session.server.port
     "#{app}:#{port}"
   end

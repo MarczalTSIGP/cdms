@@ -13,8 +13,10 @@ class AdministratorTest < ActiveSupport::TestCase
     administrator = Administrator.new(user: user.name,
                                       user_id: user.id,
                                       role_id: role.id)
+
     assert administrator.save
     user.reload
+
     assert user.is?(:admin)
     assert user.is?(:manager)
   end

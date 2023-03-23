@@ -19,13 +19,14 @@ class Admins::AdministratorTest < ApplicationSystemTestCase
         fill_in 'administrator_user', with: @user.name
         find("#administrator_user-dropdown .dropdown-item[data-value='#{@user.id}']").click
 
-        find('#administrator_role_id-selectized').click
+        find_by_id('administrator_role_id-selectized').click
         find(".selectize-dropdown-content .option[data-value='#{@manager.id}']").click
 
         submit_form("button[type='submit']")
 
         @user.reload
         base_selector = 'table tbody tr:nth-child(2)'
+
         assert_selector "#{base_selector} a[href='#{admins_user_path(@user)}']", text: @user.name
         assert_selector base_selector, text: @user.email
         assert_selector base_selector, text: @user.username

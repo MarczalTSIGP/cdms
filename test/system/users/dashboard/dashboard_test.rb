@@ -68,6 +68,7 @@ class DashboardTest < ApplicationSystemTestCase
       visit users_root_path
 
       find('i.fa-file-signature').click
+
       assert_selector '#sign_document_modal', text: @user.name
       assert_selector '#sign_document_modal', text: @user.cpf
 

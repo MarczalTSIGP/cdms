@@ -6,18 +6,18 @@ class Admins::AudienceMembersController < Admins::BaseController
     @audience_members = AudienceMember.search(params[:term]).page(params[:page])
   end
 
+  def show; end
+
   def new
     @audience_member = AudienceMember.new
   end
 
-  def show; end
+  def edit; end
 
   def create
     @audience_member = AudienceMember.new(audience_member_params)
     save_audience_member
   end
-
-  def edit; end
 
   def update
     @audience_member.assign_attributes(audience_member_params)

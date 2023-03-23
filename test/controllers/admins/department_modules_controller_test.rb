@@ -10,11 +10,12 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
     end
 
     # teardown do
-      # assert_active_link(href: admins_departments_path)
+    # assert_active_link(href: admins_departments_path)
     # end
 
     should 'get new' do
       get new_admins_department_module_path(@department)
+
       assert_response :success
 
       assert_breadcrumbs({ link: admins_root_path,        text: I18n.t('views.breadcrumbs.home') },
@@ -26,6 +27,7 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
 
     should 'get edit' do
       get edit_admins_department_module_path(@department, @module)
+
       assert_response :success
 
       assert_breadcrumbs({ link: admins_root_path,        text: I18n.t('views.breadcrumbs.home') },
@@ -70,21 +72,25 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
     context '#update' do
       should 'successfully' do
         patch admins_department_module_path(@department, @module), params: { department_module: { name: 'updated' } }
+
         assert_redirected_to admins_department_path(@department)
         assert_equal I18n.t('flash.actions.update.m', resource_name: DepartmentModule.model_name.human),
                      flash[:success]
         @module.reload
+
         assert_equal 'updated', @module.name
         follow_redirect!
       end
 
       should 'unsuccessfully' do
         patch admins_department_module_path(@department, @module), params: { department_module: { name: '' } }
+
         assert_response :success
         assert_equal I18n.t('flash.actions.errors'), flash[:error]
 
         name = @module.name
         @module.reload
+
         assert_equal name, @module.name
 
         assert_breadcrumbs({ link: admins_root_path, text: I18n.t('views.breadcrumbs.home') },
@@ -110,6 +116,7 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
     context 'members' do
       should 'get members' do
         get admins_department_module_members_path(@department, @module)
+
         assert_response :success
         # assert_active_link(href: admins_departments_path)
       end
@@ -127,6 +134,7 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
         assert_redirected_to admins_department_module_members_path(@department, @module)
         follow_redirect!
         @module.reload
+
         assert_equal 1, @module.users.count
       end
 
@@ -141,6 +149,7 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
 
         assert_response :success
         @module.reload
+
         assert_equal 0, @module.users.count
       end
 
@@ -154,6 +163,7 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
         end
 
         @module.reload
+
         assert_equal 1, @module.users.count
       end
 
@@ -167,6 +177,7 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
         end
 
         @module.reload
+
         assert_equal 1, @module.users.count
       end
 
@@ -181,6 +192,7 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
         end
 
         @module.reload
+
         assert_equal 1, @module.users.count
       end
 
@@ -206,6 +218,7 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
 
     should 'redirect to login when logged as non administrator user' do
       sign_in create(:user)
+
       assert_redirect_to(users_root_path)
     end
   end
@@ -216,6 +229,7 @@ class Admins::DepartmentModulesControllerTest < ActionDispatch::IntegrationTest
     requests.each do |method, routes|
       routes.each do |route|
         send(method, route)
+
         assert_redirected_to redirect_to
       end
     end

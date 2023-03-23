@@ -20,6 +20,7 @@ class ReopenToEditTest < ApplicationSystemTestCase
         fill_in 'document_justification', with: 'Justificativa abc'
 
         click_link_or_button I18n.t('simple_form.buttons.save')
+
         assert_selector('div.alert.alert-success', text: I18n.t('flash.actions.reopen_document.success'))
       end
 

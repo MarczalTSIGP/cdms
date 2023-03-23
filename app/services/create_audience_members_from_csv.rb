@@ -69,9 +69,13 @@ class CreateAudienceMembersFromCsv
   end
 
   def result
-    OpenStruct.new(registered: @registered,
-                   already_registered: @already_registered,
-                   invalids: @invalids, duplicates: @duplicates,
-                   valid_file?: valid_file?)
+    struct_result.new(registered: @registered,
+                      already_registered: @already_registered,
+                      invalids: @invalids, duplicates: @duplicates,
+                      valid_file?: valid_file?)
+  end
+
+  def struct_result
+    @struct_result ||= Struct.new(:registered, :already_registered, :invalids, :duplicates, :valid_file?)
   end
 end

@@ -18,6 +18,7 @@ class CreateAudienceMembersFromCsvTest < ActiveSupport::TestCase
   should 'valid file extension' do
     file = Tempfile.new(['ads', '.pdf'])
     result = CreateAudienceMembersFromCsv.new(file: file).perform
+
     assert_not result.valid_file?, 'Invalid file'
   end
 

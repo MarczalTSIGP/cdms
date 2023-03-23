@@ -31,6 +31,7 @@ class UpdateTest < ApplicationSystemTestCase
       submit_form
 
       flash_message = I18n.t('flash.actions.update.m', resource_name: Department.model_name.human)
+
       assert_selector('div.alert.alert-success', text: flash_message)
 
       within('table.table tbody') do

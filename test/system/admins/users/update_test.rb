@@ -30,6 +30,7 @@ class UpdateTest < ApplicationSystemTestCase
         submit_form
 
         flash_message = I18n.t('flash.actions.update.m', resource_name: User.model_name.human)
+
         assert_selector('div.alert.alert-success', text: flash_message)
 
         within('table.table tbody') do
@@ -42,6 +43,7 @@ class UpdateTest < ApplicationSystemTestCase
         end
 
         visit admins_user_path(@user)
+
         assert_selector "img[src='#{@user.avatar.url}']"
       end
 
@@ -51,6 +53,7 @@ class UpdateTest < ApplicationSystemTestCase
 
         @user.reload
         visit admins_user_path(@user)
+
         assert_selector "img[src='#{@user.avatar.url}']"
       end
     end

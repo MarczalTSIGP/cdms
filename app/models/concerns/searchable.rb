@@ -3,7 +3,7 @@ module Searchable
 
   included do
     def self.search(term)
-      where(@condition, {term: "%#{term}%"})
+      where(@condition, { term: "%#{term}%" })
     end
   end
 

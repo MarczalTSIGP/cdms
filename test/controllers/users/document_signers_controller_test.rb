@@ -45,6 +45,7 @@ class Users::DocumentSignersControllerTest < ActionDispatch::IntegrationTest
 
       should 'get signers' do
         get users_document_signers_path(@document)
+
         assert_response :success
         assert_active_link(href: users_documents_path)
       end
@@ -60,8 +61,10 @@ class Users::DocumentSignersControllerTest < ActionDispatch::IntegrationTest
           assert_redirected_to users_document_signers_path(@document)
           assert_equal I18n.t('flash.actions.add.m', resource_name: User.model_name.human), flash[:success]
           @document.reload
+
           assert_equal 1, @document.signers.count
           follow_redirect!
+
           assert_active_link(href: users_documents_path)
         end
 
@@ -71,6 +74,7 @@ class Users::DocumentSignersControllerTest < ActionDispatch::IntegrationTest
 
           assert_response :success
           @document.reload
+
           assert_equal 0, @document.signers.count
         end
 
@@ -81,6 +85,7 @@ class Users::DocumentSignersControllerTest < ActionDispatch::IntegrationTest
 
           assert_response :success
           @document.reload
+
           assert_equal 1, @document.signers.count
         end
       end

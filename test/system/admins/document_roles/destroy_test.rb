@@ -19,6 +19,7 @@ class DestroyTest < ApplicationSystemTestCase
 
       assert_current_path admins_document_roles_path
       flash_message = I18n.t('activerecord.models.document_role.one')
+
       assert_selector('div.alert.alert-success',
                       text: I18n.t('flash.actions.destroy.f', resource_name: flash_message))
 

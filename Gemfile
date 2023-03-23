@@ -21,13 +21,13 @@ gem 'cpf_cnpj'
 gem 'devise'
 gem 'font-awesome-sass', '~> 5.13.0'
 gem 'kaminari'
+gem 'psych', '< 4'
 gem 'rails-i18n', '~> 6.0.0'
+gem 'root_domain'
 gem 'simple_form'
 gem 'sprockets-rails', git: 'https://github.com/rails/sprockets-rails.git'
 gem 'validators'
 gem 'whenever', require: false
-gem 'root_domain'
-gem 'psych', '< 4'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -49,6 +49,7 @@ group :development do
   gem 'brakeman', '~> 5.2.3'
   gem 'bullet', '~> 7.0.2'
   gem 'rubocop', require: false
+  gem 'rubocop-capybara', require: false
   gem 'rubocop-minitest', require: false
   gem 'rubocop-rails', require: false
   gem 'rubycritic', require: false

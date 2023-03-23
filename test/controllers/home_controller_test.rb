@@ -8,16 +8,19 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
 
     should 'get home' do
       get root_path
+
       assert_response :success
     end
 
     should 'get about' do
       get about_path
+
       assert_response :success
     end
 
     should 'get login' do
       get login_path
+
       assert_response :success
     end
   end
