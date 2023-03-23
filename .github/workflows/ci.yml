@@ -5,20 +5,21 @@ on:
   push:
     branches:
       - master
+      - update-to-ruby-3.2
 jobs:
   tests:
     runs-on: ubuntu-latest
     env:
       FILES_PATH_TO_TEST: /var/www/cdms/test/samples
     container:
-      image: ruby:2.7.1
+      image: ruby:3.2
       options: --network-alias testHost
       volumes:
         - /var/www/cdms/test/samples:/var/www/cdms/test/samples
     services:
       db:
         image: postgres
-        ports: ['5432:5432']
+        ports: ["5432:5432"]
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -30,7 +31,7 @@ jobs:
           --health-retries 5
       selenium:
         image: selenium/standalone-chrome-debug:latest
-        ports: ['4444:4444']
+        ports: ["4444:4444"]
         volumes:
           - /var/www/cdms/test/samples:/var/www/cdms/test/samples
     steps:
@@ -61,11 +62,11 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: 12.16.3
+          node-version: 18.15.0
       - name: Cache node modules
         uses: actions/cache@v2
         with:
-          path: '**/node_modules'
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install yarn and dependencies
         run: |
@@ -104,10 +105,10 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Setup Ruby 2.7
+      - name: Setup Ruby 3.2
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.7'
+          ruby-version: "3.2"
 
       - name: Copy application env file
         run: cp config/application.ci.yml config/application.yml
@@ -128,11 +129,11 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: 12.16.3
+          node-version: 18.15.0
       - name: Cache node modules
         uses: actions/cache@v2
         with:
-          path: '**/node_modules'
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install yarn and dependencies
         run: |
