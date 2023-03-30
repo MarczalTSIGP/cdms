@@ -108,14 +108,11 @@ pt-BR:
         remember_me: Lembre-me
         reset_password_token: Token para recuperação de senha
         active:
-          one: Ativo
-          other: Ativos
+          one: Usuário Ativo para Login
+          other: Usuários Ativos para Login
         active_boolean:
           false: Não
           true: Sim
-         active_user:
-          one: Usuario Ativo para Login
-          other: Usuarios Ativos para Login
         inactive:
           one: Inativo
           other: Inativos
