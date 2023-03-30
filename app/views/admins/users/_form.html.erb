@@ -17,10 +17,17 @@
     <%= f.input :cpf, input_html: { 'data-mask': '000.000.000-00' }, wrapper_html: { class: 'col-sm-6' } %>
   </div>
 
-  <div class="row">
+  <!--<div class="row">
     <%= f.input :avatar, as: :choose_file, wrapper_html:  { class: 'col-sm-9' }, input_html: { accept: 'image/*' } %>
     <%= f.input :active, as: :switch_single, wrapper_html: { class: 'col-sm-3' } %>
+  </div>-->
+
+    <div class="row">
+    <%#= f.input :avatar, as: :choose_file, wrapper_html:  { class: 'col-sm-9' }, input_html: { accept: 'image/*' } %>
+    <%= f.input :active_user, as: :check_single, wrapper_html: { class: 'col-sm-3' } %>
+    <%#= f.input :active, as: :switch_single, wrapper_html: { class: 'col-sm-3' } %>
   </div>
+
 
   <div class="row">
     <%= f.input :password, wrapper_html:  { class: 'col-sm-6' },
