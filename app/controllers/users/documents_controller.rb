@@ -14,6 +14,8 @@ class Users::DocumentsController < Users::BaseController
   def preview
     add_breadcrumb I18n.t('views.document.name.singular'), :users_preview_document_path
   end
+  # render layout: 'users/document_preview'  
+  # CHAMANDO LAYOUT FUNDO PRETO PARA IMPRESÃO DO DOCUMENTO
 
   def new
     @document = Document.new
