@@ -12,8 +12,10 @@ class Users::DocumentsController < Users::BaseController
   def show; end
 
   def preview
-    render layout: 'users/document_preview'
+    add_breadcrumb 'Documento', :users_preview_document_path
   end
+  # render layout: 'users/document_preview'  
+  # CHAMANDO LAYOUT FUNDO PRETO PARA IMPRESÃO DO DOCUMENTO
 
   def new
     @document = Document.new
