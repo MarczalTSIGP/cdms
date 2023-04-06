@@ -5,8 +5,6 @@ class Populators::DocumentRolesPopulate < Populators::BasePopulate
 
   def self.populate(amount)
     instance.delete
-    DocumentRole.find_or_create_by!(name: 'Professor(a)', description: 'Professor ou Professora')
-    DocumentRole.find_or_create_by!(name: 'Orientador(a)', description: 'Orientador ou Orientadora')
     amount.times { instance.create }
     instance.log(DocumentRole.count)
   end
