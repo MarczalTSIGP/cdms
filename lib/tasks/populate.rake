@@ -17,6 +17,5 @@ namespace :db do
     DepartmentModuleUserPopulate.populate
 
     Rake::Task['db:seed'].invoke
-
   end
 end
