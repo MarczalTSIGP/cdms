@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_02_015720) do
+ActiveRecord::Schema.define(version: 2023_04_06_220321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,8 +130,6 @@ ActiveRecord::Schema.define(version: 2022_11_02_015720) do
     t.enum "category", enum_type: "document_categories"
     t.string "title", null: false
     t.text "front_text"
-    # t.text "back_text"
-    # back text retirar do banco
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.json "variables", default: []

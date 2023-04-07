@@ -9,7 +9,8 @@
     <div class="col-10">
       <% if show_title %>
         <h4 class="text-center"> <%= I18n.t("enums.categories.#{ @document.category }") %>
-          <%= "#{@document.id}/#{@document.created_at.year} - #{@document.department.name}" %></h4>
+          <%= "#{@document.id}/#{@document.created_at.year} - #{@document.department.name}" %>
+        </h4>
       <% end %>
       <%== text %>
     </div>
@@ -18,3 +19,38 @@
 
 
 <%# modificar aqui o documento %>
+
+
+<!--
+<div class="print-area">
+    <div class="row cabecalho">
+        <div class="col-4">
+            <%= image_tag 'documents/brasaopb.gif', class: 'w-100', alt: 'UTFPR' %>
+        </div>
+        <div class="col-4 center">
+                <strong>
+                    Ministério da Educação<br>
+                    Universidade Tecnológica Federal do Paraná<br>
+                    Campus Guarapuava<br><br>Departamento de Registros Acadêmicos - DERAC
+                </strong>
+        </div>
+        <div class="col-4">
+            <%= image_tag 'documents/logo_UTFPR_cor.jpg', class: 'w-100', alt: 'UTFPR' %>        
+        </div>
+    </div>
+    <div class="row corpo">
+        <div class="col-4 side-bar"></div>
+        <div class="col-10">
+          <% if show_title %>
+            <h4 class="text-center"> <%= I18n.t("enums.categories.#{ @document.category }") %>
+              <%= "#{@document.id}/#{@document.created_at.year} - #{@document.department.name}" %>
+            </h4>
+          <% end %>
+          <%== text %>
+        </div>
+    </div>
+</div>-->
+
+<div class="" align="center">
+  <input type="button" role="button" id="p_imprimir" class="" onclick="window.print()" value="Imprimir" aria-disabled="false">
+</div>
