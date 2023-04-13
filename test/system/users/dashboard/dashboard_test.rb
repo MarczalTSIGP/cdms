@@ -69,8 +69,8 @@ class DashboardTest < ApplicationSystemTestCase
 
       find('i.fa-file-signature').click
 
-      assert_selector '#sign_document_modal', text: @user.name
-      assert_selector '#sign_document_modal', text: @user.cpf
+      assert_selector "#sign_document_modal-#{document.id}", text: @user.name
+      assert_selector "#sign_document_modal-#{document.id}", text: @user.cpf
 
       within("div#form-to-sign-documet-#{document.id}") do
         assert_field 'user_password'
