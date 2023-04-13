@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :user do
-    name { Faker::Name.unique.name }
+    name { "#{Faker::Name.first_name} #{Faker::Name.middle_name} #{Faker::Name.last_name}" }
     register_number { Faker::Number.number(digits: 7) }
-    username { Faker::Internet.username(specifier: 5..8) }
+    username { Faker::Internet.unique.username }
     cpf { CPF.generate(true) }
     active { true }
     role { nil }
