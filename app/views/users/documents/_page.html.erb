@@ -1,27 +1,6 @@
 <%= stylesheet_link_tag 'users/document_preview', media: 'all', 'data-turbolinks-track': 'reload' %>
 <%= javascript_pack_tag 'users/document_preview', 'data-turbolinks-track': 'reload' %>
 
-<!--<div class="print-area">
-  <div class="col-12">
-    <%= image_tag 'documents/top-document.png', class: 'w-100', alt: 'UTFPR' %>
-  </div>
-  <div class="row pl-4">
-    <div class="col-sm-2">
-      <%= image_tag 'documents/left-document.png', class: 'w-100 h-100', alt: 'UTFPR' %>
-    </div>
-    <div class="col-10">
-      <% if show_title %>
-        <h4 class="text-center"> <%= I18n.t("enums.categories.#{ @document.category }") %>
-          <%= "#{@document.id}/#{@document.created_at.year} - #{@document.department.name}" %>
-        </h4>
-      <% end %>
-      <%== text %>
-    </div>
-  </div>
-</div>-->
-
-<%# modificar aqui o documento %>
-
 <div class="print-area">
   <div class="row head-document">
     <div class="col-2 icon-div">
@@ -35,7 +14,7 @@
       </strong>
     </div>
     <div class="col-2 icon-div">
-      <%= image_tag 'documents/logo_UTFPR_cor.jpg', class: 'icon-right', alt: 'UTFPR' %>        
+      <%= image_tag 'documents/logo-utfpr.png', class: 'icon-right', alt: 'UTFPR' %>        
     </div>
   </div>
   <div class="row body-document">
