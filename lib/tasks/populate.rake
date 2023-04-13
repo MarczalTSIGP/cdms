@@ -7,13 +7,15 @@ namespace :db do
     Rails.logger = Logger.new($stdout)
 
     puts 'Running seeds'
-    Rake::Task['db:seed'].invoke
 
+    DocumentRolesPopulate.populate(8)
     UserPopulate.populate(30)
     AudienceMemberPopulate.populate
     DepartmentPopulate.populate
     DepartmentModulePopulate.populate
     DepartmentUserPopulate.populate
     DepartmentModuleUserPopulate.populate
+
+    Rake::Task['db:seed'].invoke
   end
 end

@@ -11,6 +11,7 @@ class SidebarTest < ApplicationSystemTestCase
       visit users_root_path
 
       assert_selector '.list-group-item', text: I18n.t('views.app.sidebar.home_page')
+      assert_selector "a[data-turbolinks='false']", text: I18n.t('views.app.sidebar.home_page')
       assert_selector '.list-group-item', text: I18n.t('views.app.sidebar.team')
       assert_selector '.list-group-item', text: I18n.t('views.app.sidebar.documents')
     end
