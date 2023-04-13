@@ -107,3 +107,11 @@ table.table-small {
 ol.breadcrumb li {
   @extend .breadcrumb-item;
 }
+
+.check_single {
+  display: flex;
+  label:first-child {
+    align-self: flex-end;
+    flex-grow: 1;
+  }
+}
