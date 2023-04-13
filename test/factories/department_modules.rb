@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :department_module do
     department
-    sequence(:name) { |n| "Modulo#{n}" }
-    description { 'Descrição padrão de um modulo' }
+    name { Faker::Company.unique.name }
+    description { Faker::Lorem.sentence(word_count: 100) }
   end
 end

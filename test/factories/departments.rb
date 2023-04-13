@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :department do
-    name { 'Departamento Teste' }
-    description { 'Descrição padrão' }
-    sequence(:initials) { |n| "DP#{n}TESTE" }
-    local { 'Sala b14' }
-    phone { '(42) 99830-0990' }
-    sequence(:email) { |n| "departamento#{n}@utfpr.edu.br" }
+    name { Faker::Company.name }
+    description { Faker::Lorem.sentence(word_count: 100) }
+    initials { Faker::Name.initials(number: 5) }
+    local { Faker::Address.city }
+    phone { Faker::PhoneNumber.phone_number }
+    email { Faker::Internet.unique.email }
   end
 end

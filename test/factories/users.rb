@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :user do
-    sequence(:name) { |n| "Name #{n}" }
-    sequence(:register_number) { |n| "123123#{n}" }
-    sequence(:username) { |n| "usarname#{n}" }
+    name { Faker::Name.unique.name }
+    register_number { Faker::Number.number(digits: 7) }
+    username { Faker::Internet.username(specifier: 5..8) }
     cpf { CPF.generate(true) }
     active { true }
     role { nil }

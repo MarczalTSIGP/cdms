@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :audience_member do
-    sequence(:name) { |n| "Member #{n}" }
-    sequence(:email) { |n| "member#{n}@utfpr.edu.br" }
+    name { Faker::Name.unique.name }
+    email {  Faker::Internet.unique.email }
     cpf { CPF.generate(true) }
   end
 end
