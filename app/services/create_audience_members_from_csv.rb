@@ -1,3 +1,5 @@
+require 'csv'
+
 class CreateAudienceMembersFromCsv
   def initialize(params = {})
     @file = params[:file]
