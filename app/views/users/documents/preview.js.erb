@@ -1,0 +1,9 @@
+var popup = window.open('','','popup');
+
+popup.document.write("<%= j stylesheet_link_tag 'admins/application', media: 'all' %>");
+popup.document.write("<%= j render('page', text: sanitize(@document.front_text, attributes: %w(style class href target src)), show_title: true) %>");
+
+popup.document.close();
+popup.focus();
+popup.print();
+popup.close();

@@ -1,2 +1,7 @@
 <% provide(:head_title, t('views.document.links.preview', category: I18n.t("enums.categories.#{@document.category}"), name: @document.title)) %>
+
 <%= render 'page', text: sanitize(@document.front_text, attributes: %w(style class href target src)), show_title: true %>
+
+<div align="center">
+  <%= link_to 'Imprimir', users_preview_document_path(@document), class: 'btn btn-primary', remote: true %>
+</div>

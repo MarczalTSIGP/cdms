@@ -1,8 +1,16 @@
-/*************************************************************
+/*********************
 * Gems
-**************************************************************/
+**********************/
 @import "font-awesome-sprockets";
 @import "font-awesome";
+
+/* 
+* To enable background printing For Chrome, Safari and Firefox:
+*/
+body{
+  -webkit-print-color-adjust:exact !important;
+  print-color-adjust:exact !important;
+}
 
 @media print {
   
@@ -66,5 +74,5 @@
 }
 
 .side-bar{
-  background-color: rgb(247, 182, 6);
+  background-color: red !important;
 }

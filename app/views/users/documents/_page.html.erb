@@ -1,7 +1,4 @@
-<%= stylesheet_link_tag 'users/document_preview', media: 'all', 'data-turbolinks-track': 'reload' %>
-<%= javascript_pack_tag 'users/document_preview', 'data-turbolinks-track': 'reload' %>
-
-<div class="print-area">
+<div>
   <div class="row head-document">
     <div class="col-2 icon-div">
       <%= image_tag 'documents/brasaopb.gif', class: 'icon-left', alt: 'UTFPR' %>
@@ -28,8 +25,4 @@
       <%== text %>
     </div>
   </div>
-</div>
-
-<div align="center">
-  <input type="button" id="print-button" onClick="print()" value="Imprimir">
 </div>
