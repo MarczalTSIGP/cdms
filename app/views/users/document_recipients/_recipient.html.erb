@@ -3,11 +3,11 @@
     <td><%= recipient.profile.cpf %></td>
     <td><%= recipient.profile.email %></td>
     <td><%= recipient.profile.model_name.human %></td>
+    
+    <% Document.find(params[:id]).variables.each do |cv| %>
+        <td><%= recipient.variables[cv] %> </td>
+    <% end %>
     <td>
-
-        <%= link_to "/" do %>
-            <%= icon('fas', 'file-contract', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.public.document_recipients.show_document_variables')) %>
-        <% end  %>
 
         <%= link_to users_document_remove_recipient_path(@document, recipient.profile.cpf), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
             <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>

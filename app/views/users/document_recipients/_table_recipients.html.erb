@@ -8,6 +8,9 @@
             <th><%= User.human_attribute_name(:cpf) %></th>
             <th><%= User.human_attribute_name(:email) %></th>
             <th><%= DocumentRecipient.human_attribute_name(:profile_type) %></th>
+             <% Document.find(params[:id]).variables.each do |cv| %>
+                <th><%= cv['name'] %> ( <%= cv['identifier'] %> )  </th>
+            <% end %>
             <th></th>
           </tr>
         </thead>
