@@ -53,18 +53,18 @@ Rails.application.routes.draw do
       get 'documents/:id/recipients', to: 'document_recipients#index',
                                       as: :document_recipients
 
-      get 'documents/:id/recipients/from-csv/download-csv', to: 'document_recipients#download_csv', 
-                                               as: :document_recipients_download_csv
+      get 'documents/:id/recipients/from-csv/download-csv', to: 'document_recipients#download_csv',
+                                                            as: :document_recipients_download_csv
 
-      get 'documents/:id/recipients/from-csv', to: 'document_recipients#from_csv', 
+      get 'documents/:id/recipients/from-csv', to: 'document_recipients#from_csv',
                                                as: :new_document_recipients_from_csv
-                                               
-      post 'documents/:id/recipients/from-csv', to: 'document_recipients#create_from_csv', 
-                                               as: :create_document_recipients_from_csv                                
-                                               
-      # get 'documents/:id/recipients/:id:variables', to: 'document_recipients#from_csv', 
+
+      post 'documents/:id/recipients/from-csv', to: 'document_recipients#create_from_csv',
+                                                as: :create_document_recipients_from_csv
+
+      # get 'documents/:id/recipients/:id:variables', to: 'document_recipients#from_csv',
       #                                         as: :show_document_recipients_
-                                               
+
       get 'documents/:id/recipients/new', to: 'document_recipients#new',
                                           as: :new_recipient_document
 

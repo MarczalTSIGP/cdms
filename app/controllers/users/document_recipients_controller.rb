@@ -48,11 +48,9 @@ class Users::DocumentRecipientsController < Users::BaseController
     redirect_to users_document_recipients_path
   end
 
-def from_csv
-  end
+  def from_csv; end
 
   def create_from_csv
-    
     if params[:csv]
       process_csv
     else
@@ -64,9 +62,9 @@ def from_csv
 
   def download_csv
     document = Document.find(params[:id])
-    document_variables = document.variables;
+    document_variables = document.variables
 
-    header = ['name', 'email', 'cpf'] # default values for the CSV
+    header = %w[name email cpf] # default values for the CSV
 
     document_variables.each do |variable|
       header << variable['name']
@@ -76,19 +74,19 @@ def from_csv
       csv << header # cabeçalhos das colunas
     end
 
-    send_data csv_data, filename: "#{document.title} - Modelo de Importação de Destinatários.csv"     # enviar o arquivo CSV como uma resposta para download
+    # enviar o arquivo CSV como uma resposta para download
+    send_data csv_data, filename: "#{document.title} - Modelo de Importação de Destinatários.csv"
   end
-
 
   private
 
   def process_csv
+    # creates all the audience members, return [:registered, already_registered, invalids, duplicates, valid_file]
+    @result = DocumentRecipient.from_csv(params[:csv][:file].tempfile, params[:id])
 
-    # @result = AudienceMember.from_csv(params[:csv][:file].tempfile) # creates all the audience members, return [:registered, already_registered, invalids, duplicates, valid_file]
-    @result = DocumentRecipient.from_csv(params[:csv][:file].tempfile, params[:id]) # creates all the audience members, return [:registered, already_registered, invalids, duplicates, valid_file]
-    
     if @result.valid_file?
-      flash.now[:success] = t('flash.actions.import.m', resource_name: t('activerecord.models.document_recipients.other'))
+      flash.now[:success] =
+        t('flash.actions.import.m', resource_name: t('activerecord.models.document_recipients.other'))
     else
       flash.now[:error] = t('flash.actions.import.errors.invalid')
     end
@@ -105,5 +103,4 @@ def from_csv
     flash[:warning] = t('flash.actions.add_recipients.non')
     redirect_to users_documents_path
   end
-  
 end
