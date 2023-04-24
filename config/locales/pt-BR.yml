@@ -32,6 +32,9 @@ pt-BR:
       document:
         one: Certificado/Declaração
         other: Certificados/Declarações
+      document_recipients:      
+        one: Destinatário do Documento
+        other: Destinatários do Documento
       document_role:
         one: Função
         other: Funções

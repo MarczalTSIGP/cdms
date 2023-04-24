@@ -56,6 +56,9 @@ pt-BR:
           sign_in: Acessar como usuário
         audience_member:
           sign_in: Acessar como membro de audiência
+        document_recipients:
+          show: Visualizar Destinatários
+          show_document_variables: Visualizar Variávies
     search:
       placeholder: Procurar...
     session:
@@ -130,6 +133,12 @@ pt-BR:
         plural: "Destinatários"
         nwdp: "Destinatários do %{name}"
         document_has_signature: Este documento possui pelo menos uma assinatura. Não é possível adicionar ou remover destinatários!
+        import:
+          document_recipients_registered: Destinatários registrados
+          invalids: Destinatários não registrados
+          btn_csv: Importar CSV
+          btn_download_sample_file: Baixar arquivo de exemplo
+          extension_invalid: 'Extensão inválida'
       signers:
         name: Assinantes
         nwdc: "Assinantes do %{name}"
@@ -175,7 +184,7 @@ pt-BR:
       import:
         registered: Membros de audiência registrados
         already_registered: Membros de audiência já registrados
-        duplicates: Membros de audiência duplicados no cvs
+        duplicates: Membros de audiência duplicados no csv
         invalids: Membros de audiência inválidos
         btn_csv: Importar CSV
         btn_download_sample_file: Baixar arquivo de exemplo
