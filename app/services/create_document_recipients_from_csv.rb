@@ -1,18 +1,11 @@
 require 'csv'
 
-class CreateDocumentRecipientsFromCsv
+class CreateDocumentRecipientsFromCsv < CreateAudienceMembersFromCsv
   def initialize(params = {})
-    @file = params[:file]
-
-    @valids = []
-    @invalids = []
-    @duplicates = []
-    # @registered = []
-    # @already_registered = []
     @document_id = params[:document_id]
-
     @attributes = [] # THIS ARRAY CONTAINS ALL VALID MEMBERS (ONLY ATTRIBUTES)
     @document_recipients_registered = []
+    super
   end
 
   def perform
@@ -35,16 +28,11 @@ class CreateDocumentRecipientsFromCsv
       next if add_to_save(member, attributes)
 
       if registered?(member)
-        # @already_registered << member
-        @attributes << attributes
+        [@already_registered << member, @attributes << attributes]
       else
         @invalids << member
       end
     end
-  end
-
-  def valid_file?
-    !@file.nil? && File.extname(@file) == '.csv'
   end
 
   def add_to_save(member, attributes)
@@ -53,29 +41,9 @@ class CreateDocumentRecipientsFromCsv
     if included?(member)
       @duplicates << member
     else
-      # @registered << member
-      @valids << attributes
-      @attributes << attributes
+      [@registered << member, @valids << attributes, @attributes << attributes]
     end
     true
-  end
-
-  def included?(member)
-    @valids.detect do |register|
-      register['cpf'].eql?(member.cpf) or register['email'].eql?(member.email)
-    end
-  end
-
-  def registered?(member)
-    details = member.errors.details
-    cpf_taken = details[:cpf].pluck(:error).include?(:taken)
-    email_taken = details[:email].pluck(:error).include?(:taken)
-
-    cpf_taken or email_taken
-  end
-
-  def save_members
-    AudienceMember.create!(@valids)
   end
 
   def assign_audiance_members_to_document(document_id)
