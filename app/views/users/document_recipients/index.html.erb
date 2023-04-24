@@ -2,11 +2,24 @@
 <% provide(:page_title, t('views.document.recipients.nwdp', name: @document.title)) %>
 
 <% unless @document_has_signature %>
-  <div class="col-sm-12 col-lg-4 col-xl-3">
+
+<div class="row">
+  
+  <div class="col-sm-12 col-lg-3 mb-3">
     <%= link_to users_new_recipient_document_path, class: "btn btn-outline-primary btn-block" do %>
       <%= icon('fas', 'plus', class: 'mr-2') %> <%= I18n.t('views.document.recipients.new')%>
     <% end %>
   </div>
+
+   
+  <div class="col-sm-12 col-lg-3 mb-3">
+    <%= link_to users_new_document_recipients_from_csv_path, class: "btn btn-outline-primary btn-block" do %>
+      <%= icon('fas', 'plus', class: 'mr-2') %><%= t('views.audience_member.import.btn_csv') %>
+    <% end %>
+  </div>
+  
+</div>
+
 <% end %>
 
 <%= render layout: 'table_recipients' do %>

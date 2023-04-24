@@ -1,3 +1,5 @@
+require 'csv'
+require 'json'
 class Users::DocumentRecipientsController < Users::BaseController
   before_action :set_document
   before_action :document_signed?, except: [:index]
@@ -46,7 +48,51 @@ class Users::DocumentRecipientsController < Users::BaseController
     redirect_to users_document_recipients_path
   end
 
+def from_csv
+  end
+
+  def create_from_csv
+    
+    if params[:csv]
+      process_csv
+    else
+      flash.now[:error] = t('flash.actions.import.errors.blank')
+    end
+
+    render :from_csv
+  end
+
+  def download_csv
+    document = Document.find(params[:id])
+    document_variables = document.variables;
+
+    header = ['name', 'email', 'cpf'] # default values for the CSV
+
+    document_variables.each do |variable|
+      header << variable['name']
+    end
+
+    csv_data = CSV.generate(headers: true) do |csv|
+      csv << header # cabeçalhos das colunas
+    end
+
+    send_data csv_data, filename: "#{document.title} - Modelo de Importação de Destinatários.csv"     # enviar o arquivo CSV como uma resposta para download
+  end
+
+
   private
+
+  def process_csv
+
+    # @result = AudienceMember.from_csv(params[:csv][:file].tempfile) # creates all the audience members, return [:registered, already_registered, invalids, duplicates, valid_file]
+    @result = DocumentRecipient.from_csv(params[:csv][:file].tempfile, params[:id]) # creates all the audience members, return [:registered, already_registered, invalids, duplicates, valid_file]
+    
+    if @result.valid_file?
+      flash.now[:success] = t('flash.actions.import.m', resource_name: t('activerecord.models.document_recipients.other'))
+    else
+      flash.now[:error] = t('flash.actions.import.errors.invalid')
+    end
+  end
 
   def set_document
     @document = Document.find_by(id: params[:id])
@@ -59,4 +105,5 @@ class Users::DocumentRecipientsController < Users::BaseController
     flash[:warning] = t('flash.actions.add_recipients.non')
     redirect_to users_documents_path
   end
+  
 end
