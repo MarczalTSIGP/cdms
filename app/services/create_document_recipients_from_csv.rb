@@ -80,11 +80,11 @@ class CreateDocumentRecipientsFromCsv
 
   def assign_audiance_members_to_document(document_id)
     @attributes.each do |member|
-      profile_type = if user?(member['cpf'])
-                       ['User', profile_id = User.find_by(cpf: member['cpf']).id]
-                     else
-                       ['AudienceMember', profile_id = AudienceMember.find_by(cpf: member['cpf']).id]
-                     end
+      if user?(member['cpf'])
+        [profile_type = 'User', profile_id = User.find_by(cpf: member['cpf']).id]
+      else
+        [profile_type = 'AudienceMember', profile_id = AudienceMember.find_by(cpf: member['cpf']).id]
+      end
 
       document_recipient = create_document_recipient(document_id, member['cpf'], profile_type, profile_id)
       @document_recipients_registered << document_recipient
