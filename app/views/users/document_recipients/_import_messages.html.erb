@@ -12,9 +12,14 @@
     <table class="table card-table table-striped table-vcenter">
       <thead>
         <tr>
-          <th class="col-4"><%= t('activerecord.attributes.audience_member.name') %></th>
-          <th class="col-4"><%= t('activerecord.attributes.audience_member.cpf') %></th>
-          <th class="col-4"><%= t('activerecord.attributes.audience_member.email') %></th>
+          <th class="col-2"><%= t('activerecord.attributes.audience_member.name') %></th>
+          <th class="col-2"><%= t('activerecord.attributes.audience_member.cpf') %></th>
+          <th class="col-2"><%= t('activerecord.attributes.audience_member.email') %></th>
+          
+          <% Document.find(params[:id]).variables.each do |cv|%>
+            <th class="col-2"><%= cv['name'] %> (<%=cv['identifier']%>)</th>
+          <% end %>
+
         </tr>
       </thead>
 
@@ -23,16 +28,26 @@
           <% members.each do |member|%>
             <% if member[:profile_type].present?  %>
             <tr>
-              <td><%= member.profile.name %> <span class="<%= member.profile_type == "User" ? 'text-primary' : 'text-info' %> "> (<%= member.profile_type.constantize.model_name.human %>) </span> </td>
+              <td><%= member.profile.name %> <span class="<%= member.profile_type == "User" ? 'text-primary' : 'text-info' %> float-right"> <%= member.profile_type.constantize.model_name.human %> </span> </td>
               <td><%= member.profile.cpf %></td>
               <td><%= member.profile.email %></td>
-          
+              <% member.variables.each do |cv| %>
+                <td><%= cv[1] %> </td>
+              <% end %>
             </tr>
             <% else %>
             <tr>
-            <td><%= member[:name] %></td>
-              <td><%= member[:cpf] %></td>
-              <td><%= member[:email] %></td>
+              <td><%= member['name'] %></td>
+              <td><%= member['cpf'] %></td>
+              <td><%= member['email'] %></td>
+              
+              <%  custom_variables = member.except( 'name', 'email', 'cpf', ) %>
+
+              <% Document.find(params[:id]).variables.each do |cv|%>
+                <td><%= custom_variables[cv['identifier']] %> </td>
+              <% end %>
+
+              
             </tr>
           <% end %>
         <% end %>

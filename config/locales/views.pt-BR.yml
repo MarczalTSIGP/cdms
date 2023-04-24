@@ -58,7 +58,7 @@ pt-BR:
           sign_in: Acessar como membro de audiência
         document_recipients:
           show: Visualizar Destinatários
-          show_document_variables: Visualizar Variávies
+          show_document_variables: Visualizar Dados Variávies
     search:
       placeholder: Procurar...
     session:
