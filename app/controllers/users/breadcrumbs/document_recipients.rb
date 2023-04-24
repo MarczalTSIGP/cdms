@@ -32,12 +32,11 @@ module Users
       end
 
       def set_breadcrumb_document_recipients
-         add_breadcrumb t('activerecord.models.document.other'), users_documents_path
-         add_breadcrumb t('activerecord.models.document.one') + " ##{params[:id]}", users_document_path(params[:id])
-         add_breadcrumb t('views.document.recipients.plural'), users_document_recipients_path
-         add_breadcrumb t('views.document.recipients.import.btn_csv'), users_new_document_recipients_from_csv_path
+        add_breadcrumb t('activerecord.models.document.other'), users_documents_path
+        add_breadcrumb t('activerecord.models.document.one') + " ##{params[:id]}", users_document_path(params[:id])
+        add_breadcrumb t('views.document.recipients.plural'), users_document_recipients_path
+        add_breadcrumb t('views.document.recipients.import.btn_csv'), users_new_document_recipients_from_csv_path
       end
-    
     end
   end
 end
