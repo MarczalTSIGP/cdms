@@ -5,7 +5,7 @@
     <td><%= recipient.profile.model_name.human %></td>
     
     <% Document.find(params[:id]).variables.each do |cv| %>
-        <td><%= recipient.variables[cv] %> </td>
+        <td><%= recipient.variables[cv['name']] ||= 'Indisponível' %> </td>
     <% end %>
     <td>
 
