@@ -1,5 +1,5 @@
 <% provide(:head_title, I18n.t('activerecord.models.document_recipients.other')) %>
-<% provide(:page_title, I18n.t('activerecord.models.document_recipients.other')) %>
+<% provide(:page_title, t('views.document.recipients.nwdp', name: @document.title)) %>
 
 <%= simple_form_for(:csv, url: users_create_document_recipients_from_csv_path, method: :post) do |f| %>
   <div class="row">
@@ -12,7 +12,6 @@
     </div>
 
     <div class="col-sm-3">
-      <%# @@ FIX THE LINK TO FILE %>
       <%= link_to users_document_recipients_download_csv_path, class: 'btn btn-outline-primary btn-block' do %> 
         <%= icon('fas', 'download', class: 'mr-2') %><%= t('views.document.recipients.import.btn_download_sample_file') %>
       <% end %>
@@ -21,16 +20,15 @@
 <% end %>
 
 
-
-<% if @result %>
+<% if @result.present? and @result.valid_file? %>
 
 
   <%= render 'import_messages', title: I18n.t('views.document.recipients.import.document_recipients_registered'),
-                                id: :users_registered, members: @result.document_recipients_registered, class_status: 'bg-green' %>
+                                id: :document_recipients_registered, members: @result.document_recipients_registered, class_status: 'bg-green' %>
 
 
    <%= render 'import_messages', title: I18n.t('views.document.recipients.import.invalids'),
-                               id: :invalids, members: @result.invalids, class_status: 'bg-red' %>
+                               id: :invalids, members: @result.invalids, class_status: 'bg-red' unless @result.invalids.count.zero? %>
 
                               
 <% end %>
