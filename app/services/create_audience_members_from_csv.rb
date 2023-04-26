@@ -37,7 +37,23 @@ class CreateAudienceMembersFromCsv
   end
 
   def valid_file?
-    (!@file.nil? && File.extname(@file) == '.csv' && CSV.read(@file).first.slice(0..2) == ['name', 'email', 'cpf'] && CSV.read(@file).length > 1 )
+    file_exists? and csv? and contains_default_headers? and contais_data?
+  end
+
+  def contains_default_headers?
+    CSV.read(@file).first.slice(0..2) == %w[name email cpf]
+  end
+
+  def contais_data?
+    CSV.read(@file).length > 1
+  end
+
+  def csv?
+    File.extname(@file) == '.csv'
+  end
+
+  def file_exists?
+    !@file.nil?
   end
 
   def add_to_save(member, attributes)

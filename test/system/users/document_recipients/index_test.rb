@@ -38,7 +38,7 @@ class IndexTest < ApplicationSystemTestCase
       should 'all recipients of the document' do
         visit users_document_recipients_path(@document.id)
 
-        @document.variables = [{'name' => 'Curso', 'identifier' => 'curso'}]
+        @document.variables = [{ 'name' => 'Curso', 'identifier' => 'curso' }]
         @document.save
 
         within('table.table tbody') do
