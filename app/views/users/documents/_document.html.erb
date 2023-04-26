@@ -1,5 +1,5 @@
 <tr>
-    <td><%= document.title %></td>
+    <td><%= link_to document.title, users_document_path(document)  %></td>
     <td><%= t("enums.categories.#{document.category}") %></td>
     <td><%= document.department.name %></td>
     <td>

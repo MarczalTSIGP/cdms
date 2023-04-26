@@ -14,7 +14,7 @@ class CreateDocumentRecipientsFromCsv < CreateAudienceMembersFromCsv
       load_members # load the members from the csv file
       save_members # save the audience members
       # DO THE SAME THING OF CREATE_AUDIENCE_MEMBER_FROM_CSV SERVICE. THAN.
-      assign_audiance_members_to_document(@document_id) # assign the members to the document
+      assign_document_recipients_to_document(@document_id) # assign the members to the document
     end
     result
   end
@@ -47,7 +47,7 @@ class CreateDocumentRecipientsFromCsv < CreateAudienceMembersFromCsv
     true
   end
 
-  def assign_audiance_members_to_document(document_id)
+  def assign_document_recipients_to_document(document_id)
     @attributes.each do |member|
       if user?(member['cpf'])
         [member['profile_type'] = 'User', member['profile_id'] = User.find_by(cpf: member['cpf']).id]
@@ -64,7 +64,7 @@ class CreateDocumentRecipientsFromCsv < CreateAudienceMembersFromCsv
   def create_document_recipient(member, document_id)
     custom_variables = member.except('name', 'email', 'cpf', 'profile_type', 'profile_id')
 
-    DocumentRecipient.create(
+    DocumentRecipient.create!(
       document_id: document_id,
       cpf: member['cpf'],
       profile_type: member['profile_type'],

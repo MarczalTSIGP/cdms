@@ -38,6 +38,9 @@ class IndexTest < ApplicationSystemTestCase
       should 'all recipients of the document' do
         visit users_document_recipients_path(@document.id)
 
+        @document.variables = [{'name' => 'Curso', 'identifier' => 'curso'}]
+        @document.save
+
         within('table.table tbody') do
           @document_recipients.each_with_index do |recipient, index|
             child = index + 1
@@ -46,6 +49,10 @@ class IndexTest < ApplicationSystemTestCase
             assert_selector base_selector, text: recipient.profile.cpf
             assert_selector base_selector, text: recipient.profile.name
             assert_selector base_selector, text: recipient.profile.email
+
+            recipient.variables.each do |variable|
+              assert_selector base_selector, text: "#{variable['name'].upcase} (#{variable['identifier']})".upcase
+            end
 
             href = users_document_remove_recipient_path(@document.id, recipient.cpf)
 
