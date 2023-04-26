@@ -2,9 +2,7 @@ require 'test_helper'
 require 'csv'
 
 class CreateDocumentRecipientsFromCsvTest < ActiveSupport::TestCase
-
   should 'import from csv' do
-
     @user = create(:user)
     @audience_member = create(:audience_member)
     department = create(:department)
@@ -18,9 +16,9 @@ class CreateDocumentRecipientsFromCsvTest < ActiveSupport::TestCase
       result = CreateDocumentRecipientsFromCsv.new(file: csv, document_id: @document.id).perform
     end
 
-    csv = valid_csv_file
+    csv = create_temp_file(generate_valid_csv_data)
     # p CSV.read(csv)
-    
+
     assert_difference('DocumentRecipient.count', 3) do
       result = CreateDocumentRecipientsFromCsv.new(file: csv, document_id: @document.id).perform
     end
@@ -31,30 +29,31 @@ class CreateDocumentRecipientsFromCsvTest < ActiveSupport::TestCase
 
   private
 
-  def valid_csv_file 
-    csv_rows = CSV.generate(headers: true) do |csv|
-      csv << ['name','email','cpf']
-      csv << ['Nome exemplo','email@exemplo.com','382.528.560-04'] #valid audience member
-      csv << ['Nome exemplo2','email2@exemplo.com','574.961.619-34'] # valid audience member
-      csv << ['Nome exemplo2','email3@exemplo.com','068.674.529-57'] # invalid audience member due cpf
-      csv << ['Lucas','lucasgeron@utfpr.edu.br','068.674.579-59'] # valid audience member - not user
+  def generate_valid_csv_data
+    CSV.generate(headers: true) do |csv|
+      csv << %w[name email cpf]
+      csv << ['Nome exemplo', 'email@exemplo.com', '382.528.560-04'] # valid audience member
+      csv << ['Nome exemplo2', 'email2@exemplo.com', '574.961.619-34'] # valid audience member
+      csv << ['Nome exemplo2', 'email3@exemplo.com', '068.674.529-57'] # invalid audience member due cpf
+      csv << ['Lucas', 'lucasgeron@utfpr.edu.br', '068.674.579-59'] # valid audience member - not user
     end
+  end
 
-    file = Tempfile.new(['valid_csv_file','.csv'])
-    file.write(csv_rows)
+  def create_temp_file(data)
+    file = Tempfile.new(['valid_csv_file', '.csv'])
+    file.write(data)
     file.rewind
     file # with 3 document_recipients_registered and 1 invalid
   end
 
   def invalid_csv_file
     csv_rows = CSV.generate(headers: true) do |csv|
-      csv << ['name','email','cpf']
+      csv << %w[name email cpf]
     end
 
-    file = Tempfile.new(['invalid_csv_file','.csv'])
+    file = Tempfile.new(['invalid_csv_file', '.csv'])
     file.write(csv_rows)
     file.rewind
     file
   end
-
 end

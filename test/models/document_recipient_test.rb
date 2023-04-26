@@ -36,5 +36,4 @@ class DocumentRecipientTest < ActiveSupport::TestCase
       assert_mock mock
     end
   end
-
 end
