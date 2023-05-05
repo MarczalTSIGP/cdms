@@ -4,6 +4,19 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+
+
+/*********************
+* Configurations
+**********************/
+@import "config/tabler";
+/*********************
+* Customizations
+**********************/
+@import "customizations/bootstrap";
+
+/*********************
+
 /* 
 * To enable background printing For Chrome, Safari and Firefox:
 */
@@ -12,14 +25,7 @@ body{
   print-color-adjust:exact !important;
 }
 
-@media print {
-  
-  .card::before{
-    display: none;
-  }
-}
-
-.row {
+.row-document {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
@@ -28,7 +34,7 @@ body{
   margin-left: -0.75rem;
 }
 
-.text-center {
+.text-center-document {
   text-align: center;
 }
 
@@ -74,5 +80,5 @@ body{
 }
 
 .side-bar{
-  background-color: red !important;
+  background-color: rgb(247, 182, 6) !important;
 }
