@@ -1,0 +1,48 @@
+#document {
+    background-color: white !important;
+    display: block;
+    width: 100%;
+    height: 297mm;
+
+    header {
+        width: 100%;
+        height: 12%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        border-bottom-width: thick;
+        border-bottom-style: double;
+        border-bottom-color: rgb(247, 182, 6) !important;
+
+        #icon-div {
+            width: 25mm;
+            height: 25mm;
+        }
+
+        #header-div {
+            width: 160mm;
+            font-weight: bold;
+            text-align: center;
+        }
+    }
+
+    footer {
+        padding-top: 2mm;
+        display: flex;
+        justify-content: space-around;
+        height: 88%;
+        width: 100%;
+
+        #sidebar {
+            height: 100%;
+            width: 15%;
+            background-color: rgb(247, 182, 6) !important;
+        }
+
+        #text-body {
+            padding: 10mm;
+            height: 100%;
+            width: 85%;
+        }
+    }
+}

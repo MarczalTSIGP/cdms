@@ -1,28 +1,22 @@
 /*********************
+* To enable background printing For Chrome, Safari and Firefox:
+**********************/
+body{
+  -webkit-print-color-adjust:exact !important;
+  print-color-adjust:exact !important;
+}
+/*********************
 * Gems
 **********************/
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
 /*********************
-* Vendors stylesheets
-**********************/
-
-/*********************
 * Configurations
 **********************/
 @import "config/tabler";
-@import "config/summernote";
-
 /*********************
 * Customizations
 **********************/
 @import "customizations/bootstrap";
-
-/*********************
-* Apps stylesheets
-**********************/
-@import "shared/sidebar";
-@import "shared/table_level";
-@import "users/documents/main";
-@import "users/dashboard";
+@import "preview";

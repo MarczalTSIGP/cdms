@@ -1,22 +1,20 @@
-<div>
-  <div class="row row-document head-document">
-    <div class="col-2 icon-div">
-      <%= image_tag 'documents/brasaopb.gif', class: 'icon-left', alt: 'UTFPR' %>
+<section id="document">
+  <header>
+    <div id="icon-div">
+      <%= image_tag 'documents/brasaopb.gif', alt: 'UTFPR' %>
     </div>
-    <div class="col-8 text-center-document">
-      <strong>
-        Ministério da Educação<br>
-        Universidade Tecnológica Federal do Paraná<br>
-        Campus Guarapuava<br><br>Departamento de Registros Acadêmicos - DERAC
-      </strong>
+    <div id="header-div">
+      Ministério da Educação<br>
+      Universidade Tecnológica Federal do Paraná<br>
+      Campus Guarapuava<br><br>Departamento de Registros Acadêmicos - DERAC
     </div>
-    <div class="col-2 icon-div">
-      <%= image_tag 'documents/logo-utfpr.png', class: 'icon-right', alt: 'UTFPR' %>        
+    <div id="icon-div">
+      <%= image_tag 'documents/logo-utfpr.png', alt: 'UTFPR' %>        
     </div>
-  </div>
-  <div class="row row-document body-document">
-    <div class="col-2 side-bar"></div>
-    <div class="col-10">
+  </header>
+  <footer>
+    <div id="sidebar"></div>
+    <div id="text-body">
       <% if show_title %>
         <h4 class="text-center"> <%= I18n.t("enums.categories.#{ @document.category }") %>
           <%= "#{@document.id}/#{@document.created_at.year} - #{@document.department.name}" %>
@@ -24,5 +22,5 @@
       <% end %>
       <%== text %>
     </div>
-  </div>
-</div>
+  </footer>
+</section>
