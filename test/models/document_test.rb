@@ -8,9 +8,6 @@ class DocumentTest < ActiveSupport::TestCase
   context 'validations' do
     should validate_presence_of(:title)
     should validate_presence_of(:front_text)
-    #should validate_presence_of(:back_text)
-    
-
     should 'inclusion of category' do
       document = Document.new
 
