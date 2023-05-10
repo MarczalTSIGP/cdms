@@ -1,4 +1,4 @@
-<div class="modal fade" id="sign_document_modal" tabindex="-1" role="dialog" aria-labelledby="SignModalCentere" aria-hidden="true">
+<div class="modal fade" id="sign_document_modal-<%=document_id%>" tabindex="-1" role="dialog" aria-labelledby="SignModalCentere" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -21,7 +21,7 @@
                         </p>
                     </div>
                 </div>
-                
+
                 <div id="form-to-sign-documet-<%= document_id %>">
                   <%= render partial: "users/document_signers/sign_form", locals: { document_id: document_id } %>
                 </div>

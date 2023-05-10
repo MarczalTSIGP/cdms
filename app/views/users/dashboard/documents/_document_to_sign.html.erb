@@ -1,7 +1,7 @@
 <tr>
     <td><%= document_to_sign.title %></td>
     <td class="align-middle">
-        <%= link_to "#", "data-toggle" => "modal", "data-target" => "#sign_document_modal" do %>
+        <%= link_to "#", "data-toggle" => "modal", "data-target" => "#sign_document_modal-#{document_to_sign.id}" do %>
             <%= icon('fas', 'file-signature', class:'icon d-flex justify-content-center',  
                     data: { toggle: 'tooltip' }, title: t('activerecord.attributes.document_user.sign')) %>
         <% end %>
