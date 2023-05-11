@@ -16,7 +16,7 @@ class Document < ApplicationRecord
   enum category: { declaration: 'declaration', certification: 'certification' }, _suffix: :category
 
   validates :category, inclusion: { in: Document.categories.values }
-  validates :title, :front_text, presence: true
+  validates :title, :content, presence: true
   validates :variables, json: true
 
   def variables=(variables)

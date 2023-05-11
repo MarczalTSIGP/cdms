@@ -21,7 +21,7 @@ class UpdateTest < ApplicationSystemTestCase
       document = build(:document)
 
       fill_in 'document_title', with: document.title
-      page.execute_script("document.getElementById('document_front_text').innerText = '#{document.front_text}'")
+      page.execute_script("document.getElementById('document_content').innerText = '#{document.content}'")
       submit_form
 
       flash_message = I18n.t('flash.actions.update.m', resource_name: document.model_name.human)
@@ -34,7 +34,7 @@ class UpdateTest < ApplicationSystemTestCase
 
     should 'unsuccessfully' do
       fill_in 'document_title', with: ''
-      page.execute_script("document.getElementById('document_front_text').innerText = ''")
+      page.execute_script("document.getElementById('document_content').innerText = ''")
       submit_form
 
       assert_selector('div.alert.alert-danger', text: I18n.t('flash.actions.errors'))
@@ -43,7 +43,7 @@ class UpdateTest < ApplicationSystemTestCase
         assert_text(I18n.t('errors.messages.blank'))
       end
 
-      within('div.document_front_text') do
+      within('div.document_content') do
         assert_text(I18n.t('errors.messages.blank'))
       end
     end

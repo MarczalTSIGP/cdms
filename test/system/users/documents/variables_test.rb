@@ -35,7 +35,7 @@ class VarablesTest < ApplicationSystemTestCase
         find_by_id('document_department_id-selectized').click
         find(".selectize-dropdown-content .option[data-value='#{@department.id}']").click
 
-        page.execute_script("document.getElementById('document_front_text').innerText = '#{document.front_text}'")
+        page.execute_script("document.getElementById('document_content').innerText = '#{document.content}'")
 
         find_by_id('add_variable_button').click
         fill_in 'variable_name', with: 'Student name'
@@ -80,19 +80,19 @@ class VarablesTest < ApplicationSystemTestCase
         end
       end
 
-      should 'add to certification/declaration to front text' do
+      should 'add to certification/declaration to content' do
         page.find('a[data-target="#add_variables_modal"]').click
         fill_in 'variable_name', with: 'Student name'
         fill_in 'variable_identifier', with: 'student-name'
         click_button('add_variable')
 
-        find('.document_front_text > div:nth-child(3) > div:nth-child(3) > div:nth-child(3)').click
+        find('.document_content > div:nth-child(3) > div:nth-child(3) > div:nth-child(3)').click
 
         within('table#variables-table tbody') do
           find('a[data-variable-to-add="student-name"]').click
         end
 
-        within('div.document_front_text') do
+        within('div.document_content') do
           assert_text('{student-name}')
         end
       end
@@ -178,30 +178,20 @@ class VarablesTest < ApplicationSystemTestCase
         end
       end
 
-      should 'add to certification/declaration to front text' do
+      should 'add to certification/declaration to content' do
         document = create(:document, :certification, department: @department)
         visit edit_users_document_path(document)
 
-        find('.document_front_text > div:nth-child(3) > div:nth-child(3) > div:nth-child(3)').click
+        find('.document_content > div:nth-child(3) > div:nth-child(3) > div:nth-child(3)').click
 
         within('table#default-variables-table tbody') do
           find('a[data-variable-to-add="name"]').click
           find('a[data-variable-to-add="email"]').click
         end
 
-        within('div.document_front_text') do
+        within('div.document_content') do
           assert_text('{name}')
           assert_text('{email}')
-        end
-      end
-
-      should 'add to certification/declaration to back text' do
-        document = create(:document, :certification, department: @department)
-        visit edit_users_document_path(document)
-
-        within('table#default-variables-table tbody') do
-          find('a[data-variable-to-add="name"]').click
-          find('a[data-variable-to-add="email"]').click
         end
       end
     end

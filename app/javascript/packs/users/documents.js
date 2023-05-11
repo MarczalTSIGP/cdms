@@ -60,11 +60,8 @@ window.CDMS.document.variables.addDefaultVariable = (page) => {
     return false;
   });
 
-  $('#document_front_text').on('summernote.mouseup', () => {
-    lastSummer = 'front_text';
-  });
-  $('#document_back_text').on('summernote.mouseup', () => {
-    lastSummer = 'back_text';
+  $('#document_content').on('summernote.mouseup', () => {
+    lastSummer = 'content';
   });
 };
 
