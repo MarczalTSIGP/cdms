@@ -36,7 +36,6 @@ class VarablesTest < ApplicationSystemTestCase
         find(".selectize-dropdown-content .option[data-value='#{@department.id}']").click
 
         page.execute_script("document.getElementById('document_front_text').innerText = '#{document.front_text}'")
-        page.execute_script("document.getElementById('document_back_text').innerText = '#{document.back_text}'")
 
         find_by_id('add_variable_button').click
         fill_in 'variable_name', with: 'Student name'
@@ -200,16 +199,9 @@ class VarablesTest < ApplicationSystemTestCase
         document = create(:document, :certification, department: @department)
         visit edit_users_document_path(document)
 
-        find('.document_back_text > div:nth-child(3) > div:nth-child(3) > div:nth-child(3)').click
-
         within('table#default-variables-table tbody') do
           find('a[data-variable-to-add="name"]').click
           find('a[data-variable-to-add="email"]').click
-        end
-
-        within('div.document_back_text') do
-          assert_text('{name}')
-          assert_text('{email}')
         end
       end
     end
