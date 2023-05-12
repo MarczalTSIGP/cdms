@@ -1,0 +1,8 @@
+var popup = window.open('','','popup');
+popup.document.write("<%= j stylesheet_link_tag 'users/documents/print', media: 'all' %>");
+popup.document.write("<%= j render('page', text: sanitize(@document.content, attributes: %w(style class href target src)), show_title: true) %>");
+popup.document.close();
+popup.focus();
+popup.document.title = "<%= "#{Document.model_name.human} #{@document.id}" %>"
+popup.print();
+setTimeout(() => popup.close(), 1000);

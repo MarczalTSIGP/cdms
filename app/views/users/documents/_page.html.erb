@@ -1,17 +1,31 @@
-<div class="print-area">
-  <div class="col-12">
-    <%= image_tag 'documents/top-document.png', class: 'w-100', alt: 'UTFPR' %>
-  </div>
-  <div class="row pl-4">
-    <div class="col-sm-2">
-      <%= image_tag 'documents/left-document.png', class: 'w-100 h-100', alt: 'UTFPR' %>
+<section id="document">
+  <header>
+    <div class="document-header-coat-of-arms">
+      <%= image_tag 'documents/brasao-brasil.png', alt: 'UTFPR' %>
     </div>
-    <div class="col-10">
-      <% if show_title %>
-        <h4 class="text-center"> <%= I18n.t("enums.categories.#{ @document.category }") %>
-          <%= "#{@document.id}/#{@document.created_at.year} - #{@document.department.name}" %></h4>
-      <% end %>
-      <%== text %>
+    <div class="document-header-text">
+      Ministério da Educação<br>
+      Universidade Tecnológica Federal do Paraná<br>
+      Campus Guarapuava<br><br>Departamento de Registros Acadêmicos - DERAC
     </div>
-  </div>
-</div>
+    <div class="document-header-logo">
+      <%= image_tag 'documents/logo-utfpr.png', alt: 'UTFPR' %>        
+    </div>
+  </header>
+
+  <section class="document-body">
+    <aside class="document-sidebar"></aside>
+    
+    <div class="document-content">
+
+      <div class="document-title">
+        <h3> <%= I18n.t("enums.categories.#{ @document.category }") %>
+          <%= "#{@document.id}/#{@document.created_at.year} - #{@document.department.name}" %>
+        </h3>
+      </div>
+
+      <%= text %>
+    </div>
+  </section>
+
+  </section>

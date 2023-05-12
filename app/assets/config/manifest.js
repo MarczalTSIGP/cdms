@@ -2,5 +2,5 @@
 //= link_directory ../stylesheets .css
 //= link devise/session.css
 //= link admins/application.css
-//= link users/document_preview.css
 //= link public/application.css
+//= link users/documents/print.css

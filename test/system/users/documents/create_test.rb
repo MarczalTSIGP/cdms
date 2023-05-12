@@ -22,8 +22,7 @@ class CreateTest < ApplicationSystemTestCase
       find_by_id('document_department_id-selectized').click
       find(".selectize-dropdown-content .option[data-value='#{@department.id}']").click
 
-      page.execute_script("document.getElementById('document_front_text').innerText = '#{document.front_text}'")
-      page.execute_script("document.getElementById('document_back_text').innerText = '#{document.back_text}'")
+      page.execute_script("document.getElementById('document_content').innerText = '#{document.content}'")
 
       submit_form
 
@@ -57,11 +56,7 @@ class CreateTest < ApplicationSystemTestCase
         assert_text(I18n.t('errors.messages.required'))
       end
 
-      within('div.document_front_text') do
-        assert_text(I18n.t('errors.messages.blank'))
-      end
-
-      within('div.document_back_text') do
+      within('div.document_content') do
         assert_text(I18n.t('errors.messages.blank'))
       end
     end

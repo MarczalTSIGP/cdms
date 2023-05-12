@@ -22,8 +22,8 @@ pt-BR:
       head_title: Entrar
       page_title: Entrar
     boolean:
-      'true': Sim
-      'false': Não
+      "true": Sim
+      "false": Não
     status:
       true: Ativo
       false: Inativo
@@ -38,10 +38,10 @@ pt-BR:
     prompt:
       confirm: Tem certeza?
       select:
-        m: 'Selecione um %{name}'
-        f: 'Selecione uma %{name}'
+        m: "Selecione um %{name}"
+        f: "Selecione uma %{name}"
     links:
-      click_here: 'Clique aqui'
+      click_here: "Clique aqui"
       back: Voltar
       edit: Editar
       document_already_signed: Documento já foi assinado
@@ -79,12 +79,12 @@ pt-BR:
           title: Alterar minha senha
           new_password: Nova senha
           submit: Mudar minha senha
-          minimum_password_length: 'no mínimo %{count} caracteres'
+          minimum_password_length: "no mínimo %{count} caracteres"
 
     admin:
       name:
         singular: Administrador
-        plural:  Administradores
+        plural: Administradores
       links:
         sign_out: Sair
         access: Área administrativa
@@ -96,7 +96,7 @@ pt-BR:
     user:
       name:
         singular: Usuário
-        plural:  Usuários
+        plural: Usuários
       new:
         title: Novo usuário
       show:
@@ -112,30 +112,32 @@ pt-BR:
         new: Novo certificado/declaração
         show: Visualizar certificado/declaração
         edit: Editar certificado/declaração
-        preview: '%{category}-%{name}'
+        preview: "%{category}-%{name}"
+        print: "Imprimir"
       name:
         singular: Documento
-        plural:  Documentos
+        plural: Documentos
       print_label: Para imprimir ou salvar como PDF aperte CTRL + P ou clique no botão ao lado.
       variables:
         name: Nome
         identifier: Identificador
       members:
         name: Membros
-        nwdc: 'Membros Assinantes do %{name}'
+        nwdc: "Membros Assinantes do %{name}"
       recipients:
-        new: 'Novo Destinatário'
-        name: 'Destinatário'
-        plural: 'Destinatários'
-        nwdp: 'Destinatários do %{name}'
+        new: "Novo Destinatário"
+        name: "Destinatário"
+        plural: "Destinatários"
+        nwdp: "Destinatários do %{name}"
         document_has_signature: Este documento possui pelo menos uma assinatura. Não é possível adicionar ou remover destinatários!
       signers:
         name: Assinantes
-        nwdc: 'Assinantes do %{name}'
+        nwdc: "Assinantes do %{name}"
+      preview: "Pré-visualização documento #%{id}"
     document_role:
       name:
         singular: Função
-        plural:  Funções
+        plural: Funções
       links:
         new: Nova Função
         show: Visualizar função
@@ -144,14 +146,14 @@ pt-BR:
     department:
       name:
         singular: Departamento
-        plural:  Departamentos
+        plural: Departamentos
       links:
         new: Novo departamento
         edit: Editar departamento
         show: Visualizar departamento
       members:
         name: Membros
-        nwdp: 'Membros do departamento %{name}'
+        nwdp: "Membros do departamento %{name}"
     department_module:
       name:
         singular: Módulo departamento
@@ -160,16 +162,16 @@ pt-BR:
         new: Novo módulo
         show: Visualizar módulo
       new:
-        title: 'Novo módulo para o departamento #%{dp}'
+        title: "Novo módulo para o departamento #%{dp}"
       edit:
-        title: 'Editar módulo do departamento #%{dp}'
+        title: "Editar módulo do departamento #%{dp}"
       members:
         name: Membros
-        nwdp: 'Membros do módulo %{name}'
+        nwdp: "Membros do módulo %{name}"
     audience_member:
       name:
         singular: Membro de audiência
-        plural:  Membros de audiências
+        plural: Membros de audiências
       import:
         registered: Membros de audiência registrados
         already_registered: Membros de audiência já registrados
@@ -177,7 +179,7 @@ pt-BR:
         invalids: Membros de audiência inválidos
         btn_csv: Importar CSV
         btn_download_sample_file: Baixar arquivo de exemplo
-        extension_invalid: 'Extensão inválida'
+        extension_invalid: "Extensão inválida"
       links:
         new: Novo membro de audiência
         sign_out: Sair
@@ -188,7 +190,7 @@ pt-BR:
     team:
       name:
         singular: Equipe
-        plural:  Equipes
+        plural: Equipes
       links:
         sign_out: Sair
         access: Área administrativa
@@ -197,5 +199,5 @@ pt-BR:
       new:
         m: Novo
         f: Nova
-      show: '%{model} #%{id}'
+      show: "%{model} #%{id}"
       home: Página Inicial
