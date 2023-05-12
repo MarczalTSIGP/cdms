@@ -1,26 +1,31 @@
 <section id="document">
   <header>
-    <div id="icon-div">
-      <%= image_tag 'documents/brasaopb.gif', alt: 'UTFPR' %>
+    <div class="document-header-coat-of-arms">
+      <%= image_tag 'documents/brasao-brasil.png', alt: 'UTFPR' %>
     </div>
-    <div id="header-div">
+    <div class="document-header-text">
       Ministério da Educação<br>
       Universidade Tecnológica Federal do Paraná<br>
       Campus Guarapuava<br><br>Departamento de Registros Acadêmicos - DERAC
     </div>
-    <div id="icon-div">
+    <div class="document-header-logo">
       <%= image_tag 'documents/logo-utfpr.png', alt: 'UTFPR' %>        
     </div>
   </header>
-  <footer>
-    <div id="sidebar"></div>
-    <div id="text-body">
-      <% if show_title %>
-        <h4 class="text-center"> <%= I18n.t("enums.categories.#{ @document.category }") %>
+
+  <section class="document-body">
+    <aside class="document-sidebar"></aside>
+    
+    <div class="document-content">
+
+      <div class="document-title">
+        <h3> <%= I18n.t("enums.categories.#{ @document.category }") %>
           <%= "#{@document.id}/#{@document.created_at.year} - #{@document.department.name}" %>
-        </h4>
-      <% end %>
-      <%== text %>
+        </h3>
+      </div>
+
+      <%= text %>
     </div>
-  </footer>
-</section>
+  </section>
+
+  </section>

@@ -18,7 +18,7 @@
         prompt: t('views.prompt.select.m', name: t('activerecord.attributes.document.department').downcase) %>
 
        <%= f.input :content, input_html: { data: { type: 'summernote' } } %>
-       <%= f.input :available_to_sign, as: :switch_single %>
+       <%= f.input :available_to_sign, as: :check_single %>
     </div>
 
     <div class="col-md-4">

@@ -2,6 +2,8 @@
 
 <%= render 'page', text: sanitize(@document.content, attributes: %w(style class href target src)), show_title: true %>
 
-<div align="center">
-  <%= link_to 'Imprimir', users_preview_document_path(@document), class: 'btn btn-primary', remote: true %>
-</div>
+<hr />
+
+<footer align="center">
+  <%= link_to t('views.document.links.print'), users_preview_document_path(@document), class: 'btn btn-primary', remote: true %>
+</footer>

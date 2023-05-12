@@ -1,22 +1,36 @@
-/*********************
-* To enable background printing For Chrome, Safari and Firefox:
-**********************/
-body{
-  -webkit-print-color-adjust:exact !important;
-  print-color-adjust:exact !important;
-}
-/*********************
+/*************************************************************
 * Gems
-**********************/
+**************************************************************/
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
-/*********************
+/*************************************************************
 * Configurations
-**********************/
+**************************************************************/
 @import "config/tabler";
-/*********************
+
+/*************************************************************
 * Customizations
-**********************/
+**************************************************************/
 @import "customizations/bootstrap";
 @import "preview";
+
+/*************************************************************
+* To enable background printing For Chrome, Safari and Firefox:
+**************************************************************/
+body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    margin: 0;
+    padding: 0;
+}
+#document[size="A4"] {
+    display: block;
+    background: white;
+    width: 21cm;
+    height: 29.7cm;
+    padding: 1.5rem 1.5rem;
+    margin: 0 auto;
+    margin-bottom: 0.5cm;
+    box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+}

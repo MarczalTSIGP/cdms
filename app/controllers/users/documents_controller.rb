@@ -12,7 +12,8 @@ class Users::DocumentsController < Users::BaseController
   def show; end
 
   def preview
-    add_breadcrumb I18n.t('views.document.name.singular'), :users_preview_document_path
+    breadcrumb_name = I18n.t('views.document.preview', id: @document.id)
+    add_breadcrumb breadcrumb_name, :users_preview_document_path
   end
 
   def new
