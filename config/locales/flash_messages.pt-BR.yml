@@ -40,6 +40,7 @@ pt-BR:
         non: 'Certificado/Declaração não pode ser editado, pois já foi assinado!'
         error: 'Preencha a justificativa para editar o documento!'
         success: 'Documento reaberto com sucesso!'
+        opening_history: 'Documento nunca foi reaberto para edição'
       add_recipients:
         non: 'Não é possível adicionar outro destinatário no Certificado/Declaração, pois já foi assinado!'
 

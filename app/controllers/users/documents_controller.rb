@@ -73,6 +73,20 @@ class Users::DocumentsController < Users::BaseController
     end
   end
 
+  def opening_history
+    if @document.opening_history.strip.empty?
+      flash[:error] = t('flash.actions.reopen_document.opening_history')
+    else
+      flash[:error] = t('flash.actions.reopen_document.opening_history')
+    end
+    # rota ação do reopening document
+  end
+
+  # def search_non_admins
+  #   users = User.search_non_admins(params[:term])
+  #   render json: users.as_json(only: [:id, :name])
+  # end
+
   private
 
   def user_params

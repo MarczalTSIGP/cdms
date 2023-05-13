@@ -1,0 +1,22 @@
+<% provide(:head_title, t('views.document.links.opening_history')) %>
+<% provide(:page_title, t('views.document.links.opening_history')) %>
+
+<div class="table-responsive">
+  <table class="table card-table table-striped table-vcenter table-options">
+    <thead>
+      <tr>
+        <th><%= t('views.document.opening_history_list.user_name') %></th>
+        <th><%= t('views.document.opening_history_list.date_opening') %></th>
+        <th><%= t('views.document.opening_history_list.justification_opening') %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+          <td><%= @document.title %></td>
+          <td><%= @document.last_reopened_at %></td>
+          <td><%= @document.last_reopened_at %></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
