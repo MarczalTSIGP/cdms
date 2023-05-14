@@ -4,19 +4,22 @@
 <div class="table-responsive">
   <table class="table card-table table-striped table-vcenter table-options">
     <thead>
-      <tr>
-        <th><%= t('views.document.opening_history_list.user_name') %></th>
-        <th><%= t('views.document.opening_history_list.date_opening') %></th>
-        <th><%= t('views.document.opening_history_list.justification_opening') %></th>
-      </tr>
+        <tr>
+            <th><%= t('views.document.opening_history_list.user_name') %></th>
+            <th><%= t('views.document.opening_history_list.date_opening') %></th>
+            <th><%= t('views.document.opening_history_list.justification_opening') %></th>
+        </tr>
     </thead>
 
     <tbody>
-        <tr>
-          <td><%= @document.title %></td>
-          <td><%= @document.last_reopened_at %></td>
-          <td><%= @document.last_reopened_at %></td>
-        </tr>
+        <%opening_history = JSON.parse(@document.opening_history) %>
+        <%opening_history.each do |event|%>
+            <tr>
+                <td><%= event["user_name"] %></td>
+                <td><%= event["date"] %></td>
+                <td><%= event["justification"] %></td>
+            </tr>
+        <% end %>
     </tbody>
   </table>
 </div>

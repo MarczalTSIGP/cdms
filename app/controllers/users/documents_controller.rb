@@ -62,8 +62,23 @@ class Users::DocumentsController < Users::BaseController
     @document.toggle(:available_to_sign).save!
   end
 
+  # def reopen_to_edit
+  #   if params[:document][:justification].strip.empty?
+  #     flash[:error] = t('flash.actions.reopen_document.error')
+  #     redirect_to users_documents_path
+  #   else
+  #     @document.reopen_to_edit(reopen_params)
+  #     flash[:success] = t('flash.actions.reopen_document.success')
+  #     redirect_to edit_users_document_path(@document)
+  #   end
+  # end
+
+  # ao abrir para editar se tiver assindo pede para justificar> cada justificativa ficara salvo um historico
+
+  #verificar esse metodo 
+  # se variavel reaberto igual false 
   def reopen_to_edit
-    if params[:document][:justification].strip.empty?
+    if !@document.reopened
       flash[:error] = t('flash.actions.reopen_document.error')
       redirect_to users_documents_path
     else
@@ -73,19 +88,16 @@ class Users::DocumentsController < Users::BaseController
     end
   end
 
+  #new metodo verifica se estiver vazio o historico da erro pois nunca foi reaberto senão apresenta o historico
+  # se historico vazio não deve apresentar pagina de listagem do historico de abertura
   def opening_history
-    if @document.opening_history.strip.empty?
+    if @document.opening_history.blank?
       flash[:error] = t('flash.actions.reopen_document.opening_history')
+      redirect_to users_documents_path
     else
-      flash[:error] = t('flash.actions.reopen_document.opening_history')
+      @document.opening_history
     end
-    # rota ação do reopening document
   end
-
-  # def search_non_admins
-  #   users = User.search_non_admins(params[:term])
-  #   render json: users.as_json(only: [:id, :name])
-  # end
 
   private
 
