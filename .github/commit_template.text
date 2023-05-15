@@ -1,1 +1,5 @@
-This is updated from commit_template
+ <type> [optional scope]: <description>
+
+[optional body]
+
+[optional footer]
