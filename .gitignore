@@ -48,3 +48,5 @@ coverage/*
 .idea
 
 public/uploads/
+
+.github/commit_template.text
