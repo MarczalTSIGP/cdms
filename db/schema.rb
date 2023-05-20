@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 2023_05_13_173740) do
     t.boolean "available_to_sign", default: false
     t.bigint "creator_user_id"
     t.boolean "reopened", default: false
-    t.jsonb "opening_history", default: "{}", null: false
+    t.jsonb "opening_history", default: [], null: false
     t.index ["category"], name: "index_documents_on_category"
     t.index ["creator_user_id"], name: "index_documents_on_creator_user_id"
     t.index ["department_id"], name: "index_documents_on_department_id"

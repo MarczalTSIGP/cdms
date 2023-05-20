@@ -2,7 +2,7 @@
 <% provide(:page_title, t('views.document.links.opening_history')) %>
 
 <div class="table-responsive">
-  <table class="table card-table table-striped table-vcenter table-options">
+  <table class="table card-table table-striped table-vcenter">
     <thead>
         <tr>
             <th><%= t('views.document.opening_history_list.user_name') %></th>
@@ -12,8 +12,7 @@
     </thead>
 
     <tbody>
-        <%opening_history = JSON.parse(@document.opening_history) %>
-        <%opening_history.each do |event|%>
+        <% @document.opening_history.each do |event| %>
             <tr>
                 <td><%= event["user_name"] %></td>
                 <td><%= event["date"] %></td>

@@ -61,24 +61,9 @@ class Users::DocumentsController < Users::BaseController
   def toggle_available_to_sign
     @document.toggle(:available_to_sign).save!
   end
-
-  # def reopen_to_edit
-  #   if params[:document][:justification].strip.empty?
-  #     flash[:error] = t('flash.actions.reopen_document.error')
-  #     redirect_to users_documents_path
-  #   else
-  #     @document.reopen_to_edit(reopen_params)
-  #     flash[:success] = t('flash.actions.reopen_document.success')
-  #     redirect_to edit_users_document_path(@document)
-  #   end
-  # end
-
-  # ao abrir para editar se tiver assindo pede para justificar> cada justificativa ficara salvo um historico
-
-  #verificar esse metodo 
-  # se variavel reaberto igual false 
+  
   def reopen_to_edit
-    if !@document.reopened
+    if params[:document][:justification].strip.empty?
       flash[:error] = t('flash.actions.reopen_document.error')
       redirect_to users_documents_path
     else
@@ -88,14 +73,12 @@ class Users::DocumentsController < Users::BaseController
     end
   end
 
-  #new metodo verifica se estiver vazio o historico da erro pois nunca foi reaberto senão apresenta o historico
-  # se historico vazio não deve apresentar pagina de listagem do historico de abertura
   def opening_history
-    if @document.opening_history.blank?
+    if @document.opening_history.empty?
       flash[:error] = t('flash.actions.reopen_document.opening_history')
       redirect_to users_documents_path
     else
-      @document.opening_history
+      add_breadcrumb I18n.t('views.document.links.opening_history', id: @document.id)
     end
   end
 
@@ -145,6 +128,6 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def reopen_params
-    { user_id: current_user.id, justification: params[:document][:justification] }
+    { user_id: current_user.id, user_name: current_user.name, justification: params[:document][:justification] }
   end
 end

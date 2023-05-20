@@ -47,12 +47,9 @@ class Document < ApplicationRecord
   end
 
   def reopen_to_edit(params = {})
-    opening_history_json = JSON.parse(opening_history || '[]')
-    opening_history_json = [] if opening_history_json.is_a?(Hash)
-    opening_history_json << { user_id: params[:user_id], user_name: params[:current_user.name], justification: params[:justification], date: Time.current }
+        opening_history << params.merge(date: Time.current)    
     update(
-      reopened: true,
-      opening_history: opening_history_json.to_json
+      reopened: true
     )
     document_signers.update(signed: false)
   end
