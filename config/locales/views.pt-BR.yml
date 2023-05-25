@@ -135,10 +135,12 @@ pt-BR:
         document_has_signature: Este documento possui pelo menos uma assinatura. Não é possível adicionar ou remover destinatários!
         import:
           document_recipients_registered: Destinatários registrados
+          already_registered: Destinatários já registrados
           invalids: Destinatários não registrados
           btn_csv: Importar CSV
           btn_download_sample_file: Baixar arquivo de exemplo
-          extension_invalid: 'Extensão inválida'
+          extension_invalid: "Extensão inválida"
+          errors: Erros
       signers:
         name: Assinantes
         nwdc: "Assinantes do %{name}"

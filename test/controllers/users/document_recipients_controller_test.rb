@@ -126,7 +126,7 @@ class Users::DocumentRecipientsControllerTest < ActionDispatch::IntegrationTest
       # verifica se o arquivo para download foi montado corretamente
       variables = @document.variables.count.positive? ? ',' : ''
       @document.variables.each_with_index do |variable, index|
-        variables << variable['name']
+        variables << variable['identifier']
         variables << ',' if index < @document.variables.length - 1
       end
 

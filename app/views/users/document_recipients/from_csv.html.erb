@@ -22,13 +22,13 @@
 
 <% if @result.present? and @result.valid_file? %>
 
-
   <%= render 'import_messages', title: I18n.t('views.document.recipients.import.document_recipients_registered'),
-                                id: :document_recipients_registered, members: @result.document_recipients_registered, class_status: 'bg-green' %>
+                                id: :document_recipients_registered, recipients: @result.registered, class_status: 'bg-green' %>
 
 
-   <%= render 'import_messages', title: I18n.t('views.document.recipients.import.invalids'),
-                               id: :invalids, members: @result.invalids, class_status: 'bg-red' unless @result.invalids.count.zero? %>
+  <%= render 'import_invalid_messages', title: I18n.t('views.document.recipients.import.invalids'),
+                                id: :invalids, recipients: @result.invalids, class_status: 'bg-red' unless @result.invalids.count.zero? %>
 
-                              
+  <%= render 'import_messages', title: I18n.t('views.document.recipients.import.already_registered'),
+                                id: :invalids, recipients: @result.already_registered, class_status: 'bg-orange' unless @result.already_registered.count.zero? %>                             
 <% end %>

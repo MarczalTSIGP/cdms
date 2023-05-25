@@ -4,11 +4,11 @@
     <td><%= recipient.profile.email %></td>
     <td><%= recipient.profile.model_name.human %></td>
     
-    <% Document.find(params[:id]).variables.each do |cv| %>
-        <td><%= recipient.variables[cv['name']] ||= 'Indisponível' %> </td>
+    <% recipient.variables.each do |key, value| %>
+       <td><%= value %></td>
     <% end %>
-    <td>
 
+    <td>
         <%= link_to users_document_remove_recipient_path(@document, recipient.profile.cpf), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
             <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
         <% end unless @document_has_signature %>
