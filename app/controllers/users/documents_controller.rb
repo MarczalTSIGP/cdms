@@ -9,7 +9,9 @@ class Users::DocumentsController < Users::BaseController
     @documents = current_user.documents.search(params[:term]).page(params[:page]).includes(:department)
   end
 
-  def show; end
+  def show
+  
+  end
 
   def preview
     breadcrumb_name = I18n.t('views.document.preview', id: @document.id)
@@ -78,7 +80,11 @@ class Users::DocumentsController < Users::BaseController
       flash[:error] = t('flash.actions.reopen_document.opening_history')
       redirect_to users_documents_path
     else
-      add_breadcrumb I18n.t('views.document.links.opening_history', id: @document.id)
+      add_breadcrumb I18n.t('views.breadcrumbs.show',
+        model: Document.model_name.human,
+        id: @document.id), users_documents_path(@document)
+
+      add_breadcrumb I18n.t('views.document.links.opening_history')
     end
   end
 
@@ -129,5 +135,5 @@ class Users::DocumentsController < Users::BaseController
 
   def reopen_params
     { user_id: current_user.id, user_name: current_user.name, justification: params[:document][:justification] }
-  end
+  end  
 end

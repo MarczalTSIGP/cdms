@@ -58,6 +58,7 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
+    # refazer este teste
     context '#reopen document to edit' do
       should 'successfully' do
         patch users_reopen_document_path(@document), params: { document: { justification: 'justification abc' } }
@@ -68,7 +69,8 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
         assert_equal I18n.t('flash.actions.reopen_document.success'), flash[:success]
         @document.reload
 
-        assert_equal 'justification abc', @document.justification
+        #verificar busca
+        assert_equal 'justification abc', @document.opening_history
       end
 
       should 'unsuccessfully' do
