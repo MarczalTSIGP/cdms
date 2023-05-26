@@ -91,11 +91,11 @@ class FromCsvTest < ApplicationSystemTestCase
 
   def generate_valid_csv_data
     CSV.generate(headers: true) do |csv|
-      csv << %w[name email cpf]
-      csv << ['Nome exemplo', 'email@exemplo.com', '382.528.560-04'] # valid audience member
-      csv << ['Nome exemplo2', 'email2@exemplo.com', '574.961.619-34'] # valid audience member
-      csv << ['Nome exemplo2', 'email3@exemplo.com', '068.674.529-57'] # invalid audience member due cpf
-      csv << ['Lucas', 'lucasgeron@utfpr.edu.br', '068.674.579-59'] # valid user
+      csv << %w[name email cpf curso]
+      csv << ['Nome exemplo', 'email@exemplo.com', '382.528.560-04', '1'] # valid audience member
+      csv << ['Nome exemplo2', 'email2@exemplo.com', '574.961.619-34', '2'] # valid audience member
+      csv << ['Nome exemplo2', 'email3@exemplo.com', '068.674.529-57', '3'] # invalid audience member due cpf
+      csv << ['Lucas', 'lucasgeron@utfpr.edu.br', '068.674.579-59', '4'] # valid user
     end
   end
 

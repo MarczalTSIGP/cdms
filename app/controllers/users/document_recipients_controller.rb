@@ -1,5 +1,3 @@
-require 'csv'
-require 'json'
 class Users::DocumentRecipientsController < Users::BaseController
   before_action :set_document
   before_action :document_signed?, except: [:index]
@@ -51,7 +49,6 @@ class Users::DocumentRecipientsController < Users::BaseController
   def from_csv; end
 
   def create_from_csv
-    # abort params.inspect
     if params[:csv]
       process_csv
     else
@@ -62,27 +59,14 @@ class Users::DocumentRecipientsController < Users::BaseController
   end
 
   def download_csv
-    document = Document.find(params[:id])
-    document_variables = document.variables
-
-    header = %w[name email cpf] # default values for the CSV
-
-    document_variables.each do |variable|
-      header << variable['name']
-    end
-
-    csv_data = CSV.generate(headers: true) do |csv|
-      csv << header # cabeçalhos das colunas
-    end
-
+    csv_model_file = DocumentRecipient.csv_model_file(@document)
     # enviar o arquivo CSV como uma resposta para download
-    send_data csv_data, filename: "#{document.title} - Modelo de Importação de Destinatários.csv"
+    send_data csv_model_file, filename: "#{@document.title} - Modelo de Importação de Destinatários.csv"
   end
 
   private
 
   def process_csv
-    # creates all the audience members, return [:registered, already_registered, invalids, duplicates, valid_file]
     @result = DocumentRecipient.from_csv(params[:csv][:file].tempfile, params[:id])
 
     if @result.valid_file?

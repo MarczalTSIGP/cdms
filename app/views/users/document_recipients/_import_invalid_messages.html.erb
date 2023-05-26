@@ -12,28 +12,20 @@
     <table class="table card-table table-striped table-vcenter">
       <thead>
         <tr>
-          <th class="col col-auto"><%= t('activerecord.attributes.audience_member.email') %></th>
-          <th><%= DocumentRecipient.human_attribute_name(:profile_type) %></th>
           <th class="col col-auto"><%= t('activerecord.attributes.audience_member.name') %></th>
           <th class="col col-auto"><%= t('activerecord.attributes.audience_member.cpf') %></th>
-          
-          <% @document.variables.each do |variable|%>
-            <th class="col col-auto"><%= variable['name'] %> (<%= variable['identifier']%>)</th>
-          <% end %>
+          <th class="col col-auto"><%= t('activerecord.attributes.audience_member.email') %></th>
+          <th class="col col-auto"><%= t('views.document.recipients.import.errors') %></th>
         </tr>
       </thead>
 
       <tbody>      
         <% recipients.each do |recipient|%>
           <tr>
-            <td><%= recipient.profile.model_name.human %></td>
-            <td><%= recipient.profile.name %></td>
-            <td><%= recipient.profile.cpf %></td>
-            <td><%= recipient.profile.email %></td>
-
-            <% recipient.variables.each do |key, value| %>
-              <td><%= value %></td>
-            <% end %>
+            <td><%= recipient.name %></td>
+            <td><%= recipient.cpf %></td>
+            <td><%= recipient.email %></td>
+            <td><%= recipient.errors.full_messages.join(', ') %></td>
           </tr>
         <% end %>
       </tbody>
