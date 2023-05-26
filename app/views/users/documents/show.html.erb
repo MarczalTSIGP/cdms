@@ -15,12 +15,8 @@
       <%= t("enums.categories.#{@document.category}") %>
     </p>
     <p>
-      <strong><%= t('activerecord.attributes.document.front_text') %>:</strong>
-      <%= sanitize  @document.front_text, attributes: %w(style class href target src) %>
-    </p>
-    <p>
-      <strong><%= t('activerecord.attributes.document.back_text') %>:</strong>
-      <%= sanitize  @document.back_text, attributes: %w(style class href target src) %>
+      <strong><%= t('activerecord.attributes.document.content') %>:</strong>
+      <%= sanitize  @document.content, attributes: %w(style class href target src) %>
     </p>
   </div>
 </div>

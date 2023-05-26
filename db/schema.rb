@@ -130,8 +130,7 @@ ActiveRecord::Schema.define(version: 2023_04_24_194401) do
     t.bigint "department_id", null: false
     t.enum "category", enum_type: "document_categories"
     t.string "title", null: false
-    t.text "front_text"
-    t.text "back_text"
+    t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.json "variables", default: []

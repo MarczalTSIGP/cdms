@@ -12,7 +12,8 @@ class Users::DocumentsController < Users::BaseController
   def show; end
 
   def preview
-    render layout: 'users/document_preview'
+    breadcrumb_name = I18n.t('views.document.preview', id: @document.id)
+    add_breadcrumb breadcrumb_name, :users_preview_document_path
   end
 
   def new
@@ -103,7 +104,7 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def document_params
-    params.require(:document).permit(:title, :front_text, :back_text, :category,
+    params.require(:document).permit(:title, :content, :category,
                                      :department_id, :variables, :available_to_sign)
   end
 

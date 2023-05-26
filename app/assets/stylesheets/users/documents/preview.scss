@@ -1,0 +1,53 @@
+#document {
+    background-color: white !important;
+    width: 100%;
+    /* min-height: 100vh; */
+
+    header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding-bottom: 10px;
+        border-bottom-width: thick;
+        border-bottom-style: double;
+        border-bottom-color: rgb(247, 182, 6) !important;
+
+        .document-header-coat-of-arms {
+            width: 30mm;
+        }
+        .document-header-logo {
+            width: 55mm;
+        }
+
+        .document-header-text {
+            width: 160mm;
+            font-weight: bold;
+            text-align: center;
+        }
+    }
+
+    .document-body {
+        padding-top: 10px;
+        display: flex;
+        justify-content: space-around;
+        height: 90vh;
+
+        .document-title {
+            padding: 10px 5px;
+            text-align: center;
+        }
+
+        .document-sidebar {
+            min-height: 100%;
+            width: 15%;
+            background-color: rgb(247, 182, 6) !important;
+        }
+
+        .document-content {
+            padding: 10mm;
+            min-height: 100%;
+            width: 85%;
+        }
+    }
+}

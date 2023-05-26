@@ -17,9 +17,8 @@
         collection: @departments,
         prompt: t('views.prompt.select.m', name: t('activerecord.attributes.document.department').downcase) %>
 
-       <%= f.input :front_text, input_html: { data: { type: 'summernote' } } %>
-       <%= f.input :back_text, input_html: { data: { type: 'summernote' } } %>
-       <%= f.input :available_to_sign, as: :check_single, wrapper_html: { class: 'col-sm-4' } %>
+       <%= f.input :content, input_html: { data: { type: 'summernote' } } %>
+       <%= f.input :available_to_sign, as: :check_single %>
     </div>
 
     <div class="col-md-4">
