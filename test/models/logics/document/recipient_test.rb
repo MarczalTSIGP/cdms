@@ -57,6 +57,15 @@ class Logics::Document::RecipientTest < ActiveSupport::TestCase
       assert_includes recipients, am
     end
 
+    should 'find a recipient' do
+      user = create(:user)
+      @recipient.add(user.cpf)
+
+      recipient = @recipient.find_by(cpf: user.cpf)
+
+      assert_equal user, recipient.profile
+    end
+
     should 'not add a recipient twice' do
       assert_not @recipient.add(@user)
     end

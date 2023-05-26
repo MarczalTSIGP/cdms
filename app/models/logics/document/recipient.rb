@@ -25,6 +25,10 @@ class Logics::Document::Recipient
     document_recipient&.destroy
   end
 
+  def find_by(conditions)
+    @document_recipients.find_by(conditions)
+  end
+
   def self.find_by(conditions)
     cpf = conditions[:cpf]
 

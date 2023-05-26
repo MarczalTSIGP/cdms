@@ -21,7 +21,15 @@
   </div>
 </div>
 
-<div class="d-flex mt-3 footer">
-  <%= link_to t('views.links.back'), users_documents_path, class: 'btn btn-secondary' %>
-  <%= link_to t('views.links.edit'), edit_users_document_path(@document), class: 'btn btn-primary ml-auto' %>
+<div class="d-flex justify-content-between mt-3 footer">
+  
+  <div>
+    <%= link_to t('views.links.back'), users_documents_path, class: 'btn btn-secondary' %>
+  </div>
+  
+  <div>
+    <%= link_to t('views.links.public.document_recipients.show'), users_document_recipients_path(@document), class: 'btn btn-secondary ml-auto' %>
+    <%= link_to t('views.links.edit'), edit_users_document_path(@document), class: 'btn btn-primary ml-auto' %>
+  </div>
+
 </div>

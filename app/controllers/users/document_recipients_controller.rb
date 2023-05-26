@@ -46,7 +46,36 @@ class Users::DocumentRecipientsController < Users::BaseController
     redirect_to users_document_recipients_path
   end
 
+  def from_csv; end
+
+  def create_from_csv
+    if params[:csv]
+      process_csv
+    else
+      flash.now[:error] = t('flash.actions.import.errors.blank')
+    end
+
+    render :from_csv
+  end
+
+  def download_csv
+    csv_model_file = DocumentRecipient.csv_model_file(@document)
+    # enviar o arquivo CSV como uma resposta para download
+    send_data csv_model_file, filename: "#{@document.title} - Modelo de Importação de Destinatários.csv"
+  end
+
   private
+
+  def process_csv
+    @result = DocumentRecipient.from_csv(params[:csv][:file].tempfile, params[:id])
+
+    if @result.valid_file?
+      flash.now[:success] =
+        t('flash.actions.import.m', resource_name: t('activerecord.models.document_recipients.other'))
+    else
+      flash.now[:error] = t('flash.actions.import.errors.invalid')
+    end
+  end
 
   def set_document
     @document = Document.find_by(id: params[:id])

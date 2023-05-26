@@ -1,29 +1,15 @@
-class CreateAudienceMembersFromCsv
-  def initialize(params = {})
-    @file = params[:file]
+require 'csv'
 
-    @valids = []
-    @invalids = []
-    @duplicates = []
-    @registered = []
-    @already_registered = []
-  end
-
-  def perform
-    if valid_file?
-      load_members
-      save_members
-    end
-    result
-  end
-
+class CreateAudienceMembersFromCsv < CreateFromCsv
   private
 
-  def load_members
-    CSV.foreach(@file, headers: true) do |row|
-      attributes = row.to_h
-      member = AudienceMember.new(attributes)
+  def validates_presence_of_headers
+    %w[name email cpf]
+  end
 
+  def load_registers
+    registers do |attributes|
+      member = AudienceMember.new(attributes)
       next if add_to_save(member, attributes)
 
       if registered?(member)
@@ -34,8 +20,8 @@ class CreateAudienceMembersFromCsv
     end
   end
 
-  def valid_file?
-    !@file.nil? && File.extname(@file) == '.csv'
+  def save_registers
+    AudienceMember.create!(@valids)
   end
 
   def add_to_save(member, attributes)
@@ -50,12 +36,6 @@ class CreateAudienceMembersFromCsv
     true
   end
 
-  def included?(member)
-    @valids.detect do |register|
-      register['cpf'].eql?(member.cpf) or register['email'].eql?(member.email)
-    end
-  end
-
   def registered?(member)
     details = member.errors.details
     cpf_taken = details[:cpf].pluck(:error).include?(:taken)
@@ -64,18 +44,9 @@ class CreateAudienceMembersFromCsv
     cpf_taken or email_taken
   end
 
-  def save_members
-    AudienceMember.create!(@valids)
-  end
-
-  def result
-    struct_result.new(registered: @registered,
-                      already_registered: @already_registered,
-                      invalids: @invalids, duplicates: @duplicates,
-                      valid_file?: valid_file?)
-  end
-
-  def struct_result
-    @struct_result ||= Struct.new(:registered, :already_registered, :invalids, :duplicates, :valid_file?)
+  def included?(member)
+    @valids.detect do |register|
+      register[:cpf].eql?(member.cpf) or register[:email].eql?(member.email)
+    end
   end
 end

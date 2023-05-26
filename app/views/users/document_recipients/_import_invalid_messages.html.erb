@@ -1,0 +1,35 @@
+<div id="<%= id %>" class="card card-collapsed">
+  <div class="card-status <%= class_status %>"></div>
+  <div class="card-header">
+    <span class="badge <%= class_status %>"><%= recipients.count %></span>
+    <h3 class="ml-3 card-title"><%= title %></h3>
+    <div class="card-options">
+      <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <table class="table card-table table-striped table-vcenter">
+      <thead>
+        <tr>
+          <th class="col col-auto"><%= t('activerecord.attributes.audience_member.name') %></th>
+          <th class="col col-auto"><%= t('activerecord.attributes.audience_member.cpf') %></th>
+          <th class="col col-auto"><%= t('activerecord.attributes.audience_member.email') %></th>
+          <th class="col col-auto"><%= t('views.document.recipients.import.errors') %></th>
+        </tr>
+      </thead>
+
+      <tbody>      
+        <% recipients.each do |recipient|%>
+          <tr>
+            <td><%= recipient.name %></td>
+            <td><%= recipient.cpf %></td>
+            <td><%= recipient.email %></td>
+            <td><%= recipient.errors.full_messages.join(', ') %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>
