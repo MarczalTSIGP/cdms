@@ -15,7 +15,7 @@
         <% @document.opening_history.each do |event| %>
             <tr>
                 <td><%= event["user_name"] %></td>
-                <td><%= event["date"] %></td>
+                <td><%= I18n.l(Time.parse(event['date']).in_time_zone, format: :long) %></td>
                 <td><%= event["justification"] %></td>
             </tr>
         <% end %>
