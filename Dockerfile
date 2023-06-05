@@ -132,4 +132,4 @@ WORKDIR $APP
 
 # Install bundler and rails
 RUN gem install bundler -v 2.4.8 \
-  && gem install rails -v 6.1.7.3
+  && gem install rails -v 7.0.5

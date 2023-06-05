@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :username, index: { unique: true }
       t.string :register_number
       t.string :cpf, index: { unique: true }
-      t.boolean :active
+      t.boolean :active, null: false, default: true
 
       t.timestamps
     end
