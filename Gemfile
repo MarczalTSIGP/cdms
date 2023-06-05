@@ -11,6 +11,7 @@ gem 'rails', '~> 6.1.7'
 gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
+gem "rqrcode", "~> 2.0"
 
 gem 'active_link_to'
 # gem 'activerecord-postgres_enum', git: 'https://github.com/dmarczal/activerecord-postgres_enum.git'

@@ -79,6 +79,8 @@ Rails.application.routes.draw do
 
       patch 'documents/:id/reopen-to-edit', to: 'documents#reopen_to_edit',
                                             as: :reopen_document
+
+      #CRIAR NOVA ROTA PARA VISUALIZAÇÃO DO VALIDADOR
     end
 
     namespace :admins do
