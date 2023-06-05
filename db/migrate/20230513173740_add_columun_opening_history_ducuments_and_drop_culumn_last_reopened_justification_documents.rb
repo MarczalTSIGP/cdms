@@ -10,12 +10,11 @@ class AddColumunOpeningHistoryDucumentsAndDropCulumnLastReopenedJustificationDoc
   end
 
   def down
-    change_table :table_name, bulk: true do |t|
+    change_table :documents, bulk: true do |t|
       t.column :justification, :string
       t.column :last_reopened_at, :datetime
       t.column :last_reopened_by_user_id, :bigint
-      t.remove :opening_history, null: false, default: []
-      t.remove :opening_history, using: :gin
+      t.remove :opening_history
     end
   end
 end
