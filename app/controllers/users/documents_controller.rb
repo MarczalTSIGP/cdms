@@ -1,3 +1,6 @@
+require_relative '../../services/create_qrcode'
+require 'base64'
+
 class Users::DocumentsController < Users::BaseController
   before_action :can_manager?, only: [:edit, :new, :update, :create, :destroy]
   before_action :set_document, except: [:index, :new, :create]
@@ -11,9 +14,20 @@ class Users::DocumentsController < Users::BaseController
 
   def show; end
 
+  #funcionando com base 64
   def preview
     breadcrumb_name = I18n.t('views.document.preview', id: @document.id)
     add_breadcrumb breadcrumb_name, :users_preview_document_path
+
+    #criando qrcode com os parametros desejados
+    qr_code = CreateQrCode.new("http://github.com", @document.verification_code)
+    png_data = qr_code.generate_and_send_png
+    #criando um aquivo png temporario e salvando o qrcode no aquivo, codificando em base 64 para envio na view com variavel local
+    temp_file = Tempfile.new(['qr_code', '.png'])
+    png_data.save(temp_file.path)
+    png_data_base64 = Base64.strict_encode64(File.read(temp_file.path))
+
+    render 'preview', locals: { png_data_base64: png_data_base64 }
   end
 
   def new

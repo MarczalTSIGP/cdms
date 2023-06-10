@@ -1,6 +1,7 @@
 <% provide(:head_title, t('views.document.links.preview', category: I18n.t("enums.categories.#{@document.category}"), name: @document.title)) %>
 
-<%= render 'page', text: sanitize(@document.content, attributes: %w(style class href target src)), show_title: true %>
+<%= render 'page', png_data_base64: png_data_base64, verication_code: @document.verification_code, text: sanitize(@document.content, attributes: %w(style class href target src)), show_title: true %>
+
 
 <hr />
 

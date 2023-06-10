@@ -33,7 +33,6 @@
       <%= link_to users_document_path(document), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
         <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
       <% end %>
-
     </td>
     
     <%= render partial: "users/documents/modal_form_to_reopen", locals: { document_id: document.id } %>

@@ -40,7 +40,6 @@ Rails.application.routes.draw do
       post 'documents/:id/signers', to: 'document_signers#add_signer', as: :document_add_signer
       delete 'documents/:document_id/signers/:id', to: 'document_signers#remove_signer',
                                                    as: :document_remove_signer
-
       get 'documents/:id/preview', to: 'documents#preview', as: :preview_document
       get 'team-departments-modules', to: 'team_departments_modules#index', action: :index
       get 'show-department/:id', to: 'team_departments_modules#show_department',

@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(version: 2023_06_05_193733) do
     t.index ["creator_user_id"], name: "index_documents_on_creator_user_id"
     t.index ["department_id"], name: "index_documents_on_department_id"
     t.index ["opening_history"], name: "index_documents_on_opening_history", using: :gin
+    t.index ["verification_code"], name: "index_documents_on_verification_code"
   end
 
   create_table "pages", force: :cascade do |t|

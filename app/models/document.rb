@@ -19,6 +19,9 @@ class Document < ApplicationRecord
   validates :title, :content, presence: true
   validates :variables, json: true
 
+  #teste
+  after_initialize :generate_unique_code, if: :new_record?
+
   def variables=(variables)
     variables = JSON.parse(variables) if variables.is_a?(String)
     super(variables)
@@ -54,5 +57,10 @@ class Document < ApplicationRecord
       reopened: true
     )
     document_signers.update(signed: false)
+  end
+
+  #teste #adicionar um math random ou o id do documento para ficar o numero unico.
+  def generate_unique_code
+    update(verification_code: Time.now.to_i ) if verification_code.blank?
   end
 end
