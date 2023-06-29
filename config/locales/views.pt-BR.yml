@@ -83,6 +83,9 @@ pt-BR:
           new_password: Nova senha
           submit: Mudar minha senha
           minimum_password_length: "no mínimo %{count} caracteres"
+    documents:
+      code: "Codigo de autenticação"
+      submit: "Verificar Documento"
 
     admin:
       name:

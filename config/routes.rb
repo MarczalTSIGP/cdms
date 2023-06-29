@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   get '/about', to: 'home#about'
   get '/login', to: 'home#login'
 
-  #rotas para validação do document_recipient
   get 'documents/', to: 'documents#index', as: :documents
   post 'documents/', to: 'documents#index', as: :document_code
   get '/documents/:code', to: 'documents#show', as: :show_document

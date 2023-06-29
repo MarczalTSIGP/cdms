@@ -46,8 +46,8 @@ class IndexTest < ApplicationSystemTestCase
             child = index + 1
             base_selector = "tr:nth-child(#{child})"
 
-            assert_selector base_selector, text: recipient.profile.cpf
             assert_selector base_selector, text: recipient.profile.name
+            assert_selector base_selector, text: recipient.profile.cpf
             assert_selector base_selector, text: recipient.profile.email
 
             recipient.variables.each do |variable|

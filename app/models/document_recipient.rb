@@ -6,10 +6,7 @@ class DocumentRecipient < ApplicationRecord
   belongs_to :profile, polymorphic: true
 
   validates :cpf, uniqueness: { scope: :document_id, case_sensite: false }
-
-  #TESTAR ISSO TEMQEU GERAR O CODIGO ANTES DE GERAR O BASE 64
   after_create :generate_unique_code
-
 
   def self.from_csv(file, document_id)
     CreateDocumentRecipientsFromCsv.new({ file: file, document_id: document_id }).perform
@@ -32,7 +29,6 @@ class DocumentRecipient < ApplicationRecord
   end
 
   def generate_qrcode_enc_base
-    #criando qrcode com os parametros desejados >> verificar a root-url se tem como pasar por variavel algo assim
     qr_code = CreateQrCode.new("http://localhost/documents", verification_code)
     base64_data = qr_code.generate_and_send_base64
     update(qr_code_base: base64_data)
