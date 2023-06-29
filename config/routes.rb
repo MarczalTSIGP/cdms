@@ -3,6 +3,11 @@ Rails.application.routes.draw do
   get '/about', to: 'home#about'
   get '/login', to: 'home#login'
 
+  #rotas para validação do document_recipient
+  get 'documents/', to: 'documents#index', as: :documents
+  post 'documents/', to: 'documents#index', as: :document_code
+  get '/documents/:code', to: 'documents#show', as: :show_document
+
   devise_for :users
   as :user do
     get 'users/edit', to: 'users/registrations#edit', as: 'edit_user_registration'
@@ -78,8 +83,6 @@ Rails.application.routes.draw do
 
       patch 'documents/:id/reopen-to-edit', to: 'documents#reopen_to_edit',
                                             as: :reopen_document
-
-      #CRIAR NOVA ROTA PARA VISUALIZAÇÃO DO VALIDADOR
     end
 
     namespace :admins do
