@@ -1,7 +1,9 @@
 class AddColumnValidationCodeToDocumentsRecipients < ActiveRecord::Migration[6.1]
-  def change 
-    add_column :document_recipients, :qr_code_base, :string
-    add_column :document_recipients, :verification_code, :string
-    add_index :document_recipients, :verification_code, using: :btree
+  def change
+    change_table :document_recipients, bulk: true do |t|
+      t.column :qr_code_base, :string
+      t.column :verification_code, :string
+      t.index :verification_code, using: :btree
+    end
   end
 end

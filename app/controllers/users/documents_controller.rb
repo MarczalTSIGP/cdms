@@ -1,6 +1,3 @@
-# require_relative '../../services/create_qrcode'
-# require 'base64'
-
 class Users::DocumentsController < Users::BaseController
   before_action :can_manager?, only: [:edit, :new, :update, :create, :destroy]
   before_action :set_document, except: [:index, :new, :create]
@@ -14,39 +11,12 @@ class Users::DocumentsController < Users::BaseController
 
   def show; end
 
-  #funcionando com base 64
   def preview
     breadcrumb_name = I18n.t('views.document.preview', id: @document.id)
     add_breadcrumb breadcrumb_name, :users_preview_document_path
-
-    puts "#########################################consulta documents_recipients iniciado"
-
-    #qeuery consultando e retornando corretamente conforme o user corrente
-    #@document_recipient = DocumentRecipient.where(document_id: @document.id, profile_id: current_user.id)[0]
-
     if (@document_recipient = DocumentRecipient.where(document_id: @document.id, profile_id: current_user.id)[0])
-      return @document_recipient
-    # else
-    #   flash[:warning] = "Não existe um documento com o código #{params[:code]}"
-    #   redirect_to users_documents_path
+      @document_recipient
     end
-
-
-    #puts "#########################################resultado" + "..." + @document_recipient.to_s
-
-    #consulta que retornou o especifico docu recipients do uder corrente
-    #SELECT * FROM document_recipients WHERE document_recipients.document_id = 2 AND document_recipients.profile_id = 31
-
-
-    # #criando qrcode com os parametros desejados
-    # qr_code = CreateQrCode.new("http://github.com", @document.verification_code)
-    # png_data = qr_code.generate_and_send_png
-    # #criando um aquivo png temporario e salvando o qrcode no aquivo, codificando em base 64 para envio na view com variavel local
-    # temp_file = Tempfile.new(['qr_code', '.png'])
-    # png_data.save(temp_file.path)
-    # png_data_base64 = Base64.strict_encode64(File.read(temp_file.path))
-
-    # render 'preview', locals: { png_data_base64: png_data_base64 }
   end
 
   def new

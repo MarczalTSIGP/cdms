@@ -1,5 +1,4 @@
 require_relative '../services/create_qrcode'
-#require 'base64'
 
 class DocumentRecipient < ApplicationRecord
   belongs_to :document
@@ -29,7 +28,7 @@ class DocumentRecipient < ApplicationRecord
   end
 
   def generate_qrcode_enc_base
-    qr_code = CreateQrCode.new("http://localhost/documents", verification_code)
+    qr_code = CreateQrCode.new('http://localhost/documents', verification_code)
     base64_data = qr_code.generate_and_send_base64
     update(qr_code_base: base64_data)
   end
