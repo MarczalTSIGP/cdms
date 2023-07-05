@@ -87,12 +87,6 @@ jobs:
           bundle exec rails webpacker:compile
           bundle exec rails db:prepare
           bundle exec rails test:system test
-      - name: Send test report to codeclimate
-        uses: paambaati/codeclimate-action@v2.6.0
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageCommand: echo 'send report to codeclimate'
 
   code_quality:
     runs-on: ubuntu-latest

@@ -76,6 +76,20 @@ class Users::DocumentsController < Users::BaseController
     end
   end
 
+  def opening_history
+    if @document.opening_history.empty?
+      flash[:error] = t('flash.actions.reopen_document.opening_history')
+      redirect_to users_documents_path
+    else
+      add_breadcrumb(
+        I18n.t('views.breadcrumbs.show', model: Document.model_name.human, id: @document.id),
+        users_documents_path(@document)
+      )
+
+      add_breadcrumb I18n.t('views.document.links.opening_history')
+    end
+  end
+
   private
 
   def user_params
@@ -122,6 +136,6 @@ class Users::DocumentsController < Users::BaseController
   end
 
   def reopen_params
-    { user_id: current_user.id, justification: params[:document][:justification] }
+    { user_id: current_user.id, user_name: current_user.name, justification: params[:document][:justification] }
   end
 end

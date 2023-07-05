@@ -82,6 +82,8 @@ Rails.application.routes.draw do
 
       patch 'documents/:id/reopen-to-edit', to: 'documents#reopen_to_edit',
                                             as: :reopen_document
+
+      get 'documents/:id/opening-history', to: 'documents#opening_history', as: :opening_history_document
     end
 
     namespace :admins do
