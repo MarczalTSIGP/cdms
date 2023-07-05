@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_24_194401) do
+ActiveRecord::Schema.define(version: 2023_05_13_173740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,15 +135,13 @@ ActiveRecord::Schema.define(version: 2023_04_24_194401) do
     t.datetime "updated_at", precision: 6, null: false
     t.json "variables", default: []
     t.boolean "available_to_sign", default: false
-    t.string "justification"
     t.bigint "creator_user_id"
-    t.bigint "last_reopened_by_user_id"
-    t.datetime "last_reopened_at"
     t.boolean "reopened", default: false
+    t.jsonb "opening_history", default: [], null: false
     t.index ["category"], name: "index_documents_on_category"
     t.index ["creator_user_id"], name: "index_documents_on_creator_user_id"
     t.index ["department_id"], name: "index_documents_on_department_id"
-    t.index ["last_reopened_by_user_id"], name: "index_documents_on_last_reopened_by_user_id"
+    t.index ["opening_history"], name: "index_documents_on_opening_history", using: :gin
   end
 
   create_table "pages", force: :cascade do |t|
@@ -194,6 +192,5 @@ ActiveRecord::Schema.define(version: 2023_04_24_194401) do
   add_foreign_key "document_signers", "users"
   add_foreign_key "documents", "departments"
   add_foreign_key "documents", "users", column: "creator_user_id"
-  add_foreign_key "documents", "users", column: "last_reopened_by_user_id"
   add_foreign_key "users", "roles"
 end
