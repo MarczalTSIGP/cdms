@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   get '/about', to: 'home#about'
   get '/login', to: 'home#login'
 
-  get 'documents/', to: 'documents#index', as: :documents
-  post 'documents/', to: 'documents#index', as: :document_code
-  get '/documents/:code', to: 'documents#show', as: :show_document
+  get '/documents', to: 'documents#index', as: :documents
+  post '/documents', to: 'documents#index'
+  get '/documents/:code', to: 'documents#show', as: :document
 
   devise_for :users
   as :user do

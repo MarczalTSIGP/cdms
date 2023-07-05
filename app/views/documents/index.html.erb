@@ -1,6 +1,6 @@
 <div id="document-form-background">
   <div class="document-form">
-    <%= simple_form_for :document, url: document_code_path do |f| %>
+    <%= simple_form_for :document, url: documents_path do |f| %>
       <div class="form-input">
         <%= f.input :code, label: t('views.documents.code') %>
       </div>

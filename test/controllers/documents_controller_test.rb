@@ -6,21 +6,21 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
 
   context 'public' do
     should 'get show with valid code' do
-      get show_document_path(@document_recipient.verification_code)
+      get document_path(@document_recipient.verification_code)
 
       assert_response :success
       assert_equal(I18n.t('views.documents.valid_code', code: @document_recipient.verification_code), flash[:success])
     end
 
     should 'get show with invalid code' do
-      get show_document_path('invalid_code')
+      get document_path('invalid_code')
 
       assert_redirected_to documents_path
       assert_equal(I18n.t('views.documents.not_exist_document', code: 'invalid_code'), flash[:warning])
     end
 
     should 'post index' do
-      post document_code_path(@document_recipient.verification_code)
+      post documents_path(@document_recipient.verification_code)
 
       assert_response :success
     end

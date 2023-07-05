@@ -14,9 +14,6 @@ class Users::DocumentsController < Users::BaseController
   def preview
     breadcrumb_name = I18n.t('views.document.preview', id: @document.id)
     add_breadcrumb breadcrumb_name, :users_preview_document_path
-    if (@document_recipient = DocumentRecipient.where(document_id: @document.id, profile_id: current_user.id)[0])
-      @document_recipient
-    end
   end
 
   def new

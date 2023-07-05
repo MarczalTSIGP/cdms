@@ -18,10 +18,14 @@ class DocumentsTest < ApplicationSystemTestCase
         fill_in 'document_code', with: @document_recipient.verification_code
         click_button 'commit'
       end
+
+      assert_selector('div.alert.alert-success',
+                      text: I18n.t('views.documents.valid_code', code: @document_recipient.verification_code))
+      assert_selector('div.recipients-code', text: @document_recipient.verification_code)
     end
 
     should 'show document with valid code' do
-      visit show_document_path(@document_recipient.verification_code)
+      visit document_path(@document_recipient.verification_code)
 
       assert_selector('div.alert.alert-success',
                       text: I18n.t('views.documents.valid_code', code: @document_recipient.verification_code))
@@ -29,7 +33,7 @@ class DocumentsTest < ApplicationSystemTestCase
     end
 
     should 'show document with invalid code' do
-      visit show_document_path('invalid_code')
+      visit document_path('invalid_code')
 
       assert_selector('div.alert.alert-warning',
                       text: I18n.t('views.documents.not_exist_document', code: 'invalid_code'))

@@ -1,11 +1,9 @@
-require_relative '../services/create_qrcode'
-
 class DocumentRecipient < ApplicationRecord
   belongs_to :document
   belongs_to :profile, polymorphic: true
 
   validates :cpf, uniqueness: { scope: :document_id, case_sensite: false }
-  after_create :generate_unique_code
+  after_create :generate_qrcode
 
   def self.from_csv(file, document_id)
     CreateDocumentRecipientsFromCsv.new({ file: file, document_id: document_id }).perform
@@ -22,14 +20,13 @@ class DocumentRecipient < ApplicationRecord
     end
   end
 
-  def generate_unique_code
-    update(verification_code: Time.now.to_i + id) if verification_code.blank?
-    generate_qrcode_enc_base
-  end
+  private
 
-  def generate_qrcode_enc_base
-    qr_code = CreateQrCode.new('http://localhost/documents', verification_code)
-    base64_data = qr_code.generate_and_send_base64
-    update(qr_code_base: base64_data)
+  def generate_qrcode
+    verification_code = Time.now.to_i + id
+    url = Rails.application.routes.url_helpers.document_url(verification_code)
+    qr_code = GenerateQrCode.new(url).perform
+
+    update(qr_code_base: qr_code.base64, verification_code: verification_code)
   end
 end
