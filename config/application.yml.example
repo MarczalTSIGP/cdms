@@ -15,7 +15,7 @@ mailer: &mailer
   mailer.smtp.authentication: 'cram_md5'
 
 app: &app
-  host: localhost
+  app.host: localhost
 
 development:
   <<: *database
