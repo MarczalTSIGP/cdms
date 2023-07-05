@@ -9,13 +9,15 @@ class Users::DepartmentsController < Users::BaseController
   end
 
   def add_member
-    if users_params[:user_id].present?
-      @department.add_member(users_params)
+    if @department.add_member(users_params)
       flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
+      redirect_to users_department_members_path(@department)
     else
-      flash[:warning] = I18n.t('flash.actions.add.errors.not')
+      breadcrumbs_members
+      @department_user = @department.department_users.last
+      @department_users = @department.members
+      render :members
     end
-    redirect_to users_department_members_path(@department)
   end
 
   def remove_member
