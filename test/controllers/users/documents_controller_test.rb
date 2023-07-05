@@ -68,7 +68,10 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
         assert_equal I18n.t('flash.actions.reopen_document.success'), flash[:success]
         @document.reload
 
-        assert_equal 'justification abc', @document.justification
+        opening_history_object = @document.opening_history[0]
+        justification = opening_history_object['justification']
+
+        assert_equal 'justification abc', justification
       end
 
       should 'unsuccessfully' do
@@ -80,7 +83,7 @@ class Users::DocumentsControllerTest < ActionDispatch::IntegrationTest
 
         @document.reload
 
-        assert_nil @document.justification
+        assert_nil @document.opening_history[0]
       end
     end
 

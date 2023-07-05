@@ -47,12 +47,8 @@ class Document < ApplicationRecord
   end
 
   def reopen_to_edit(params = {})
-    update(
-      justification: params[:justification],
-      last_reopened_by_user_id: params[:user_id],
-      last_reopened_at: Time.current,
-      reopened: true
-    )
+    opening_history << params.merge(date: Time.current.utc.iso8601)
+    update(reopened: true)
     document_signers.update(signed: false)
   end
 end

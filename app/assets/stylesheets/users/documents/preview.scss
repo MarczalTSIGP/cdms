@@ -48,6 +48,32 @@
             padding: 10mm;
             min-height: 100%;
             width: 85%;
+
+            .document-recipients{
+                display: flex;
+                justify-content: space-between;
+                width: 80%;
+                border-top-width: thick;
+                border-top-style: solid;
+                border-top-color: rgb(184, 180, 174) !important;
+
+                .recipients-code{
+                    width: 100%;
+                    align-items: center;
+                    display: inline-flex;
+
+                    .code{
+                        float: left;
+                        width: 15%;
+                        padding: 3mm;
+                    }
+
+                    p {
+                        float: right;
+                        word-break: break-word;
+                    }
+                }
+            }
         }
     }
 }

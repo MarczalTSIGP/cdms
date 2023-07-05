@@ -83,6 +83,12 @@ pt-BR:
           new_password: Nova senha
           submit: Mudar minha senha
           minimum_password_length: "no mínimo %{count} caracteres"
+    documents:
+      code: "Codigo de autenticação"
+      submit: "Verificar Documento"
+      valid_code: "Documento valido!! %{code}"
+      invalid_code: "Digite um código válido!"
+      not_exist_document: "Não existe um documento com o código: %{code}" 
 
     admin:
       name:
@@ -117,6 +123,7 @@ pt-BR:
         edit: Editar certificado/declaração
         preview: "%{category}-%{name}"
         print: "Imprimir"
+        opening_history: "Histórico de abertura"
       name:
         singular: Documento
         plural: Documentos
@@ -145,6 +152,11 @@ pt-BR:
         name: Assinantes
         nwdc: "Assinantes do %{name}"
       preview: "Pré-visualização documento #%{id}"
+      opening_history_list:
+        name: "Histórico"
+        user_name: "Nome"
+        date_opening: "Data de Abertura"
+        justification_opening: "Justificativa"
     document_role:
       name:
         singular: Função

@@ -15,7 +15,7 @@ class Users::DepartmentsController < Users::BaseController
     else
       breadcrumbs_members
       @department_user = @department.department_users.last
-      @department_users = @department.modules
+      @department_users = @department.members
       render :members
     end
   end

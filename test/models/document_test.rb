@@ -184,20 +184,52 @@ class DocumentTest < ActiveSupport::TestCase
     end
 
     should '#reopen_to_edit' do
-      justification = 'Reopen to edit because there is an error!'
-
       freeze_time
-      current_time = Time.current
+      justification = 'Reopen to edit because there is an error!'
+      params = { 'user_id' => @user.id,
+                 'user_name' => @user.name,
+                 'justification' => justification,
+                 'date' => Time.current.utc.iso8601 }
 
-      assert_predicate @document, :someone_signed?
-      @document.reopen_to_edit(user_id: @user.id, justification: justification)
+      assert_predicate(@document, :someone_signed?)
+      assert_not @document.reopened
+
+      @document.reopen_to_edit(params)
 
       assert_not @document.someone_signed?
       assert @document.reopened
-      assert_equal @user.id, @document.last_reopened_by_user_id
-      assert_equal @document.justification, justification
-      assert_equal current_time, @document.last_reopened_at
 
+      assert_contains @document.opening_history, params
+      unfreeze_time
+    end
+
+    # TODO: Second test with two or more reopening
+    should '#two_reopen_to_edit' do
+      freeze_time
+      justification = 'Reopen to edit because there is an error!'
+      params = { 'user_id' => @user.id,
+                 'user_name' => @user.name,
+                 'justification' => justification,
+                 'date' => Time.current.utc.iso8601 }
+
+      justification_b = 'Second reopen to edit because there is an error!'
+      params_two = { 'user_id' => @user.id,
+                     'user_name' => @user.name,
+                     'justification' => justification_b,
+                     'date' => Time.current.utc.iso8601 }
+
+      assert_predicate(@document, :someone_signed?)
+      assert_not @document.reopened
+
+      @document.reopen_to_edit(params)
+
+      assert_not @document.someone_signed?
+      assert @document.reopened
+
+      @document.reopen_to_edit(params_two)
+
+      assert_contains @document.opening_history, params
+      assert_contains @document.opening_history, params_two
       unfreeze_time
     end
   end
