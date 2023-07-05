@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_24_194401) do
+ActiveRecord::Schema.define(version: 2023_06_05_193733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,9 +98,12 @@ ActiveRecord::Schema.define(version: 2023_04_24_194401) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.json "variables", default: []
+    t.string "qr_code_base"
+    t.string "verification_code"
     t.index ["cpf", "document_id"], name: "index_document_recipients_on_cpf_and_document_id", unique: true
     t.index ["document_id"], name: "index_document_recipients_on_document_id"
     t.index ["profile_type", "profile_id"], name: "index_document_recipients_on_profile_type_and_profile_id"
+    t.index ["verification_code"], name: "index_document_recipients_on_verification_code"
   end
 
   create_table "document_roles", force: :cascade do |t|
@@ -135,15 +138,13 @@ ActiveRecord::Schema.define(version: 2023_04_24_194401) do
     t.datetime "updated_at", precision: 6, null: false
     t.json "variables", default: []
     t.boolean "available_to_sign", default: false
-    t.string "justification"
     t.bigint "creator_user_id"
-    t.bigint "last_reopened_by_user_id"
-    t.datetime "last_reopened_at"
     t.boolean "reopened", default: false
+    t.jsonb "opening_history", default: [], null: false
     t.index ["category"], name: "index_documents_on_category"
     t.index ["creator_user_id"], name: "index_documents_on_creator_user_id"
     t.index ["department_id"], name: "index_documents_on_department_id"
-    t.index ["last_reopened_by_user_id"], name: "index_documents_on_last_reopened_by_user_id"
+    t.index ["opening_history"], name: "index_documents_on_opening_history", using: :gin
   end
 
   create_table "pages", force: :cascade do |t|
@@ -194,6 +195,5 @@ ActiveRecord::Schema.define(version: 2023_04_24_194401) do
   add_foreign_key "document_signers", "users"
   add_foreign_key "documents", "departments"
   add_foreign_key "documents", "users", column: "creator_user_id"
-  add_foreign_key "documents", "users", column: "last_reopened_by_user_id"
   add_foreign_key "users", "roles"
 end

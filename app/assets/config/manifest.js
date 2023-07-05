@@ -3,4 +3,5 @@
 //= link devise/session.css
 //= link admins/application.css
 //= link public/application.css
+//= link public/documents.css
 //= link users/documents/print.css

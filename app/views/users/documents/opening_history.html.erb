@@ -1,0 +1,24 @@
+<% provide(:head_title, t('views.document.links.opening_history')) %>
+<% provide(:page_title, t('views.document.links.opening_history')) %>
+
+<div class="table-responsive">
+  <table class="table card-table table-striped table-vcenter">
+    <thead>
+        <tr>
+            <th><%= t('views.document.opening_history_list.user_name') %></th>
+            <th><%= t('views.document.opening_history_list.date_opening') %></th>
+            <th><%= t('views.document.opening_history_list.justification_opening') %></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @document.opening_history.each do |event| %>
+            <tr>
+                <td><%= event["user_name"] %></td>
+                <td><%= I18n.l(Time.parse(event['date']).in_time_zone, format: :long) %></td>
+                <td><%= event["justification"] %></td>
+            </tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>

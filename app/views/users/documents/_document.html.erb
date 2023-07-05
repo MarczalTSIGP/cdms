@@ -14,6 +14,10 @@
         </label>
     </td>
     <td>
+    <%= link_to users_opening_history_document_path(document) do %>
+          <%= icon('fas', 'list', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.document.opening_history_list.name')) %>
+      <% end %>
+
       <%= link_to users_document_signers_path(document) do %>
           <%= icon('fas', 'users', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.signer.name.plural')) %>
       <% end %>
@@ -33,7 +37,6 @@
       <%= link_to users_document_path(document), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
         <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
       <% end %>
-
     </td>
     
     <%= render partial: "users/documents/modal_form_to_reopen", locals: { document_id: document.id } %>

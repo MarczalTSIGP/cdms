@@ -3,6 +3,7 @@ class DocumentRecipient < ApplicationRecord
   belongs_to :profile, polymorphic: true
 
   validates :cpf, uniqueness: { scope: :document_id, case_sensite: false }
+  after_create :generate_qrcode
 
   def self.from_csv(file, document_id)
     CreateDocumentRecipientsFromCsv.new({ file: file, document_id: document_id }).perform
@@ -17,5 +18,15 @@ class DocumentRecipient < ApplicationRecord
     CSV.generate(headers: true) do |csv|
       csv << header
     end
+  end
+
+  private
+
+  def generate_qrcode
+    verification_code = Time.now.to_i + id
+    url = Rails.application.routes.url_helpers.document_url(verification_code)
+    qr_code = GenerateQrCode.new(url).perform
+
+    update(qr_code_base: qr_code.base64, verification_code: verification_code)
   end
 end

@@ -9,19 +9,17 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
     <%= stylesheet_link_tag 'public/application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'public/application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'users/documents/print', media: 'all' %>
   </head>
 
   <body id="<%= controller_name %>-<%= action_name %>">
     <div class="container-fluid" id="main-content">
-      <%= render 'layouts/public/header' %>
 
       <main>
         <%= render 'shared/flash_messages' %>
         <%= yield %>
       </main>
 
-      <%= render 'layouts/public/footer' %>
     </div>
   </body>
 </html>
