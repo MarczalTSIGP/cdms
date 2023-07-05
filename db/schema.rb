@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_13_173740) do
+ActiveRecord::Schema.define(version: 2023_06_05_193733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,9 +98,12 @@ ActiveRecord::Schema.define(version: 2023_05_13_173740) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.json "variables", default: []
+    t.string "qr_code_base"
+    t.string "verification_code"
     t.index ["cpf", "document_id"], name: "index_document_recipients_on_cpf_and_document_id", unique: true
     t.index ["document_id"], name: "index_document_recipients_on_document_id"
     t.index ["profile_type", "profile_id"], name: "index_document_recipients_on_profile_type_and_profile_id"
+    t.index ["verification_code"], name: "index_document_recipients_on_verification_code"
   end
 
   create_table "document_roles", force: :cascade do |t|

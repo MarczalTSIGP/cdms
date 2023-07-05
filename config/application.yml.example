@@ -14,10 +14,15 @@ mailer: &mailer
   mailer.smtp.password: 'password'
   mailer.smtp.authentication: 'cram_md5'
 
+app: &app
+  app.host: localhost
+
 development:
   <<: *database
   <<: *mailer
+  <<: *app
 
 test:
   <<: *database
   <<: *mailer
+  <<: *app

@@ -24,7 +24,16 @@
         </h3>
       </div>
 
-      <%= text %>
+      <%= sanitize(@document.content) %>
+
+      <div class="document-recipients">
+        <div class="recipients-code">
+          <div class="code">
+            <%= image_tag("data:image/png;base64,#{@document_recipient.qr_code_base}", alt: "QR Code") %>
+          </div>
+          <p> A autenticidade deste documento pode ser conferida no site <u> <%= link_to documents_url, documents_url %></u>, informando o código verificador <b><%= @document_recipient.verification_code %></b>.</p>
+        </div>
+      </div>
 
     </div>
   </section>
