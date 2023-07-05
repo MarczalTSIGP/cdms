@@ -9,24 +9,13 @@ class Users::DepartmentsController < Users::BaseController
   end
 
   def add_member
-
-    puts 'Parametroa abaixo###########################'
-    puts users_params, users_params[:user_id], users_params[:role]
-    puts 'Parametroa acima^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
-    
     if users_params[:user_id].present?
-      puts 'entru no IF###########################'
       @department.add_member(users_params)
       flash[:success] = I18n.t('flash.actions.add.m', resource_name: User.model_name.human)
-      redirect_to users_department_members_path(@department)
     else
-      puts 'entru no ELSE ###########################'
-      # breadcrumbs_members
-      # @department_user = @department.department_users.last
-      # @department_users = @department.modules
       flash[:warning] = I18n.t('flash.actions.add.errors.not')
-      redirect_to users_department_members_path(@department)
     end
+    redirect_to users_department_members_path(@department)
   end
 
   def remove_member
