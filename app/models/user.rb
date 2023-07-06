@@ -101,7 +101,7 @@ class User < ApplicationRecord
   private
 
   def can_destroy?
-    return unless last_manager?
+    return true unless last_manager?
 
     errors.add :base, I18n.t('flash.actions.least', resource_name: Administrator.model_name.human)
 

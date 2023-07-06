@@ -51,6 +51,7 @@ group :development do
   gem 'bullet', '~> 7.0.2'
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
+  gem 'rubocop-factory_bot', require: false
   gem 'rubocop-minitest', require: false
   gem 'rubocop-rails', require: false
   gem 'rubycritic', require: false
