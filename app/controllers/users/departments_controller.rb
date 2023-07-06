@@ -38,7 +38,7 @@ class Users::DepartmentsController < Users::BaseController
   end
 
   def can_manager?
-    return if current_user.responsible_of?(@department)
+    return true if current_user.responsible_of?(@department)
 
     flash[:warning] = t('flash.actions.responsible.non')
     redirect_to users_show_department_path(@department)

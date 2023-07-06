@@ -5,7 +5,7 @@ class AddJustificationToDocument < ActiveRecord::Migration[6.0]
       t.references :creator_user, index: true, foreign_key: { to_table: :users }
       t.references :last_reopened_by_user, index: true, foreign_key: { to_table: :users }
       t.column :last_reopened_at, :datetime, null: true
-      t.column :reopened, :boolean, default: false
+      t.column :reopened, :boolean, null: false, default: false
     end
   end
 end

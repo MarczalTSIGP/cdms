@@ -2,6 +2,7 @@ require:
   - rubocop-rails
   - rubocop-minitest
   - rubocop-capybara
+  - rubocop-factory_bot
 
 AllCops:
   NewCops: enable
@@ -21,6 +22,9 @@ AllCops:
     - "config/initializers/backtrace_silencers.rb"
     - "config/initializers/content_security_policy.rb"
     - "config/environments/production.rb"
+    - "db/migrate/20230604191247_add_service_name_to_active_storage_blobs.active_storage.rb"
+    - "db/migrate/20230604191248_create_active_storage_variant_records.active_storage.rb"
+    - "db/migrate/20230604191249_remove_not_null_on_active_storage_blobs_checksum.active_storage.rb"
 
 Style/Documentation:
   Enabled: false
@@ -73,3 +77,8 @@ Minitest/MultipleAssertions:
 Lint/ConstantDefinitionInBlock:
   Exclude:
     - "test/controllers/concerns/breadcrumbs_test.rb"
+
+FactoryBot/FactoryAssociationWithStrategy:
+  Exclude:
+    - "test/factories/users.rb"
+    - "test/factories/documents.rb"

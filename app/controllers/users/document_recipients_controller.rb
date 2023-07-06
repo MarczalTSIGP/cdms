@@ -12,7 +12,7 @@ class Users::DocumentRecipientsController < Users::BaseController
   end
 
   def new
-    return unless (cpf = params[:cpf])
+    return false unless (cpf = params[:cpf])
 
     @document_recipient = DocumentRecipient.find_by(cpf: cpf, document_id: @document.id)
 
@@ -83,7 +83,7 @@ class Users::DocumentRecipientsController < Users::BaseController
   end
 
   def document_signed?
-    return unless @document.someone_signed?
+    return true unless @document.someone_signed?
 
     flash[:warning] = t('flash.actions.add_recipients.non')
     redirect_to users_documents_path
