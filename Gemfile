@@ -6,7 +6,7 @@ ruby '~> 3.2'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'mimemagic'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 4.3'
+gem 'puma', '~> 5.6'
 gem 'rails', '~> 7.0.5'
 gem 'rqrcode', '~> 2.0'
 gem 'sass-rails', '>= 6'
